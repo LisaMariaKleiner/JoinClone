@@ -1,6 +1,7 @@
 @import url('./fonts.css');
 @import url('./header.css');
 @import url('./sidenav.css');
+@import url('./help.css');
 
 * {
     padding: 0;
