@@ -35,26 +35,10 @@ body {
     display: flex;
     position: absolute;
     top:67px;
-    left:1039px;
+    right: 120px;
     height: 49px;
     width: 279px;
     gap: 35px;
-}
-
-.login_footer_links{
-    display: flex;
-    position: absolute;
-    top: 870px;
-    left: 597px;
-    width: 246px;
-    height: 35px;
-    justify-content: space-around;
-    
-}
-
-.login_footer_links a {
-    color:#a8a8a8;
-    text-decoration: none;
 }
 
 .card {
@@ -62,7 +46,6 @@ body {
     height: 397px;
     position: absolute;
     top: 265.5px;
-    left: 394px;
     
     display: flex;
     justify-content: center;
@@ -179,4 +162,19 @@ h1 {
     border-color: #2A3647;
     background-color: white;
     cursor: pointer;
+}
+
+.login_footer_links{
+    display: flex;
+    position: absolute;
+    top: 870px;
+    width: 246px;
+    height: 35px;
+    justify-content: space-around;
+    
+}
+
+.login_footer_links a {
+    color:#a8a8a8;
+    text-decoration: none;
 }
