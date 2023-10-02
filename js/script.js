@@ -15,3 +15,22 @@ async function includeHTML() {
         }
     }
 }
+
+function setIndexCard(event) {
+    let loginCard = document.getElementById('login_card');
+    let signupCard = document.getElementById('signup_card');
+    let headerSignUpButton = document.getElementById('header_signup_button');
+    let goBackToLoginCardButton = document.getElementById('go_back_to_login_card');
+
+    if (event === 'login') {
+        loginCard.style.display = 'flex';
+        signupCard.style.display = 'none';
+        headerSignUpButton.style.display = 'flex';
+        goBackToLoginCardButton.style.display = 'none';
+    } else if (event === 'signup') {
+        loginCard.style.display = 'none';
+        signupCard.style.display = 'flex';
+        headerSignUpButton.style.display = 'none';
+        goBackToLoginCardButton.style.display = 'flex';
+    }
+}

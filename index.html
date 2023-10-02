@@ -12,27 +12,30 @@
 
 <body onload="init()">
 
-    <img class="login_joinLogo" src="assets/img/joinLogoDark.png">
-
-    <div class="signup_container">
-        <p>Not a join user ?</p>
-        <button class="signup_button">Sign up</button>
+    <div class ="join_logo_container">
+        <img class="login_joinLogo" src="assets/img/joinLogoDark.png">
     </div>
 
-    <div class="card login">
+
+    <div id="header_signup_button" class="signup_container">
+        <p>Not a join user ?</p>
+        <button class="primary_button" onclick="setIndexCard('signup')">Sign up</button>
+    </div>
+
+    <div id="login_card" class="card d_none">
         <div class="headline_container">
             <h1>Log in</h1>
             <div class="h1_underline"></div>
         </div>
         <div class="login_input_container">
-            <div class="login_input_border" >
+            <div class="input_border" >
                 <input type="email" id="" placeholder="Email">
                 <div class="login_icon_container">
                     <img src="./assets/img/mail.png">
                 </div>
             </div>
 
-            <div class="login_input_border">
+            <div class="input_border">
                 <input type="password" placeholder="Password">
                 <div class="login_icon_container">
                     <img src="./assets/img/lock.png">
@@ -48,12 +51,57 @@
             </div>
         </div>
         <div class="login_button_container">
-            <button class="login_button">Log in</button>
-            <button class="guest_login_button">Guest Log in</button>
+            <button class="primary_button">Log in</button>
+            <button class="secondary_button">Guest Log in</button>
         </div>
+    </div>
+
+    <div id="signup_card" class="signup_card">
+        <button id="go_back_to_login_card" onclick="setIndexCard('login')"><img src="./assets/img/arrow-left-line.png" alt=""></button>
+        <div class="headline_container">
+            <h1>Sign Up</h1>
+            <div class="h1_underline"></div>
+        </div>
+        <div class="login_input_container">
+            <div class="input_border signup_border" >
+                <input type="text" id="" placeholder="Name">
+                <div class="login_icon_container">
+                    <img src="./assets/img/person.png">
+                </div>
+            </div>
+
+            <div class="input_border signup_border">
+                <input type="email" placeholder="Email">
+                <div class="login_icon_container">
+                    <img src="./assets/img/lock.png">
+                </div>
+            </div>
+
+            <div class="input_border signup_border" >
+                <input type="password" id="" placeholder="Password">
+                <div class="login_icon_container">
+                    <img src="./assets/img/mail.png">
+                </div>
+            </div>
+
+            <div class="input_border signup_border" >
+                <input type="password" id="" placeholder="Confirm Password">
+                <div class="login_icon_container">
+                    <img src="./assets/img/mail.png">
+                </div>
+            </div>
+
+            <div>
+                <div class="accept_privatepolicy_container">
+                    <input type="checkbox"><span>I accept the <a href="./PrivacyPolicy.html">Privacy Policy</a></span>
+                </div>
 
 
-
+            </div>
+        </div>
+        <div class="signup_button_container">
+            <button class="primary_button">Sign up</button>
+        </div>
     </div>
 
     <div class="login_footer_links">
