@@ -162,6 +162,11 @@ h1 {
     height: 100%;
 }
 
+.input_border input:focus {
+    border: none;
+    outline: none;
+}
+
 .login_icon_container {
     width: 24px;
     height: 24px;
