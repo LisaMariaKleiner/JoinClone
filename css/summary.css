@@ -1,4 +1,5 @@
 @import url('./fonts.css');
+@import url('./animation.css');
 
 .headline_container span {
     font-size: 27px;
@@ -49,6 +50,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.edit_icon {
+    background-image: url('../assets/img/edit.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.done_icon {
+    background-image: url('../assets/img/done.png');
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .to_do_counter_container {
@@ -176,4 +189,80 @@
     font-weight: 500;
     font-family: 'Inter', sans-serif;
     color: #2A3647;
+}
+
+.to_do_card:hover {
+    background-color: #2A3647;
+}
+
+.to_do:hover {
+    animation: hoverScaleFromLeft 0.15s ease;
+    transform: scaleX(1.05) scaleY(1.05);
+    transform-origin: left;
+}
+
+.done:hover {
+    animation: hoverScaleFromRight 0.15s ease;
+    transform: scaleX(1.05) scaleY(1.05);
+    transform-origin: right;
+}
+
+.to_do_card:hover .to_do_counter,
+.to_do_card:hover .to_do_text{
+    color: white;
+}
+
+.to_do_card:hover .edit_icon{
+    background-color: white;
+    background-image: url('../assets/img/editDark.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.to_do_card:hover .done_icon {
+    background-color: white;
+    background-image: url('../assets/img/doneDark.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+
+.urgency_card:hover {
+    background-color: #2A3647;
+    animation: hoverScaleFromTopLeft 0.15s ease;
+    transform: scaleX(1.05) scaleY(1.05);
+    transform-origin: top left;
+}
+
+.urgency_card:hover .to_do_counter,
+.urgency_card:hover .to_do_text,
+.urgency_card:hover .deadline_date,
+.urgency_card:hover .upcoming_deadline {
+    color: white;
+}
+
+.progress_card:hover {
+    background-color: #2A3647;
+}
+
+.progress_card:hover .progress_count,
+.progress_card:hover .progress_title {
+    color: white;
+}
+
+.board_card:hover {
+    animation: hoverScaleFromLeft 0.15s ease;
+    transform: scaleX(1.05) scaleY(1.05);
+    transform-origin: left;
+}
+
+.card_progress:hover {
+    animation: hoverScale 0.15s ease;
+    transform: scaleX(1.05) scaleY(1.05);
+}
+
+.feedback_card:hover {
+    animation: hoverScaleFromRight 0.15s ease;
+    transform: scaleX(1.05) scaleY(1.05);
+    transform-origin: right;
 }
