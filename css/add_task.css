@@ -25,6 +25,10 @@ form {
     gap: 8px;
 }
 
+.highlighted_object {
+    display: flex;
+}
+
 .title_input {
     display: flex;
     padding: 12px 21px;
@@ -156,4 +160,8 @@ textarea::placeholder {
     justify-content: space-between;
     align-items: end;
     margin-top: 50px;
+}
+
+.highlighted {
+    color: #FF8190;
 }

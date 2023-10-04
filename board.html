@@ -5,16 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/board.css">
     <script src="./js/script.js"></script>
 </head>
 <body onload="init()">
     <header w3-include-html="./assets/templates/header_template.html"></header>
     <nav w3-include-html="./assets/templates/sidenav_template.html"></nav>
     <main>
-        <div class="headline_container">
-            <h1>
-                Board
-            </h1>
+        <div class="complete_board_container">
+           <div class="title_search_add_container">    
+               <div class="board">
+                    <h1>Board</h1>
+                </div> 
+
+                <div class="search_and_add_container">
+                    <div class="search_container">
+                        <div class="title">
+                            <input type="text" class="title_input" placeholder="Find Task"> 
+                            <img src="./assets/img/search.png" alt="">
+                        </div>
+                    </div>
+
+                    <div class="add_container">
+                        <button class="primary_button">Add task<img src="./assets/img/add_white.png" alt=""></button>
+                    </div>
+                </div>
+            </div> 
+
+            
+            <div class="progressbar">
+                <div class="progress_button">
+                    <span>To do</span>
+                    <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                </div>
+                <div class="progress_button">
+                    <span>In progress</span>
+                    <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                </div>
+                <div class="progress_button">
+                    <span>Await feedback</span>
+                    <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                </div>
+                <div class="progress_button">
+                    <span>Done</span>
+                    <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                </div>
+            </div>
         </div>
     </main>
 </body>

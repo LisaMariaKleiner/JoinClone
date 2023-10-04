@@ -21,7 +21,10 @@
         <form action="">
             <div class="left_inputs">
                 <div class="title">
-                    <span>Title*</span>
+                    <div class="highlighted_object">
+                        <span>Title</span>
+                        <p class="highlighted">*</p>
+                    </div>
                     <input type="text" class="title_input" placeholder="Enter a title"> 
                 </div>
                 <div class="description title">
@@ -45,7 +48,10 @@
 
             <div class="right_inputs">
                 <div class="title">
-                    <span>Due date*</span>
+                    <div class="highlighted_object">
+                        <span>Due date</span>
+                        <p class="highlighted">*</p>
+                    </div>
                     <input type="date" class="title_input" placeholder="" value="dd-mm-yyy"> 
                 </div>
                 <div class="title">
@@ -72,7 +78,10 @@
                     </div>
                 </div>
                 <div class="title">
-                    <span>Category*</span>
+                    <div class="highlighted_object">
+                        <span>Category</span>
+                        <p class="highlighted">*</p>
+                    </div>
                     <input class="title_input" list="Select task category">
                     <datalist id="Select task category">
                         <option value="Technical task">
@@ -90,7 +99,10 @@
         </form>
 
         <div class="add_task_footer">
-            <span>*This field is required</span>
+            <div class="highlighted_object">
+                <p class="highlighted">*</p>
+                <span>This field is required</span>
+            </div>
             <div class="button_container">
                 <button class="secondary_button">Clear <img src="./assets/img/x.png" alt=""></button>
                 <button class="primary_button">Create Task <img src="./assets/img/done.png" alt=""></button>
