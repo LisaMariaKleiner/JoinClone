@@ -89,12 +89,7 @@ textarea::placeholder {
     padding: 0;
 }
 
-.add_task_footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    margin-top: 130px;
-}
+
 .button_container {
     display: flex;
     gap: 16px;
@@ -156,3 +151,9 @@ textarea::placeholder {
     box-shadow: 0px 4px 4px 0px #00000040;
 }
 
+.add_task_footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-top: 50px;
+}
