@@ -11,7 +11,7 @@
 <body onload="init()">
     <header w3-include-html="./assets/templates/header_template.html"></header>
     <nav w3-include-html="./assets/templates/sidenav_template.html"></nav>
-    <main>
+    <section>
         <div class="complete_board_container">
            <div class="title_search_add_container">    
                <div class="board">
@@ -19,39 +19,198 @@
                 </div> 
 
                 <div class="search_and_add_container">
-                    <div class="search_container">
-                        <div class="title">
-                            <input type="text" class="title_input" placeholder="Find Task"> 
-                            <img src="./assets/img/search.png" alt="">
-                        </div>
+                    <div class="board_section">
+                        <input type="text" class="board_section_input" placeholder="Find Task"> 
+                        <img src="./assets/img/search.png" alt="">
                     </div>
 
                     <div class="add_container">
-                        <button class="primary_button">Add task<img src="./assets/img/add_white.png" alt=""></button>
+                        <button onclick="moveAddTaskCard('open')" class="primary_button">Add task<img src="./assets/img/add_white.png" alt=""></button>
                     </div>
                 </div>
             </div> 
 
             
             <div class="progressbar">
-                <div class="progress_button">
-                    <span>To do</span>
-                    <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                <div class="progress_container">
+                    <div class="progress_button">
+                        <span>To do</span>
+                        <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                    </div>
+                    <div>
+                        <div class="no_tasks_to_do">
+                            <span>No tasks To do</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="progress_button">
-                    <span>In progress</span>
-                    <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+
+                <div class="progress_container">
+                    <div class="progress_button">
+                        <span>In progress</span>
+                        <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                    </div>
+                    <div>
+                        <div class="no_tasks_to_do">
+                            <span>No task is in progress</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="progress_button">
-                    <span>Await feedback</span>
-                    <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+
+                <div class="progress_container">
+                    <div class="progress_button">
+                        <span>Await feedback</span>
+                        <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                    </div>
+                    <div>
+                        <div class="no_tasks_to_do" style="display: none;">
+                            <span>No task awaits feedback</span>
+                        </div>
+                        <div class="task_card">
+                            <h3 class="user_story">User Story</h3>
+                            <div class="task_information">
+                                <h2>Kochwelt Page & Recipe Recommender</h2>
+                                <p>Build start page with recipe recommendation...</p>
+                            </div>
+                            <div class="subtask_progress_container">
+                                <div class="subtask_progressbar">
+                                    <div class="current_subtask_progress"></div>
+                                </div>
+                                <span>1/2 Subtasks</span>
+                            </div>
+                            <div class="task_footer">
+                                <div class="task_member_container">
+                                    <div class="task_member first_member">
+                                        <span>AM</span>
+                                    </div>
+                                    <div class="task_member second_member">
+                                        <span>EM</span>
+                                    </div>
+                                    <div class="task_member third_member">
+                                        <span>MB</span>
+                                    </div>
+                                </div>
+                                <div class="task_urgency_information">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="progress_button">
-                    <span>Done</span>
-                    <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+
+                <div class="progress_container">
+                    <div class="progress_button">
+                        <span>Done</span>
+                    </div>
+                    <div>
+                        <div class="no_tasks_to_do">
+                            <span>No task is done</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
+
+    <div id="add_task_card" class="add_task_background">
+        <div class="add_task_slide_card">
+            <div class="headline_container">
+                <h1>
+                    Add Task
+                </h1>
+                <button onclick="moveAddTaskCard('close')" class="close_add_task_button"></button>
+            </div>
+    
+            <form action="">
+                <div class="left_inputs">
+                    <div class="title">
+                        <div class="highlighted_object">
+                            <span>Title</span>
+                            <p class="highlighted">*</p>
+                        </div>
+                        <input type="text" class="title_input" placeholder="Enter a title"> 
+                    </div>
+                    <div class="description title">
+                        <span>Description</span>
+                        <textarea class="title_input" placeholder="Enter a Description" name="" id="" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="assigned_to title">
+                        <span>Assigned to</span>
+                        <input class="title_input" list="select_contacts">
+                        <datalist id="select_contacts">
+                            <option value="Internet Explorer">
+                            <option value="Firefox">
+                            <option value="Google Chrome">
+                            <option value="Opera">
+                            <option value="Safari">
+                          </datalist>
+                    </div>
+                </div>
+    
+                <div class="seperator"></div>
+    
+                <div class="right_inputs">
+                    <div class="title">
+                        <div class="highlighted_object">
+                            <span>Due date</span>
+                            <p class="highlighted">*</p>
+                        </div>
+                        <input type="date" class="title_input" placeholder="" value="dd-mm-yyy"> 
+                    </div>
+                    <div class="title">
+                        <span>Prio</span>
+                        <div class="prio_container">
+                            <div class="prio">
+                                <button>
+                                    <span>Urgent</span>
+                                    <img src="./assets/img/prio_alta.png" alt="">
+                                </button>
+                            </div>
+                            <div class="prio">
+                                <button>
+                                    <span>Medium</span>
+                                    <img src="./assets/img/prio_media.png" alt="">
+                                </button>
+                            </div>
+                            <div class="prio">
+                                <button>
+                                    <span>Low</span>
+                                    <img src="./assets/img/prio_baja.png" alt="">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="title">
+                        <div class="highlighted_object">
+                            <span>Category</span>
+                            <p class="highlighted">*</p>
+                        </div>
+                        <input class="title_input" list="Select task category">
+                        <datalist id="Select task category">
+                            <option value="Technical task">
+                            <option value="User story">
+                          </datalist>
+                    </div>
+                    <div class="title">
+                        <span>Subtasks</span>
+                        <div class="subtasks">
+                            <input type="text" class="title_input" placeholder="Add new subtask"> 
+                            <img src="./assets/img/add.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            <div class="add_task_footer">
+                <div class="highlighted_object">
+                    <p class="highlighted">*</p>
+                    <span>This field is required</span>
+                </div>
+                <div class="button_container">
+                    <button onclick="moveAddTaskCard('close')" class="secondary_button">Cancel <img src="./assets/img/x.png" alt=""></button>
+                    <button class="primary_button">Create Task <img src="./assets/img/done.png" alt=""></button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

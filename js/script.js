@@ -34,3 +34,20 @@ function setIndexCard(event) {
         goBackToLoginCardButton.style.display = 'flex';
     }
 }
+
+function moveAddTaskCard(event) {
+    let taskCard = document.getElementById('add_task_card');
+    if (event === 'open') {
+        taskCard.classList.remove('slide_out');
+        taskCard.style.display = 'flex';
+        taskCard.classList.add('slide_in');
+        taskCard.style.transform = 'translateX(0%)';
+    } else if (event === 'close') {
+        taskCard.classList.remove('slide_in');
+        taskCard.classList.add('slide_out');
+        taskCard.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            taskCard.style.display = 'none';
+        }, 500);
+    }
+}
