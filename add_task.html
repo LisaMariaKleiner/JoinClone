@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/add_task.css">
     <script src="./js/script.js"></script>
 </head>
 <body onload="init()">
@@ -16,6 +17,86 @@
                 Add Task
             </h1>
         </div>
+
+        <form action="">
+            <div class="left_inputs">
+                <div class="title">
+                    <span>Title*</span>
+                    <input type="text" class="title_input" placeholder="Enter a title"> 
+                </div>
+                <div class="description title">
+                    <span>Description</span>
+                    <textarea class="title_input" placeholder="Enter a Description" name="" id="" cols="30" rows="10"></textarea>
+                </div>
+                <div class="assigned_to title">
+                    <span>Assigned to</span>
+                    <input class="title_input" list="select_contacts">
+                    <datalist id="select_contacts">
+                        <option value="Internet Explorer">
+                        <option value="Firefox">
+                        <option value="Google Chrome">
+                        <option value="Opera">
+                        <option value="Safari">
+                      </datalist>
+                </div>
+            </div>
+
+            <div class="seperator"></div>
+
+            <div class="right_inputs">
+                <div class="title">
+                    <span>Due date*</span>
+                    <input type="date" class="title_input" placeholder="" value="dd-mm-yyy"> 
+                </div>
+                <div class="title">
+                    <span>Prio</span>
+                    <div class="prio_container">
+                        <div class="prio">
+                            <button>
+                                <span>Urgent</span>
+                                <img src="./assets/img/prio_alta.png" alt="">
+                            </button>
+                        </div>
+                        <div class="prio">
+                            <button>
+                                <span>Medium</span>
+                                <img src="./assets/img/prio_media.png" alt="">
+                            </button>
+                        </div>
+                        <div class="prio">
+                            <button>
+                                <span>Low</span>
+                                <img src="./assets/img/prio_baja.png" alt="">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="title">
+                    <span>Category*</span>
+                    <input class="title_input" list="Select task category">
+                    <datalist id="Select task category">
+                        <option value="Technical task">
+                        <option value="User story">
+                      </datalist>
+                </div>
+                <div class="title">
+                    <span>Subtasks</span>
+                    <div class="subtasks">
+                        <input type="text" class="title_input" placeholder="Add new subtask"> 
+                        <img src="./assets/img/add.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="add_task_footer">
+            <span>*This field is required</span>
+            <div class="button_container">
+                <button class="secondary_button">Clear <img src="./assets/img/x.png" alt=""></button>
+                <button class="primary_button">Create Task <img src="./assets/img/done.png" alt=""></button>
+            </div>
+        </div>
+
     </main>
 </body>
 </html>
