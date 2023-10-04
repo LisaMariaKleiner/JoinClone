@@ -5,10 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/summary.css">
     <script src="./js/script.js"></script>
 </head>
 <body onload="init()">
     <header w3-include-html="./assets/templates/header_template.html"></header>
     <nav w3-include-html="./assets/templates/sidenav_template.html"></nav>
+    <main>
+        <div class="headline_container">
+            <h1>
+                Join 360
+            </h1>
+            <img src="./assets/img/vertical_seperator.png" alt="Vertical Seperator">
+            <span>
+                Key Metrics at a Glance
+            </span>
+        </div>
+        <div class="join360_main_content">
+            <div class="card_container">
+                <div class="top_card_subcontainer">
+                    <button class="to_do_card to_do">
+                        <div class="to_do_image_container edit_icon">
+                        </div>
+                        <div class="to_do_counter_container">
+                            <span class="to_do_counter">1</span>
+                            <span class="to_do_text">To-do</span>
+                        </div>
+                    </button>
+                    <button class="to_do_card done">
+                        <div class="to_do_image_container done_icon">
+                        </div>
+                        <div class="to_do_counter_container">
+                            <span class="to_do_counter">1</span>
+                            <span class="to_do_text">Done</span>
+                        </div>
+                    </button>
+                </div>
+                <div class="urgency_card">
+                    <div class="urgency_counter_container">
+                        <div>
+                            <img src="./assets/img/urgent_icon.png" alt="Urgent Icon">
+                        </div>
+                        <div class="urgency_counter_information">
+                            <span class="to_do_counter">
+                                1
+                            </span>
+                            <span class="to_do_text">
+                                Urgent
+                            </span>
+                        </div>
+                    </div>
+                    <div class="vertical_seperator"></div>
+                    <div class="deadline_information">
+                        <span class="deadline_date">
+                            October 16, 2022
+                        </span>
+                        <span class="upcoming_deadline">
+                            Upcoming Deadline
+                        </span>
+                    </div>
+                </div>
+                <div class="progress_card_container">
+                    <div class="progress_card board_card">
+                        <span class="progress_count">5</span>
+                        <span class="progress_title board">Tasks in Board</span>
+                    </div>
+                    <div class="progress_card card_progress">
+                        <span class="progress_count">2</span>
+                        <span class="progress_title progress">Tasks In Progress</span>
+                    </div>
+                    <div class="progress_card feedback_card">
+                        <span class="progress_count">2</span>
+                        <span class="progress_title feedback">Awaiting Feedback</span>
+                    </div>
+                </div>
+            </div>
+            <div class="greet_container">
+                <h2>Good morning</h2>
+                <h3>Max Mustermann</h3>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

@@ -1,0 +1,4 @@
+{
+    "terminal.integrated.gpuAcceleration": "auto",
+    "terminal.integrated.shellIntegration.enabled": true
+}

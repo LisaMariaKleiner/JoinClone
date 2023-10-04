@@ -1,0 +1,268 @@
+@import url('./fonts.css');
+@import url('./animation.css');
+
+.headline_container span {
+    font-size: 27px;
+}
+
+.join360_main_content {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+}
+
+.card_container {
+    width: 560px;
+    height: 562px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.top_card_subcontainer {
+    width: 560px;
+    height: 168px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.to_do_card {
+    background-color: white;
+    width: 264px;
+    height: 168px;
+    border: none;
+    border-radius: 30px;
+    padding: 38px 19px 38px 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    cursor: pointer;
+
+    box-shadow: 0px 0px 4px 0px #0000001A;
+}
+
+.to_do_image_container {
+    background: #2A3647;
+    height: 69px;
+    width: 69px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit_icon {
+    background-image: url('../assets/img/edit.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.done_icon {
+    background-image: url('../assets/img/done.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.to_do_counter_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.to_do_counter {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 64px;
+}
+
+.to_do_text {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    color: #2A3647;
+}
+
+.urgency_card {
+    padding: 28px 48px 28px 48px;
+    border-radius: 30px;
+    display: flex;
+    gap: 61px;
+    background-color: white;
+    box-shadow: 0px 0px 4px 0px #0000001A;
+}
+
+.urgency_counter_container {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.urgency_counter_information {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.vertical_seperator {
+    height: 102px;
+    width: 2px;
+    background-color: #d1d1d1;
+}
+
+.deadline_information {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.deadline_date {
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    font-size: 21px;
+    color: #2A3647;
+}
+
+.upcoming_deadline {
+    font-family: 'Inter', sans-serif;
+    color: #2A3647;
+}
+
+.progress_card_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.progress_card {
+    width: 168px;
+    height: 168px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 13px;
+    background-color: white;
+    box-shadow: 0px 0px 4px 0px #0000001A;
+
+}
+
+.progress_count {
+    font-family: 'Inter', sans-serif;
+    font-size: 64px;
+    font-weight: 600;
+}
+
+.progress_title {
+    font-family: 'Inter', sans-serif;
+    font-size: 21px;
+    color: #2A3647;
+    text-align: center;
+}
+
+.board {
+    width: 83px;
+    height: 48px;
+}
+
+.progress {
+    width: 86px;
+    height: 50px;
+}
+
+.feedback {
+    width: 93px;
+    height: 48px;
+}
+
+.greet_container {
+    gap: 3px;
+}
+
+.greet_container h3 {
+    color: #29ABE2;
+    font-size: 64px;
+    font-weight: 700;
+}
+
+.greet_container h2 {
+    font-size: 47px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    color: #2A3647;
+}
+
+.to_do_card:hover {
+    background-color: #2A3647;
+}
+
+.to_do:hover {
+    animation: hoverScaleFromLeft 0.15s ease;
+    transform: scaleX(1.05) scaleY(1.05);
+    transform-origin: left;
+}
+
+.done:hover {
+    animation: hoverScaleFromRight 0.15s ease;
+    transform: scaleX(1.05) scaleY(1.05);
+    transform-origin: right;
+}
+
+.to_do_card:hover .to_do_counter,
+.to_do_card:hover .to_do_text{
+    color: white;
+}
+
+.to_do_card:hover .edit_icon{
+    background-color: white;
+    background-image: url('../assets/img/editDark.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.to_do_card:hover .done_icon {
+    background-color: white;
+    background-image: url('../assets/img/doneDark.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+
+.urgency_card:hover {
+    background-color: #2A3647;
+    animation: hoverScaleFromTopLeft 0.15s ease;
+    transform: scaleX(1.05) scaleY(1.05);
+    transform-origin: top left;
+}
+
+.urgency_card:hover .to_do_counter,
+.urgency_card:hover .to_do_text,
+.urgency_card:hover .deadline_date,
+.urgency_card:hover .upcoming_deadline {
+    color: white;
+}
+
+.progress_card:hover {
+    background-color: #2A3647;
+}
+
+.progress_card:hover .progress_count,
+.progress_card:hover .progress_title {
+    color: white;
+}
+
+.board_card:hover {
+    animation: hoverScaleFromLeft 0.15s ease;
+    transform: scaleX(1.05) scaleY(1.05);
+    transform-origin: left;
+}
+
+.card_progress:hover {
+    animation: hoverScale 0.15s ease;
+    transform: scaleX(1.05) scaleY(1.05);
+}
+
+.feedback_card:hover {
+    animation: hoverScaleFromRight 0.15s ease;
+    transform: scaleX(1.05) scaleY(1.05);
+    transform-origin: right;
+}

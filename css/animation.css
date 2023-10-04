@@ -23,3 +23,47 @@
         height: 122px;
     }
 }
+
+@keyframes hoverScale {
+    0% {
+      transform: scaleX(1) scaleY(1);
+    }
+    100% {
+      transform: scaleX(1.05) scaleY(1.05);
+    }
+}
+
+@keyframes hoverScaleFromLeft {
+    0% {
+      transform: scaleX(1) scaleY(1);
+      transform-origin: left;
+    }
+    100% {
+      transform: scaleX(1.05) scaleY(1.05);
+      transform-origin: left;
+    }
+}
+
+@keyframes hoverScaleFromRight {
+    0% {
+      transform: scaleX(1) scaleY(1);
+      transform-origin: right;
+    }
+    100% {
+      transform: scaleX(1.05) scaleY(1.05);
+      transform-origin: right;
+    }
+  }
+
+  @keyframes hoverScaleFromTopLeft {
+    0% {
+      transform: scaleX(1) scaleY(1);
+      transform-origin: top left;
+    }
+    100% {
+      transform: scaleX(1.05) scaleY(1.05);
+      transform-origin: top left;
+    }
+  }
+
+  

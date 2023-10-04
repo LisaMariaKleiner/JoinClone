@@ -32,3 +32,10 @@ main {
     padding-right: 70px;
     padding-bottom: 20px;
 }
+
+.headline_container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
