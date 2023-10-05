@@ -38,16 +38,33 @@ function setIndexCard(event) {
 function moveAddTaskCard(event) {
     let taskCard = document.getElementById('add_task_card');
     if (event === 'open') {
-        taskCard.classList.remove('slide_out');
-        taskCard.style.display = 'flex';
-        taskCard.classList.add('slide_in');
-        taskCard.style.transform = 'translateX(0%)';
+        slideCardIn(taskCard);
     } else if (event === 'close') {
-        taskCard.classList.remove('slide_in');
-        taskCard.classList.add('slide_out');
-        taskCard.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-            taskCard.style.display = 'none';
-        }, 500);
+        slideCardOut(taskCard);
     }
+}
+
+function moveAddNewContactCard(event) {
+    let addNewContactCard = document.getElementById('card_background');
+    if (event === 'open') {
+        slideCardIn(addNewContactCard);
+    } else if (event === 'close') {
+        slideCardOut(addNewContactCard);
+    }
+}
+
+function slideCardIn(container) {
+    container.classList.remove('slide_out')
+    container.style.display = 'flex';
+    container.classList.add('slide_in');
+    container.style.transform = 'translateX(0%)';
+}
+
+function slideCardOut(container) {
+    container.classList.remove('slide_in');
+    container.classList.add('slide_out');
+    container.style.transform = 'translateX(150%)';
+    setTimeout(() => {
+        container.style.display = 'none';
+    }, 500);
 }

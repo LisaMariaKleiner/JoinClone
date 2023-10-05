@@ -306,11 +306,3 @@ section {
     padding: 0 115px;
     gap: 16px;
 }
-
-.slide_in {
-    animation: slideIn 0.5s ease;
-}
-
-.slide_out {
-    animation: slideOut 0.5s ease;
-}

@@ -7,7 +7,7 @@ header {
 }
 
 .header_container {
-    height: 96px;
+    height: 60px;
     padding: 20px 40px 20px 348px;
 
     display: flex;
@@ -22,7 +22,6 @@ header {
     font-family:'Inter', sans-serif;
     font-weight: 400;
     font-size: 20px;
-    margin-bottom: 50px;
 }
 
 .right_section {
