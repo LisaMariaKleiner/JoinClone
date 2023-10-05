@@ -1,6 +1,10 @@
 let users = [];
 let successFeedback = document.getElementById('success_feedback');
 
+async function init() {
+    await loadUsers();
+}
+
 async function loadUsers(){
     try {
         users = JSON.parse(await getItem('users'));

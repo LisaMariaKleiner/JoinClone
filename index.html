@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./css/fonts.css">
     <script src="./js/storage.js"></script>
     <script src="./js/register.js"></script>
+    <script src="./js/login.js"></script>
     <script src="./js/script.js"></script>
 </head>
 
@@ -29,7 +30,7 @@
             <h1>Log in</h1>
             <div class="h1_underline"></div>
         </div>
-        <form onsubmit="login()" class="login_input_container">
+        <form class="login_input_container">
             <div class="input_border" >
                 <input type="email" required id="login_email" placeholder="Email">
                 <div class="login_icon_container">
@@ -53,7 +54,7 @@
             </div>
         </form>
         <div class="login_button_container">
-            <button class="primary_button">Log in</button>
+            <button onclick="login()" id="login" class="primary_button" value="Log in">Log in</button>
             <a href="./summary.html"><button class="secondary_button">Guest Log in</button></a>
         </div>
     </div>
