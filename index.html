@@ -7,6 +7,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="./css/login.css">
     <link rel="stylesheet" href="./css/fonts.css">
+    <script src="./js/storage.js"></script>
+    <script src="./js/register.js"></script>
     <script src="./js/script.js"></script>
 </head>
 
@@ -27,16 +29,16 @@
             <h1>Log in</h1>
             <div class="h1_underline"></div>
         </div>
-        <div class="login_input_container">
+        <form onsubmit="login()" class="login_input_container">
             <div class="input_border" >
-                <input type="email" id="" placeholder="Email">
+                <input type="email" required id="login_email" placeholder="Email">
                 <div class="login_icon_container">
                     <img src="./assets/img/mail.png">
                 </div>
             </div>
 
             <div class="input_border">
-                <input type="password" placeholder="Password">
+                <input type="password" required id="login_password" placeholder="Password">
                 <div class="login_icon_container">
                     <img src="./assets/img/lock.png">
                 </div>
@@ -49,7 +51,7 @@
 
 
             </div>
-        </div>
+        </form>
         <div class="login_button_container">
             <button class="primary_button">Log in</button>
             <a href="./summary.html"><button class="secondary_button">Guest Log in</button></a>
@@ -62,51 +64,56 @@
             <h1>Sign Up</h1>
             <div class="h1_underline"></div>
         </div>
-        <div class="login_input_container">
+        <form onsubmit="register(); return false;" class="login_input_container">
             <div class="input_border signup_border" >
-                <input type="text" id="" placeholder="Name">
+                <input type="text" required id="signup_name" placeholder="Name">
                 <div class="login_icon_container">
                     <img src="./assets/img/person.png">
                 </div>
             </div>
 
             <div class="input_border signup_border">
-                <input type="email" placeholder="Email">
+                <input type="email" required id="signup_email" placeholder="Email">
+                <div class="login_icon_container">
+                    <img src="./assets/img/mail.png">
+                </div>
+            </div>
+
+            <div class="input_border signup_border" >
+                <input type="password" required id="signup_password" min="6" placeholder="Password">
                 <div class="login_icon_container">
                     <img src="./assets/img/lock.png">
                 </div>
             </div>
 
             <div class="input_border signup_border" >
-                <input type="password" id="" placeholder="Password">
+                <input type="password" required id="signup_confirm_password" min="6" placeholder="Confirm Password">
                 <div class="login_icon_container">
-                    <img src="./assets/img/mail.png">
-                </div>
-            </div>
-
-            <div class="input_border signup_border" >
-                <input type="password" id="" placeholder="Confirm Password">
-                <div class="login_icon_container">
-                    <img src="./assets/img/mail.png">
+                    <img src="./assets/img/lock.png">
                 </div>
             </div>
 
             <div>
                 <div class="accept_privatepolicy_container">
-                    <input type="checkbox"><span>I accept the <a href="./PrivacyPolicy.html">Privacy Policy</a></span>
+                    <input required type="checkbox"><span>I accept the <a href="./PrivacyPolicy.html">Privacy Policy</a></span>
                 </div>
 
 
             </div>
-        </div>
-        <div class="signup_button_container">
-            <button class="primary_button">Sign up</button>
-        </div>
+            <div class="signup_button_container">
+                <input type="submit" id="registerBtn" class="primary_button" value="Sign Up">
+            </div>
+        </form>
     </div>
 
     <div class="login_footer_links">
         <a href="./PrivacyPolicy.html" target="_blank">Privacy Policy</a>
         <a href="./legal_notice.html" target="_blank">Legal notice</a>
+    </div>
+    <div id="success_feedback" class="signed_up_successfully_background">
+        <div class="signed_up_successfully">
+            <span>You Signed Up successfully</span>
+        </div>
     </div>
 </body>
 

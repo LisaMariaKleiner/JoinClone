@@ -86,10 +86,38 @@
   }
 }
 
+@keyframes slideUp {
+  from {
+    background-color:rgba(0, 0, 0, 0);
+    transform: translateY(100%);
+  } to {
+    background-color:rgba(0, 0, 0, 0.25);
+    transform: translateY(0%);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    background-color:rgba(0, 0, 0, 0.25);
+    transform: translateY(0%);
+  } to {
+    background-color:rgba(0, 0, 0, 0);
+    transform: translateY(100%);
+  }
+}
+
 .slide_in {
   animation: slideIn 0.5s ease;
 }
 
 .slide_out {
   animation: slideOut 0.5s ease;
+}
+
+.slide_up {
+  animation: slideUp 0.5s ease;
+}
+
+.slide_down {
+  animation: slideDown 0.5s ease;
 }

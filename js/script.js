@@ -1,5 +1,6 @@
-function init() {
+async function init() {
     includeHTML();
+    loadUsers();
 }
 
 async function includeHTML() {
