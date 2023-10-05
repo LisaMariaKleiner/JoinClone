@@ -1,14 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/contacts.css">
     <script src="./js/script.js"></script>
 </head>
+
 <body onload="init()">
     <header w3-include-html="./assets/templates/header_template.html"></header>
     <nav w3-include-html="./assets/templates/sidenav_template.html"></nav>
+
+    <div class="contacts_bar">
+        <div class="add_new_contact">
+            <button>Add new contact <img src="./assets/img/person_add.png" alt=""></button>
+        </div>
+        <!--<div class="contacts_scrollbar">
+            <div class="img_scrollbar">
+                <img src="./assets/img/up.png" alt="">
+                <img src="./assets/img/down.png" alt="">
+            </div>
+        </div>-->
+        <div class="show_contacts">
+            <div class="alphabet_container">
+                <span>A</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="contact"> <!--Wird dann über JS generiert -->
+                <div class="task_member first_member">
+                    <span>AM</span>
+                </div>
+                <div class="member_shortinfo">
+                    <span>Anton Mayer</span>
+                    <span><a>antom@gmail.com</a></span>
+                </div>
+            </div>
+            <div class="alphabet_container">
+                <span>B</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>C</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>D</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>E</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>F</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>G</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>H</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>I</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>J</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>K</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>L</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>M</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>N</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>O</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>P</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>Q</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>R</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>S</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>T</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>U</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>V</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>W<id>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>X</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>Y</span>
+            </div>
+            <div class="horizontal_seperater"></div>
+            <div class="alphabet_container">
+                <span>Z</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="title_header">
+        <h1>Contacts</h1>
+        <img src="./assets/img/verticalSeperator.png" alt="">
+        <span>Better with a team</span>
+    </div>
+
+
 </body>
+
 </html>
