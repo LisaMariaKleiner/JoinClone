@@ -2,6 +2,7 @@
 async function init() {
     includeHTML();
     await loadUsers();
+    loadUserInSummery();
 }
 
 async function includeHTML() {

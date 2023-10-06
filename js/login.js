@@ -14,13 +14,13 @@ function login() {
 function loadUserInSummery() {
     const userDataString = localStorage.getItem('user');
 
-    
     if (userDataString) {
         
         const userData = JSON.parse(userDataString);
 
         if (userData.name) {  
             document.getElementById('username').textContent = userData.name;
+            document.getElementById('greeting').textContent = 'Good morning,';
         } else {
             document.getElementById('username').textContent = '';
         }

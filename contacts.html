@@ -18,7 +18,8 @@
 
     <div class="contacts_bar">
         <div class="add_new_contact">
-            <button onclick="moveAddNewContactCard('open')">Add new contact <img src="./assets/img/person_add.png" alt=""></button>
+            <button onclick="moveAddNewContactCard('open')">Add new contact <img src="./assets/img/person_add.png"
+                    alt=""></button>
         </div>
         <div class="show_contacts">
             <div class="alphabet_container">
@@ -136,10 +137,48 @@
         </div>
     </div>
 
-    <div class="title_header">
-        <h1>Contacts</h1>
-        <img src="./assets/img/verticalSeperator.png" alt="">
-        <span>Better with a team</span>
+    <div class="title_header_container">
+        <div class="title_header">
+            <h1>Contacts</h1>
+            <img src="./assets/img/verticalSeperator.png" alt="">
+            <span>Better with a team</span>
+        </div>
+
+        <div class="contact_information_card">
+            <div class="name_container">
+                <div class="name_icon">AM</div>
+                <div>
+                    <div class="name"><span>Anton Mayer</span></div>
+                    <div class="edit_delete_container">
+                        <div class="edit_container">
+                            <div class="icon_container">
+                                <img src="./assets/img/editDark.png" alt="edit">
+                            </div>
+                            <span>Edit</span>
+                        </div>
+                        <div class="delete_container">
+                            <div class="icon_container">
+                                <img src="./assets/img/delete.png" alt="edit">
+                            </div>
+                            <span>Delete</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact_information_title">
+                <span>Contact Information</span>
+            </div>
+            <div class="email_phone_container">
+                <div class="email_container">
+                    <span>Email</span>
+                    <a id="contact_email" href = "mailto: antom@gmail.com">antom@gmail.com</a>
+                </div>
+                <div class="phone_container">
+                    <span>Phone</span>
+                    <a id="phone_number" href="tel:+491111111111">+49 1111 111 11 1</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="card_background">
@@ -158,13 +197,13 @@
                     <img src="./assets/img/person_light.png" alt="Contact Profile Picture">
                 </div>
                 <div class="add_new_contact_input_container">
-                    <form action=""> 
+                    <form action="">
                         <div class="input_container">
                             <input type="name" placeholder="Name">
                             <div class="input_icon_container">
                                 <img src="./assets/img/person.png" alt="Name Icon">
                             </div>
-                        </div>               
+                        </div>
                         <div class="input_container">
                             <input type="email" placeholder="Email">
                             <div class="input_icon_container">

@@ -147,6 +147,14 @@ html {
     background-color: #FF7A00;
 }
 
+.title_header_container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 206px;
+    left: 735px;
+    gap: 30px;
+}
 
 .title_header {
     display: flex;
@@ -154,9 +162,6 @@ html {
     align-items: center;
     width: 575px;
     height: 73px;
-    position: absolute;
-    top: 206px;
-    left: 735px;
     gap: 30px;
 }
 
@@ -176,6 +181,120 @@ html {
     font-size: 27px;
     font-weight: 400;
     font-family: 'Inter', sans-serif;
+}
+
+.contact_information_card {
+    display: none;
+    flex-direction: column;
+    gap: 30px;
+    transform: translate(100%);
+}
+
+.name_container {
+    display: flex;
+    align-items: center;
+    gap: 54px;
+}
+
+.name_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0px 0px 4px 0px #0000001A;
+    background-color: #007CEE;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 47px;
+    font-weight: 500;
+}
+
+.edit_delete_container {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    width: 159px;
+}
+
+.edit_container, .delete_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Inter', sans-serif;
+    color: #2a3647;
+    cursor: pointer;
+}
+
+.edit_container:hover, .delete_container:hover {
+    color: #29abe2;
+    font-weight: 700;
+}
+
+.name span {
+    font-family: 'Inter', sans-serif;
+    font-size: 47px;
+    font-weight: 500;
+}
+
+.icon_container {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon_container img {
+    width: 17px;
+    height: 18px;
+}
+
+.contact_information_title {
+    display: flex;
+    align-items: center;
+    width: 207px;
+    height: 74px;
+    gap: 59px;
+}
+
+.contact_information_title span {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.email_phone_container {
+    display: flex;
+    flex-direction: column;
+    width: 140px;
+    height: 128px;
+    gap: 22px;
+}
+
+.email_container, .phone_container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#contact_email {
+    color: #007CEE;
+    cursor: pointer;
+}
+
+#phone_number {
+    color: black;
+}
+
+
+
+.email_container span, .phone_container span  {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
 }
 
 #card_background {
