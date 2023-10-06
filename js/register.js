@@ -10,6 +10,7 @@ async function register() {
             name: signup_name.value,
             email: signup_email.value,
             password: signup_password.value,
+            contacts: []
         });
         await setItem('users', JSON.stringify(users));
         resetForm();

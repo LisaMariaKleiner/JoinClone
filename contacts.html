@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./css/contacts.css">
     <script src="./js/storage.js"></script>
     <script src="./js/login.js"></script>
+    <script src="./js/add_contact.js"></script>
     <script src="./js/script.js"></script>
 </head>
 
@@ -197,36 +198,37 @@
                     <img src="./assets/img/person_light.png" alt="Contact Profile Picture">
                 </div>
                 <div class="add_new_contact_input_container">
-                    <form action="">
+                    <form onsubmit="createNewContact()">
                         <div class="input_container">
-                            <input type="name" placeholder="Name">
+                            <input type="name" id="new_contact_name" placeholder="Name">
                             <div class="input_icon_container">
                                 <img src="./assets/img/person.png" alt="Name Icon">
                             </div>
                         </div>
                         <div class="input_container">
-                            <input type="email" placeholder="Email">
+                            <input type="email" id="new_contact_email" placeholder="Email">
                             <div class="input_icon_container">
                                 <img src="./assets/img/mail.png" alt="Email Icon">
                             </div>
                         </div>
                         <div class="input_container">
-                            <input type="tel" placeholder="Phone">
+                            <input type="tel" id="new_contact_phone" placeholder="Phone">
                             <div class="input_icon_container">
                                 <img src="./assets/img/call.png" alt="Phone Icon">
                             </div>
                         </div>
+                        <div class="add_new_contact_button_container">
+                            <button class="secondary_button">
+                                Cancel
+                                <img src="./assets/img/x.png" alt="Close Button">
+                            </button>
+                            <button class="primary_button">
+                                Create contact
+                                <img src="./assets/img/done.png" alt="Create Contact">
+                            </button>
+                        </div>
                     </form>
-                    <div class="add_new_contact_button_container">
-                        <button class="secondary_button">
-                            Cancel
-                            <img src="./assets/img/x.png" alt="Close Button">
-                        </button>
-                        <button class="primary_button">
-                            Create contact
-                            <img src="./assets/img/done.png" alt="Create Contact">
-                        </button>
-                    </div>
+                    
                 </div>
             </div>
         </div>
