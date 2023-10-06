@@ -1,6 +1,15 @@
 const STORAGE_TOKEN = 'YH44XN2GXFLHXSKEA1UVADT2UJSIDURB5JQY28A3';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
+let users = [];
+let successFeedback = document.getElementById('success_feedback');
 
+async function loadUsers(){
+    try {
+        users = JSON.parse(await getItem('users'));
+    } catch(e){
+        console.error('Loading error:', e);
+    }
+}
 
 async function setItem(key, value) {
     const payload = { key, value, token: STORAGE_TOKEN };
