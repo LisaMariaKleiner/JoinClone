@@ -4,20 +4,28 @@
         height: 100%;
         top: 0px;
         left: 0px;
-        background-color: rgba(246, 247, 248, 1);
     } to {
         width: 100px;
         height: 122px;
         top: 80px;
         left: 77px;
-        background-color: rgba(246, 247, 248, 0);
     }
+}
+
+@keyframes fadeJoinLogoBackground {
+  from {
+    background-color: rgba(246, 247, 248, 1);
+    z-index: 99;
+  } to {
+    background-color: rgba(246, 247, 248, 0);
+    z-index: 1;
+  }
 }
 
 @keyframes shrinkJoinLogo {
     from {
         width: 25%;
-        height: 60%;
+        height: 40%;
     } to {
         width: 100px;
         height: 122px;

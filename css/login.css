@@ -7,8 +7,19 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #F6F7F8;
+    background-color: #f6f7f8;
     height: 100vh;
+}
+
+.join_logo_intro_background {
+    background-color: rgba(246, 247, 248, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    animation: fadeJoinLogoBackground 1s ease;
 }
 
 .join_logo_container {
@@ -16,7 +27,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(246, 247, 248, 0);
 
     position: absolute;
     top: 80px;
