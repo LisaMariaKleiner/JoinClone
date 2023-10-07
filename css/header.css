@@ -64,3 +64,37 @@ header {
 .user_profile_initials:hover {
     background-color: rgba(12, 46, 98, 0.122);
 }
+
+#log_out_box {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    position: absolute;
+    top: 100px;
+    right: 25px;
+    background-color: #2A3647;
+
+    padding: 20px 0px;
+    box-shadow: 0px 0px 4px 0px #0000001A;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+}
+
+#log_out_box button{
+    font-family: 'Inter', sans-serif;
+    color: #CDCDCD;
+    background-color: #2A3647;
+    border: none;
+    padding: 8px 16px;
+    margin: 0px 1px;
+    width: 126px;
+    cursor: pointer;
+    text-align:start;
+}
+
+#log_out_box button:hover {
+    background: #2A3D59;
+    transform: scale(1.01);
+}

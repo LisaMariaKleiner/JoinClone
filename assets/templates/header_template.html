@@ -5,7 +5,12 @@
             <a class="help_container" href="./help.html">
                 <img src="./assets/img/help.png" alt="Help">
             </a>
-            <button class="user_profile_initials">SM</button>
+            <div>
+                <button id="user_profile_button" onclick="changeLogOutBoxState('open')" class="user_profile_initials">SM</button>
+            </div>
+            <div id="log_out_box">
+                <button onclick="logOut()">Log out</button>
+            </div>
         </div>
     </div>
 </header>
