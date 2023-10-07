@@ -2,7 +2,8 @@
 async function init() {
     includeHTML();
     await loadUsers();
-    loadUserInSummery();
+    autoLogin();
+    loadUserInSummary();
 }
 
 async function includeHTML() {
