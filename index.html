@@ -50,14 +50,14 @@
 
             <div>
                 <div class="login_remember_container">
-                    <input type="checkbox">Remember me
+                    <input type="checkbox" id="remember_me">Remember me
                 </div>
 
 
             </div>
         </form>
         <div class="login_button_container">
-            <button onclick="login()" id="login" class="primary_button" value="Log in">Log in</button>
+            <button onclick="login(login_email.value, login_password.value)" id="login" class="primary_button" value="Log in">Log in</button>
             <a href="./summary.html"><button class="secondary_button">Guest Log in</button></a>
         </div>
     </div>

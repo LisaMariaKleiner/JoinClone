@@ -1,11 +1,12 @@
 let userData;
 let user;
 
-function login() {
-    user = users.find(u => u.email === login_email.value && u.password === login_password.value);
+function login(loginEmail, loginPassword) {
+    user = users.find(u => u.email === loginEmail && u.password === loginPassword);
     if (user) {
         userData = user;
         localStorage.setItem('user', JSON.stringify(userData));
+        currentUserWantsAutoLogin();
         window.location.href = 'http://127.0.0.1:5500/summary.html';
     } else {
         console.warn('Login failed');
@@ -22,20 +23,27 @@ function loginWhenEnterIsPressed() {
 
     loginEmail.addEventListener('keyup', (event) => {
         if(event.keyCode === 13) {
-            login();
+            login(login_email.value, login_password.value);
         }
     });
     
     loginPassword.addEventListener('keyup', (event) => {
         if(event.keyCode === 13) {
-            login();
+            login(login_email.value, login_password.value);
         }
     });
 }
 
 function autoLogin() {
-    if(currentUserExistInRemoteStorage() && isOnLoginPage()) {
-        window.location.href = 'http://127.0.0.1:5500/summary.html';
+    const rememberMeStatusString = localStorage.getItem('checkbox');
+    const rememberMeStatus = JSON.parse(rememberMeStatusString);
+    
+    if(currentUserExistInRemoteStorage() && isOnLoginPage() && rememberMeStatus) {
+        const userDataString = localStorage.getItem('user');
+        const userData = JSON.parse(userDataString);
+        const userEmail = userData.email;
+        const userPassword = userData.password;
+        login(userEmail, userPassword);
     }
 }
 
@@ -47,8 +55,16 @@ function currentUserExistInRemoteStorage() {
         const userEmail = userData.email;
         const userPassword = userData.password;
         return users.find(u => u.email === userEmail && u.password === userPassword);
-    } 
-    
+    }   
+}
+
+function currentUserWantsAutoLogin() {
+    const rememberMeCheckBox = document.getElementById('remember_me');
+    if(currentUserExistInRemoteStorage() && isOnLoginPage() && rememberMeCheckBox.checked) {
+        localStorage.setItem('checkbox', 'true');
+    } else {
+        localStorage.setItem('checkbox', 'false');
+    }
 }
 
 function isOnLoginPage() {
