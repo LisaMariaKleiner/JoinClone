@@ -1,8 +1,8 @@
 let userData;
-user;
+let user;
 
 function login() {
-    let user = users.find(u => u.email === login_email.value && u.password === login_password.value);
+    user = users.find(u => u.email === login_email.value && u.password === login_password.value);
     if (user) {
         userData = user;
         localStorage.setItem('user', JSON.stringify(userData));
@@ -10,6 +10,27 @@ function login() {
     } else {
         console.warn('Login failed');
     }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    loginWhenEnterIsPressed();
+});
+
+function loginWhenEnterIsPressed() {
+    let loginEmail = document.getElementById('login_email');
+    let loginPassword = document.getElementById('login_password');
+
+    loginEmail.addEventListener('keyup', (event) => {
+        if(event.keyCode === 13) {
+            login();
+        }
+    });
+    
+    loginPassword.addEventListener('keyup', (event) => {
+        if(event.keyCode === 13) {
+            login();
+        }
+    });
 }
 
 function autoLogin() {
@@ -26,7 +47,7 @@ function currentUserExistInRemoteStorage() {
         const userEmail = userData.email;
         const userPassword = userData.password;
         return users.find(u => u.email === userEmail && u.password === userPassword);
-    }
+    } 
     
 }
 
