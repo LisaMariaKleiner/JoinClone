@@ -5,7 +5,6 @@ let currentDraggedElement;
 
 async function loadTasks() {
     let loadedTasks = JSON.parse(await getItem('tasks'));
-    console.log(loadedTasks);
     tasks = loadedTasks;
 }
 
@@ -30,14 +29,12 @@ async function createNewTask() {
 
     await setItem('tasks', JSON.stringify(tasks));
     await updateHTML();
-    updateTasksInRemoteStorage(tasks, currentId)
+    await updateTasksInRemoteStorage(tasks, currentId)
     currentId++;
 };
 
 async function updateHTML() {
     await loadTasks();
-    console.log(tasks);
-    debugger;
     await updateCard('toDo', 'to_do');
     await updateCard('inProgress', 'in_progress');
     await updateCard('awaitFeedback', 'await_feedback');
@@ -45,7 +42,6 @@ async function updateHTML() {
 };
 
 async function updateCard(category, containerId) {
-    await loadTasks();
     console.log('Dies sind die aktuellen Tasks in updateCard: ' + tasks);
     category = tasks.filter(t => t['category'] == category);
 
@@ -110,13 +106,7 @@ function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area-highlight');
 }
 
-async function updateTasksInRemoteStorage(updatedTasks, id) {
-        const remoteTaskDataString = await getItem('tasks');
-        let remoteTaskData = JSON.parse(remoteTaskDataString);
-
-        // Find the user in the remote Storage and give the Index back
-        remoteTaskData = { ...remoteTaskData[id], ...updatedTasks };
-        // User will be updated in the remote Storage
-        const updatedTasksAsString = JSON.stringify(remoteTaskData);
+async function updateTasksInRemoteStorage(updatedTasks) {
+        const updatedTasksAsString = JSON.stringify(updatedTasks);
         await setItem('tasks', updatedTasksAsString);
 }
