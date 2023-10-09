@@ -8,7 +8,7 @@ async function register() {
     } else {
         users.push({
             name: signup_name.value,
-            email: signup_email.value,
+            email: signup_email.value.toLowerCase(),
             password: signup_password.value,
             contacts: []
         });

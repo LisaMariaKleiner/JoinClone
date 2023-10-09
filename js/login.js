@@ -2,7 +2,7 @@ let userData;
 let user;
 
 function login(loginEmail, loginPassword) {
-    user = users.find(u => u.email.charAt(0).toUpperCase() + u.email.slice(1)  === loginEmail.charAt(0).toUpperCase() + loginEmail.slice(1) && u.password === loginPassword);
+    user = users.find(u => u.email.toLowerCase() === loginEmail.toLowerCase()&& u.password === loginPassword);
     if (user) {
         userData = user;
         localStorage.setItem('user', JSON.stringify(userData));
