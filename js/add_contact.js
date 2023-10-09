@@ -17,7 +17,6 @@ async function createNewContact() {
     currentUserContacts.push(newContact);
     localStorage.setItem('user', JSON.stringify(currentUserData));
     clearNewContactForm();
-    debugger;
     await updateUserInRemoteStorage(currentUserData);
 }
 

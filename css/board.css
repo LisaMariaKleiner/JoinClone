@@ -156,6 +156,15 @@ section {
     cursor: pointer;
 }
 
+.drag_area {
+    width: 244px;
+    min-height: 300px;
+}
+
+.drag-area-highlight {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
 .no_tasks_to_do {
     height: 48px;
     width: 246px;

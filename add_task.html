@@ -28,15 +28,15 @@
                         <span>Title</span>
                         <p class="highlighted">*</p>
                     </div>
-                    <input type="text" class="title_input" placeholder="Enter a title"> 
+                    <input type="text" class="title_input" id="title_input" placeholder="Enter a title"> 
                 </div>
                 <div class="description title">
                     <span>Description</span>
-                    <textarea class="title_input" placeholder="Enter a Description" name="" id="" cols="30" rows="10"></textarea>
+                    <textarea class="title_input" id="description_textarea" placeholder="Enter a Description" name="" id="" cols="30" rows="10"></textarea>
                 </div>
                 <div class="assigned_to title">
                     <span>Assigned to</span>
-                    <input class="title_input" list="select_contacts">
+                    <input class="title_input" id="assigned_to_input" list="select_contacts">
                     <datalist id="select_contacts">
                         <option value="Internet Explorer">
                         <option value="Firefox">
@@ -55,7 +55,7 @@
                         <span>Due date</span>
                         <p class="highlighted">*</p>
                     </div>
-                    <input type="date" class="title_input" placeholder="" value="dd-mm-yyy"> 
+                    <input type="date" class="title_input" id="date_input" placeholder="" value="dd-mm-yyy"> 
                 </div>
                 <div class="title">
                     <span>Prio</span>
@@ -85,7 +85,7 @@
                         <span>Category</span>
                         <p class="highlighted">*</p>
                     </div>
-                    <input class="title_input" list="Select task category">
+                    <input class="title_input" id="task_category_input" list="Select task category">
                     <datalist id="Select task category">
                         <option value="Technical task">
                         <option value="User story">
@@ -94,7 +94,7 @@
                 <div class="title">
                     <span>Subtasks</span>
                     <div class="subtasks">
-                        <input type="text" class="title_input" placeholder="Add new subtask"> 
+                        <input type="text" class="title_input" id="subtask_input" placeholder="Add new subtask"> 
                         <img src="./assets/img/add.png" alt="">
                     </div>
                 </div>

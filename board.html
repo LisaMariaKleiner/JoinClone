@@ -9,6 +9,7 @@
     <script src="./js/storage.js"></script>
     <script src="./js/login.js"></script>
     <script src="/js/logout.js"></script>
+    <script src="./js/add_task.js"></script>
     <script src="./js/script.js"></script>
 </head>
 <body onload="init()">
@@ -40,7 +41,7 @@
                         <span>To do</span>
                         <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
                     </div>
-                    <div>
+                    <div class="drag_area" id="to_do" ondrop="moveTo('toDo')" ondragleave="removeHighlight('to_do')" ondragover="allowDrop(event); highlight('to_do')">
                         <div class="no_tasks_to_do">
                             <span>No tasks To do</span>
                         </div>
@@ -52,7 +53,7 @@
                         <span>In progress</span>
                         <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
                     </div>
-                    <div>
+                    <div class="drag_area" id="in_progress" ondrop="moveTo('inProgress')" ondragleave="removeHighlight('in_progress')" ondragover="allowDrop(event); highlight('in_progress')">
                         <div class="no_tasks_to_do">
                             <span>No task is in progress</span>
                         </div>
@@ -64,39 +65,11 @@
                         <span>Await feedback</span>
                         <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
                     </div>
-                    <div>
+                    <div class="drag_area" id="await_feedback" ondrop="moveTo('awaitFeedback')" ondragleave="removeHighlight('await_feedback')" ondragover="allowDrop(event); highlight('await_feedback')">
                         <div class="no_tasks_to_do" style="display: none;">
                             <span>No task awaits feedback</span>
                         </div>
-                        <div class="task_card">
-                            <h3 class="user_story">User Story</h3>
-                            <div class="task_information">
-                                <h2>Kochwelt Page & Recipe Recommender</h2>
-                                <p>Build start page with recipe recommendation...</p>
-                            </div>
-                            <div class="subtask_progress_container">
-                                <div class="subtask_progressbar">
-                                    <div class="current_subtask_progress"></div>
-                                </div>
-                                <span>1/2 Subtasks</span>
-                            </div>
-                            <div class="task_footer">
-                                <div class="task_member_container">
-                                    <div class="task_member first_member">
-                                        <span>AM</span>
-                                    </div>
-                                    <div class="task_member second_member">
-                                        <span>EM</span>
-                                    </div>
-                                    <div class="task_member third_member">
-                                        <span>MB</span>
-                                    </div>
-                                </div>
-                                <div class="task_urgency_information">
-
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
 
@@ -104,7 +77,7 @@
                     <div class="progress_button">
                         <span>Done</span>
                     </div>
-                    <div>
+                    <div class="drag_area" id="done" ondrop="moveTo('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
                         <div class="no_tasks_to_do">
                             <span>No task is done</span>
                         </div>
@@ -130,15 +103,15 @@
                             <span>Title</span>
                             <p class="highlighted">*</p>
                         </div>
-                        <input type="text" class="title_input" placeholder="Enter a title"> 
+                        <input id="title_input" type="text" class="title_input" placeholder="Enter a title"> 
                     </div>
                     <div class="description title">
                         <span>Description</span>
-                        <textarea class="title_input" placeholder="Enter a Description" name="" id="" cols="30" rows="10"></textarea>
+                        <textarea id="description_textarea" class="title_input" placeholder="Enter a Description" name="" id="" cols="30" rows="10"></textarea>
                     </div>
                     <div class="assigned_to title">
                         <span>Assigned to</span>
-                        <input class="title_input" list="select_contacts">
+                        <input id="assigned_to_input" class="title_input" list="select_contacts">
                         <datalist id="select_contacts">
                             <option value="Internet Explorer">
                             <option value="Firefox">
@@ -157,7 +130,7 @@
                             <span>Due date</span>
                             <p class="highlighted">*</p>
                         </div>
-                        <input type="date" class="title_input" placeholder="" value="dd-mm-yyy"> 
+                        <input id="date_input" type="date" class="title_input" placeholder="" value="dd-mm-yyy"> 
                     </div>
                     <div class="title">
                         <span>Prio</span>
@@ -187,7 +160,7 @@
                             <span>Category</span>
                             <p class="highlighted">*</p>
                         </div>
-                        <input class="title_input" list="Select task category">
+                        <input id="task_category_input" class="title_input" list="Select task category">
                         <datalist id="Select task category">
                             <option value="Technical task">
                             <option value="User story">
@@ -196,7 +169,7 @@
                     <div class="title">
                         <span>Subtasks</span>
                         <div class="subtasks">
-                            <input type="text" class="title_input" placeholder="Add new subtask"> 
+                            <input id="subtask_category_input" type="text" class="title_input" placeholder="Add new subtask"> 
                             <img src="./assets/img/add.png" alt="">
                         </div>
                     </div>
@@ -210,7 +183,7 @@
                 </div>
                 <div class="button_container">
                     <button onclick="moveAddTaskCard('close')" class="secondary_button">Cancel <img src="./assets/img/x.png" alt=""></button>
-                    <button class="primary_button">Create Task <img src="./assets/img/done.png" alt=""></button>
+                    <button onclick="createNewTask()" class="primary_button">Create Task <img src="./assets/img/done.png" alt=""></button>
                 </div>
             </div>
         </div>
