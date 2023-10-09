@@ -3,6 +3,12 @@ let tasks = [];
 let currentId = 0;
 let currentDraggedElement;
 
+async function loadTasks() {
+    let loadedTasks = JSON.parse(await getItem('tasks'));
+    console.log(loadedTasks);
+    tasks = loadedTasks;
+}
+
 async function createNewTask() {
     let title = document.getElementById('title_input').value;
     let description = document.getElementById('description_textarea').value;
@@ -23,18 +29,24 @@ async function createNewTask() {
     });
 
     await setItem('tasks', JSON.stringify(tasks));
-    updateHTML();
+    await updateHTML();
+    updateTasksInRemoteStorage(tasks, currentId)
     currentId++;
-}
+};
 
-function updateHTML() {
-    updateCard('toDo', 'to_do');
-    updateCard('inProgress', 'in_progress');
-    updateCard('awaitFeedback', 'await_feedback');
-    updateCard('done', 'done');
-}
+async function updateHTML() {
+    await loadTasks();
+    console.log(tasks);
+    debugger;
+    await updateCard('toDo', 'to_do');
+    await updateCard('inProgress', 'in_progress');
+    await updateCard('awaitFeedback', 'await_feedback');
+    await updateCard('done', 'done');
+};
 
-function updateCard(category, containerId) {
+async function updateCard(category, containerId) {
+    await loadTasks();
+    console.log('Dies sind die aktuellen Tasks in updateCard: ' + tasks);
     category = tasks.filter(t => t['category'] == category);
 
     document.getElementById(containerId).innerHTML = '';
@@ -43,12 +55,16 @@ function updateCard(category, containerId) {
         const element = category[index];
         document.getElementById(containerId).innerHTML += createTask(element);
     }
-}
+};
 
+function startDragging(id) {
+    currentDraggedElement = id; // id = 0
+    console.log('CurrentDraggedElement is: ' + currentDraggedElement);
+}
 
 function createTask (element) {
     return /*html*/`
-        <div class="task_card" draggable="true" ondragstart="StartDragging(${element['id']})>
+        <div class="task_card" draggable="true" ondragstart="startDragging(${element['id']})">
             <h3 class="user_story">User Story</h3>
             <div class="task_information">
                 <h2>${element['title']}</h2>
@@ -76,17 +92,14 @@ function createTask (element) {
         </div>
 `;}
 
-function startDragging(id) {
-    currentDraggedElement = id; // id = 0
-}
-
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
-function moveTo(category) {
+async function moveTo(category) {
     tasks[currentDraggedElement]['category'] = category; // tasks[0]['category']
-    updateHTML();
+    updateTasksInRemoteStorage(tasks, currentDraggedElement);
+    await updateHTML();
 }
 
 function highlight(id) {
@@ -95,4 +108,15 @@ function highlight(id) {
 
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area-highlight');
+}
+
+async function updateTasksInRemoteStorage(updatedTasks, id) {
+        const remoteTaskDataString = await getItem('tasks');
+        let remoteTaskData = JSON.parse(remoteTaskDataString);
+
+        // Find the user in the remote Storage and give the Index back
+        remoteTaskData = { ...remoteTaskData[id], ...updatedTasks };
+        // User will be updated in the remote Storage
+        const updatedTasksAsString = JSON.stringify(remoteTaskData);
+        await setItem('tasks', updatedTasksAsString);
 }
