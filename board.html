@@ -18,18 +18,37 @@
     <section>
         <div class="complete_board_container">
            <div class="title_search_add_container">    
-               <div class="board">
-                    <h1>Board</h1>
-                </div> 
+               <div class="board_header">
+                    <div class="board">
+                        <h1>Board</h1>
+                    </div> 
 
-                <div class="search_and_add_container">
-                    <div class="board_section">
-                        <input type="text" class="board_section_input" placeholder="Find Task"> 
-                        <img src="./assets/img/search.png" alt="">
+                    <div class="search_and_add_container">
+                        <div class="board_section">
+                            <input type="text" class="board_section_input" placeholder="Find Task"> 
+                            <img src="./assets/img/search.png" alt="">
+                        </div>
+
+                        <div class="add_container">
+                            <button onclick="moveAddTaskCard('open')" class="primary_button">Add task<img src="./assets/img/add_white.png" alt=""></button>
+                        </div>
                     </div>
-
-                    <div class="add_container">
-                        <button onclick="moveAddTaskCard('open')" class="primary_button">Add task<img src="./assets/img/add_white.png" alt=""></button>
+               </div>
+                <div class="task_list_headlines">
+                    <div class="progress_button">
+                        <span>To do</span>
+                        <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                    </div>
+                    <div class="progress_button">
+                        <span>In progress</span>
+                        <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                    </div>
+                    <div class="progress_button">
+                        <span>Await feedback</span>
+                        <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                    </div>
+                    <div class="progress_button">
+                        <span>Done</span>
                     </div>
                 </div>
             </div> 
@@ -37,11 +56,8 @@
             
             <div class="progressbar">
                 <div class="progress_container">
-                    <div class="progress_button">
-                        <span>To do</span>
-                        <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
-                    </div>
-                    <div class="drag_area" id="to_do" ondrop="moveTo('toDo')" ondragleave="removeHighlight('to_do')" ondragover="allowDrop(event); highlight('to_do')">
+
+                    <div class="drag_area" id="to_do" ondrop="moveTo('toDo', 'to_do')" ondragleave="removeHighlight('to_do')" ondragover="allowDrop(event); highlight('to_do')">
                         <div class="no_tasks_to_do">
                             <span>No tasks To do</span>
                         </div>
@@ -49,11 +65,8 @@
                 </div>
 
                 <div class="progress_container">
-                    <div class="progress_button">
-                        <span>In progress</span>
-                        <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
-                    </div>
-                    <div class="drag_area" id="in_progress" ondrop="moveTo('inProgress')" ondragleave="removeHighlight('in_progress')" ondragover="allowDrop(event); highlight('in_progress')">
+                    
+                    <div class="drag_area" id="in_progress" ondrop="moveTo('inProgress', 'in_progress')" ondragleave="removeHighlight('in_progress')" ondragover="allowDrop(event); highlight('in_progress')">
                         <div class="no_tasks_to_do">
                             <span>No task is in progress</span>
                         </div>
@@ -61,11 +74,8 @@
                 </div>
 
                 <div class="progress_container">
-                    <div class="progress_button">
-                        <span>Await feedback</span>
-                        <button class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
-                    </div>
-                    <div class="drag_area" id="await_feedback" ondrop="moveTo('awaitFeedback')" ondragleave="removeHighlight('await_feedback')" ondragover="allowDrop(event); highlight('await_feedback')">
+                    
+                    <div class="drag_area" id="await_feedback" ondrop="moveTo('awaitFeedback', 'await_feedback')" ondragleave="removeHighlight('await_feedback')" ondragover="allowDrop(event); highlight('await_feedback')">
                         <div class="no_tasks_to_do" style="display: none;">
                             <span>No task awaits feedback</span>
                         </div>
@@ -74,10 +84,8 @@
                 </div>
 
                 <div class="progress_container">
-                    <div class="progress_button">
-                        <span>Done</span>
-                    </div>
-                    <div class="drag_area" id="done" ondrop="moveTo('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
+                    
+                    <div class="drag_area" id="done" ondrop="moveTo('done', 'done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
                         <div class="no_tasks_to_do">
                             <span>No task is done</span>
                         </div>
@@ -186,6 +194,37 @@
                     <button onclick="createNewTask()" class="primary_button">Create Task <img src="./assets/img/done.png" alt=""></button>
                 </div>
             </div>
+        </div>
+    </div>
+    <div id="success_feedback" class="signed_up_successfully_background without_background">
+        <div class="signed_up_successfully">
+            <span>Tasked added to Board <img src="./assets/img/board.png" alt="Board Icon"></span>
+        </div>
+    </div>
+    <div id="task_card_opened">
+        <div id="current_task_card">
+            <h3 class="user_story">User Story</h3>
+            <div class="close_button_container">
+                <img src="./assets/img/x.png" alt="Close Card">
+            </div>
+            <h2>Title</h2>
+            <p>Description</p>
+            <span>Date: </span>
+            <span>Priority: </span>
+            <div>
+                <span>Assigned To: </span>
+            </div>
+            <div>
+                <span>Subtasks</span>
+                <div class="subtask_container">
+                    <div class="subtask">
+                        <input type="checkbox" name="" id="subtask_checkbox" class="subtask_checkbox">
+                        <label for="subtask_checkbox"></label>
+                        <span>SUBTASK</span>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
 </body>

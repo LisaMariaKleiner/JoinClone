@@ -104,10 +104,11 @@ function allowDrop(ev) {
     ev.preventDefault();
 }
 
-async function moveTo(category) {
+async function moveTo(category, containerId) {
     tasks[currentDraggedElement]['category'] = category; // tasks[0]['category']
     await updateTasksInRemoteStorage(tasks, currentDraggedElement);
     await updateHTML();
+    removeHighlight(containerId);
 }
 
 function highlight(id) {
@@ -121,4 +122,23 @@ function removeHighlight(id) {
 async function updateTasksInRemoteStorage(updatedTasks) {
         const updatedTasksAsString = JSON.stringify(updatedTasks);
         await setItem('tasks', updatedTasksAsString);
+}
+
+function slideCardUp() {
+    document.getElementById('success_feedback').classList.remove('slide_down_without_bg')
+    document.getElementById('success_feedback').style.display = 'flex';
+    document.getElementById('success_feedback').classList.add('slide_up_without_bg');
+    document.getElementById('success_feedback').style.transform = 'translateY(0%)';
+}
+
+function slideCardDown() {
+    document.getElementById('success_feedback').classList.remove('slide_up_without_bg');
+    document.getElementById('success_feedback').classList.add('slide_down_without_bg');
+    document.getElementById('success_feedback').style.transform = 'translateY(100%)';
+    setTimeout(() => {
+        document.getElementById('success_feedback').style.display = 'none';
+    }, 500);
+    setTimeout(() => {
+        window.location.pathname = '/board.html';
+    }, 1000);
 }

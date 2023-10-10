@@ -99,17 +99,33 @@
     background-color:rgba(0, 0, 0, 0);
     transform: translateY(100%);
   } to {
-    background-color:rgba(0, 0, 0, 0.25);
+    background-color:rgba(0, 0, 0, 0);
+    transform: translateY(0%);
+  }
+}
+
+@keyframes slideUpWithoutBG {
+  from {
+    transform: translateY(100%);
+  } to {
     transform: translateY(0%);
   }
 }
 
 @keyframes slideDown {
   from {
-    background-color:rgba(0, 0, 0, 0.25);
+    background-color:rgba(0, 0, 0, 0);
     transform: translateY(0%);
   } to {
     background-color:rgba(0, 0, 0, 0);
+    transform: translateY(100%);
+  }
+}
+
+@keyframes slideDownWithoutBG {
+  from {
+    transform: translateY(0%);
+  } to {
     transform: translateY(100%);
   }
 }
@@ -128,4 +144,12 @@
 
 .slide_down {
   animation: slideDown 0.5s ease;
+}
+
+.slide_up_without_bg {
+  animation: slideUpWithoutBG 0.5s ease;
+}
+
+.slide_down_without_bg {
+  animation: slideDownWithoutBG 0.5s ease;
 }
