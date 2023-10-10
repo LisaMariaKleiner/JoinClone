@@ -28,10 +28,22 @@ async function createNewTask() {
     });
 
     await setItem('tasks', JSON.stringify(tasks));
-    await updateHTML();
+    clearInputFields();
+    if (window.location.pathname == '/board.html') {
+        await updateHTML();
+    }
     await updateTasksInRemoteStorage(tasks, currentId)
     currentId++;
 };
+
+function clearInputFields() {
+    document.getElementById('title_input').value = '';
+    document.getElementById('description_textarea').value = '';
+    document.getElementById('assigned_to_input').value = '';
+    document.getElementById('date_input').value = '';
+    document.getElementById('task_category_input').value = '';
+    document.getElementById('subtask_category_input').value = '';
+}
 
 async function updateHTML() {
     await loadTasks();
@@ -94,7 +106,7 @@ function allowDrop(ev) {
 
 async function moveTo(category) {
     tasks[currentDraggedElement]['category'] = category; // tasks[0]['category']
-    updateTasksInRemoteStorage(tasks, currentDraggedElement);
+    await updateTasksInRemoteStorage(tasks, currentDraggedElement);
     await updateHTML();
 }
 

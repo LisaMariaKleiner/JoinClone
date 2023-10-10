@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="./css/add_task.css">
     <script src="./js/storage.js"></script>
     <script src="./js/login.js"></script>
-    <script src="/js/logout.js"></script>
+    <script src="./js/logout.js"></script>
+    <script src="./js/add_task.js"></script>
     <script src="./js/script.js"></script>
 </head>
 <body onload="init()">
@@ -94,7 +95,7 @@
                 <div class="title">
                     <span>Subtasks</span>
                     <div class="subtasks">
-                        <input type="text" class="title_input" id="subtask_input" placeholder="Add new subtask"> 
+                        <input type="text" class="title_input" id="subtask_category_input" placeholder="Add new subtask"> 
                         <img src="./assets/img/add.png" alt="">
                     </div>
                 </div>
@@ -107,8 +108,8 @@
                 <span>This field is required</span>
             </div>
             <div class="button_container">
-                <button class="secondary_button">Clear <img src="./assets/img/x.png" alt=""></button>
-                <button class="primary_button">Create Task <img src="./assets/img/done.png" alt=""></button>
+                <button class="secondary_button" onclick="clearInputFields()">Clear <img src="./assets/img/x.png" alt=""></button>
+                <button class="primary_button" onclick="createNewTask()">Create Task <img src="./assets/img/done.png" alt=""></button>
             </div>
         </div>
 
