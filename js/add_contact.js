@@ -60,11 +60,11 @@ function showContactInformation() {
     contactInformationCard.style.display = 'flex';
     contactInformationCard.classList.add('slide_in');
     contactInformationCard.style.transform = 'translate(0%)';
-    contactInformationCard.setAttribute('onclick', 'hideContactInformation()');
+    document.getElementById('contact').setAttribute('onclick', 'hideContactInformation()');
 }
-
 
 function hideContactInformation() {
     let contactInformationCard = document.getElementById('contact_information_card');
     contactInformationCard.style.display = 'none';
+    document.getElementById('contact').setAttribute('onclick', 'showContactInformation()');
 }
