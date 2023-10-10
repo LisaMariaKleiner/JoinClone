@@ -53,3 +53,18 @@ function clearNewContactForm() {
     new_contact_email.value = '';
     new_contact_phone.value = '';
 }
+
+
+function showContactInformation() {
+    let contactInformationCard = document.getElementById('contact_information_card');
+    contactInformationCard.style.display = 'flex';
+    contactInformationCard.classList.add('slide_in');
+    contactInformationCard.style.transform = 'translate(0%)';
+    contactInformationCard.setAttribute('onclick', 'hideContactInformation()');
+}
+
+
+function hideContactInformation() {
+    let contactInformationCard = document.getElementById('contact_information_card');
+    contactInformationCard.style.display = 'none';
+}
