@@ -1,5 +1,8 @@
-
 let contacts = [];
+
+async function loadContacts() {
+    users = await getItem('users');
+}
 
 async function createNewContact() {
     const newContactName = new_contact_name.value;
@@ -12,12 +15,12 @@ async function createNewContact() {
         phone: newContactPhone
     };
 
-    const currentUserData = JSON.parse(localStorage.user);
-    const currentUserContacts = currentUserData.contacts;
+    let currentUserData = JSON.parse(localStorage.user);
+    let currentUserContacts = currentUserData.contacts;
     currentUserContacts.push(newContact);
     localStorage.setItem('user', JSON.stringify(currentUserData));
     clearNewContactForm();
-    await updateUserInRemoteStorage(currentUserData);
+    updateUserInRemoteStorage(currentUserData);
 }
 
 async function updateUserInRemoteStorage(updatedUserData) {
@@ -27,8 +30,7 @@ async function updateUserInRemoteStorage(updatedUserData) {
         const userEmail = userData.email;
         const userPassword = userData.password;
 
-        const remoteUsersDataString = await getItem('users');
-        const remoteUsersData = JSON.parse(remoteUsersDataString);
+        const remoteUsersData = JSON.parse(users);
 
         // Find the user in the remote Storage and give the Index back
         const userIndex = remoteUsersData.findIndex(u => u.email === userEmail && u.password === userPassword);
@@ -60,11 +62,11 @@ function showContactInformation() {
     contactInformationCard.style.display = 'flex';
     contactInformationCard.classList.add('slide_in');
     contactInformationCard.style.transform = 'translate(0%)';
-    contactInformationCard.setAttribute('onclick', 'hideContactInformation()');
+    document.getElementById('contact').setAttribute('onclick', 'hideContactInformation()');
 }
-
 
 function hideContactInformation() {
     let contactInformationCard = document.getElementById('contact_information_card');
     contactInformationCard.style.display = 'none';
+    document.getElementById('contact').setAttribute('onclick', 'showContactInformation()');
 }

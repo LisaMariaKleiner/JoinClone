@@ -14,7 +14,7 @@
     <script src="./js/script.js"></script>
 </head>
 
-<body onload="init()">
+<body onload="init(); loadContacts()">
     <header w3-include-html="./assets/templates/header_template.html"></header>
     <nav w3-include-html="./assets/templates/sidenav_template.html"></nav>
 
@@ -28,7 +28,7 @@
                 <span>A</span>
             </div>
             <div class="horizontal_seperater"></div>
-            <div class="contact" onclick="showContactInformation()"> <!--Wird dann über JS generiert -->
+            <div id="contact" class="contact" onclick="showContactInformation()"> <!--Wird dann über JS generiert -->
                 <div class="task_member first_member">
                     <span>AM</span>
                 </div>
