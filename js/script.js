@@ -73,8 +73,10 @@ function slideCardOut(container) {
     }, 500);
 }
 
+
 let selectedContainer = null;
-function toggleHighlight(container) {
+
+function toggleHighlight(event, container) {
     
 
     if (selectedContainer) {
@@ -83,4 +85,6 @@ function toggleHighlight(container) {
 
     container.classList.add('selected');
     selectedContainer = container;
+
+    event.preventDefault();
 }
