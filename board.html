@@ -204,13 +204,20 @@
     <div id="task_card_opened">
         <div id="current_task_card">
             <h3 class="user_story">User Story</h3>
-            <div class="close_button_container">
+            <div class="close_button_container" onclick="openTaskDetailsCard(false, 'close')">
                 <img src="./assets/img/x.png" alt="Close Card">
             </div>
-            <h2>Title</h2>
-            <p>Description</p>
-            <span>Date: </span>
-            <span>Priority: </span>
+            <h2 id="task_title">Title</h2>
+            <p id="task_description">Description</p>
+            <div>
+                <span>Date: </span>
+                <span id="task_date"></span>
+            </div>
+            <div>
+                <span>Priority: </span>
+                <span id="task_priority"></span>
+            </div>
+
             <div>
                 <span>Assigned To: </span>
             </div>

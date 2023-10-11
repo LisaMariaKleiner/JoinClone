@@ -1,7 +1,21 @@
 let contacts = [];
+let currentContactId = 0;
+
+
+function renderContactCards() {
+    
+}
+
 
 async function loadContacts() {
     users = await getItem('users');
+}
+
+async function resetContacts() {
+    let currentUserData = JSON.parse(localStorage.user);
+    let currentUserContacts = currentUserData.contacts;
+    currentUserContacts.splice(0, currentUserContacts.length);
+    updateUserInRemoteStorage(currentUserData);
 }
 
 async function createNewContact() {
@@ -10,6 +24,7 @@ async function createNewContact() {
     const newContactPhone = new_contact_phone.value;
 
     const newContact = {
+        id: currentContactId,
         name: newContactName,
         email: newContactEmail,
         phone: newContactPhone
@@ -21,6 +36,7 @@ async function createNewContact() {
     localStorage.setItem('user', JSON.stringify(currentUserData));
     clearNewContactForm();
     updateUserInRemoteStorage(currentUserData);
+    currentContactId++;
 }
 
 async function updateUserInRemoteStorage(updatedUserData) {

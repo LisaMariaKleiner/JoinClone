@@ -72,7 +72,7 @@ function startDragging(id) {
 
 function createTask (element) {
     return /*html*/`
-        <div class="task_card" draggable="true" ondragstart="startDragging(${element['id']})">
+        <div class="task_card" draggable="true" ondragstart="startDragging(${element['id']})" onclick="openTaskDetailsCard(${element['id']}, 'open')">
             <h3 class="user_story">User Story</h3>
             <div class="task_information">
                 <h2>${element['title']}</h2>
@@ -141,4 +141,83 @@ function slideCardDown() {
     setTimeout(() => {
         window.location.pathname = '/board.html';
     }, 1000);
+}
+
+function openTaskDetailsCard(cardId, action) {
+    showTaskDetailsCard(action)
+    renderTaskDetails(cardId);
+
+}
+
+function showTaskDetailsCard(action) {
+    let taskDetailsBackground = document.getElementById('task_card_opened');
+    let taskDetailsCard = document.getElementById('current_task_card');
+    if(action === 'open') {
+        openDetailsCard(taskDetailsBackground, taskDetailsCard);
+    } else if (action === 'close') {
+        closeDetailsCard(taskDetailsBackground, taskDetailsCard)
+    }
+}
+
+function openDetailsCard(taskDetailsBackground, taskDetailsCard) {
+    taskDetailsBackground.style.display = 'flex';
+    taskDetailsBackground.classList.add('background_fade_in')
+    taskDetailsCard.classList.add('slide_in_no_bg_change')
+    taskDetailsCard.style.transform = 'translate(0%)';
+    setTimeout(() => {
+        taskDetailsCard.classList.remove('slide_in_no_bg_change')
+        taskDetailsBackground.classList.remove('background_fade_in')
+    }, 500);
+}
+
+function closeDetailsCard(taskDetailsBackground, taskDetailsCard) {
+    taskDetailsCard.classList.add('slide_out_no_bg_change')
+    taskDetailsBackground.classList.add('background_fade_in')
+    taskDetailsCard.style.transform = 'translate(200%)';
+    setTimeout(() => {
+        taskDetailsCard.classList.remove('slide_out_no_bg_change')
+        taskDetailsBackground.classList.remove('background_fade_in')
+        taskDetailsBackground.style.display = 'none';
+    }, 500);
+}
+
+function renderTaskDetails(cardId) {
+    let currentTask = tasks[cardId];
+    renderTaskTitle(currentTask);
+    renderTaskDescription(currentTask);
+    renderTaskDate(currentTask);
+    renderTaskPriority(currentTask);
+}
+
+function renderTaskTitle(currentTask) {
+    let taskTitle = document.getElementById('task_title');
+    taskTitle.innerText = currentTask.title;
+}
+
+function renderTaskDescription(currentTask) {
+    let taskDescription = document.getElementById('task_description');
+    taskDescription.innerText = currentTask.title;
+}
+
+function renderTaskDate(currentTask) {
+    let taskDate = document.getElementById('task_date');
+    taskDate.innerText = currentTask.title;
+}
+
+function renderTaskPriority(currentTask) {
+    let taskPriority = document.getElementById('task_priority');
+    taskPriority.innerText = currentTask.title;
+}
+
+document.addEventListener('mouseup', function(e) {
+    let taskDetailsCard = document.getElementById('current_task_card')
+    if(isTaskDetailsCardOpen()) {
+        if (!taskDetailsCard.contains(e.target)) {
+            showTaskDetailsCard('close')
+        }
+    }
+});
+
+function isTaskDetailsCardOpen() {
+    return document.getElementById('task_card_opened').style.display != 'none';
 }

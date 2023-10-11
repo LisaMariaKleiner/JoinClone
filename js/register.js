@@ -14,6 +14,7 @@ async function register() {
         });
         await setItem('users', JSON.stringify(users));
         resetForm();
+        showLoginCard();
         showSuccessFeedback();
     }
 }
@@ -47,4 +48,9 @@ function resetForm() {
     signup_password.value = '';
     signup_confirm_password.value = '';
     registerBtn.disabled = false;
+}
+
+function showLoginCard() {
+    document.getElementById('login_card').style.display = 'flex';
+    document.getElementById('signup_card').style.display = 'none';
 }
