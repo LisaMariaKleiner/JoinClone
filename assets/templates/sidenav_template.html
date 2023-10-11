@@ -8,13 +8,45 @@
     <title></title>
 </head>
 <body>
+    <script>
+        // Überprüfe den ausgewählten Zustand beim Laden der Seite
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentPage = window.location.pathname.split('/').pop();
+            const menuItems = document.querySelectorAll('.menu_element_container');
+        
+            menuItems.forEach(item => {
+                if (item.getAttribute('data-href') === currentPage) {
+                    item.classList.add('selected');
+                }
+            });
+        });
+        
+        const menuItems = document.querySelectorAll('.menu_element_container');
+        
+        menuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const href = item.getAttribute('data-href');
+                if (href) {
+                    // Entferne die "selected"-Klasse von allen Menüelementen
+                    menuItems.forEach(menuItem => {
+                        menuItem.classList.remove('selected');
+                    });
+        
+                    // Setze die "selected"-Klasse für das angeklickte Menüelement
+                    item.classList.add('selected');
+        
+                    // Navigiere zur verlinkten Seite
+                    window.location.href = href;
+                }
+            });
+        });
+        </script>
     <nav>
-        <a href="../../summary.html">
+        <a href="summary.html">
             <img src="./assets/img/joinLogoLight.png" alt="Join Logo">
         </a>
         <div class="side_menu">
-            <a href="../../summary.html">
-                <div class="menu_element_container" onclick="toggleHighlight(event, this)">
+                <div data-href="../../summary.html" class="menu_element_container"  onclick="navigateToPage(this, '../../summary.html')">
                     <div class="menu_element">
                         <div class="menu_icons center">                
                             <img src="./assets/img/summary.png" alt="Summary">
@@ -22,10 +54,8 @@
                         <span>Summary</span>
                     </div>    
                 </div>
-            </a>
-
-            <a href="../../add_task.html">
-                <div class="menu_element_container" onclick="toggleHighlight(event, this)">
+            
+                <div data-href="../../add_task.html" class="menu_element_container" onclick="navigateToPage(this, '../../ass_task.html')">
                     <div class="menu_element">
                         <div class="menu_icons center">                
                             <img src="./assets/img/edit_square.png" alt="Add Task">
@@ -33,10 +63,8 @@
                         <span>Add Task</span>
                     </div>    
                 </div>
-            </a>
-
-            <a href="../../board.html">
-                <div class="menu_element_container" onclick="toggleHighlight(event, this)">
+            
+                <div data-href="../../board.html" class="menu_element_container" onclick="navigateToPage(this, '../../board.html')">
                     <div class="menu_element">
                         <div class="menu_icons center">                
                             <img src="./assets/img/board.png" alt="Board">
@@ -44,10 +72,8 @@
                         <span>Board</span>
                     </div>    
                 </div>
-            </a>
-
-            <a href="../../contacts.html">
-                <div class="menu_element_container" onclick="toggleHighlight(event, this)">
+           
+                <div data-href="../../contacts.html" class="menu_element_container" onclick="navigateToPage(this, '../../contacts.html')">
                     <div class="menu_element">
                         <div class="menu_icons center">                
                             <img src="./assets/img/perm_contact_calendar.png" alt="Contacts">
@@ -55,7 +81,7 @@
                         <span>Contacts</span>
                     </div>    
                 </div>
-            </a>
+            
         </div>
     
         <div class="side_nav_footer">

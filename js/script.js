@@ -1,3 +1,15 @@
+// Überprüfe den ausgewählten Zustand beim Laden der Seite
+const selectedPage = localStorage.getItem('selectedPage');
+if (selectedPage) {
+    const menuItems = document.querySelectorAll('.menu_element_container');
+    menuItems.forEach(item => {
+        if (item.getAttribute('data-href') === selectedPage) {
+            item.classList.add('selected');
+        }
+    });
+}
+
+
 
 async function init() {
     includeHTML();
@@ -74,17 +86,11 @@ function slideCardOut(container) {
 }
 
 
-let selectedContainer = null;
-
-function toggleHighlight(event, container) {
-    
-
-    if (selectedContainer) {
-        selectedContainer.classList.remove('selected');
+function navigateToPage(container, page) {
+    const href = container.getAttribute('data-href');
+    if (href) {
+        // Setze den ausgewählten Zustand im Local Storage
+        localStorage.setItem('selectedPage', page);
+        window.location.href = href;
     }
-
-    container.classList.add('selected');
-    selectedContainer = container;
-
-    event.preventDefault();
 }
