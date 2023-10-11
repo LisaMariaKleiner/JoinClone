@@ -72,3 +72,15 @@ function slideCardOut(container) {
         container.style.display = 'none';
     }, 500);
 }
+
+let selectedContainer = null;
+function toggleHighlight(container) {
+    
+
+    if (selectedContainer) {
+        selectedContainer.classList.remove('selected');
+    }
+
+    container.classList.add('selected');
+    selectedContainer = container;
+}
