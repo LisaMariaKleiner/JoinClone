@@ -6,15 +6,6 @@
     <script src="js/script.js"></script>
     <link rel="stylesheet" href="css/sidenav.css">
     <title></title>
-    <style>
-        .menu_element_container {
-            background-color: #2A3647;
-        }
-
-        .selected {
-            background-color: #091931;
-        }
-    </style>
 </head>
 <body>
     <nav>
@@ -22,40 +13,49 @@
             <img src="./assets/img/joinLogoLight.png" alt="Join Logo">
         </a>
         <div class="side_menu">
-            <div id="toggle_link" onclick="toggleHighlight(this)" class="menu_element_container">
-                <div class="menu_element">
-                    <div class="menu_icons center">                
-                        <img src="./assets/img/summary.png" alt="Summary">
-                    </div>
-                    <a href="../../summary.html">Summary</a>
+            <a href="../../summary.html">
+                <div class="menu_element_container" onclick="toggleHighlight(event, this)">
+                    <div class="menu_element">
+                        <div class="menu_icons center">                
+                            <img src="./assets/img/summary.png" alt="Summary">
+                        </div>
+                        <span>Summary</span>
+                    </div>    
                 </div>
-            </div>
+            </a>
 
-            <div id="toggle_link" onclick="toggleHighlight(this)" class="menu_element_container">
-                <div class="menu_element">
-                    <div class="menu_icons center">
-                        <img src="./assets/img/edit_square.png" alt="Add Task">
-                    </div>
-                    <a href="../../add_task.html">Add Task</a>
+            <a href="../../add_task.html">
+                <div class="menu_element_container" onclick="toggleHighlight(event, this)">
+                    <div class="menu_element">
+                        <div class="menu_icons center">                
+                            <img src="./assets/img/edit_square.png" alt="Add Task">
+                        </div>
+                        <span>Add Task</span>
+                    </div>    
                 </div>
-            </div>
+            </a>
 
-            <div id="toggle_link" onclick="toggleHighlight(this)" class="menu_element_container">
-                <div class="menu_element">
-                    <div class="menu_icons center">
-                        <img src="./assets/img/board.png" alt="Board">
-                    </div>
-                    <a href="../../board.html">Board</a>
+            <a href="../../board.html">
+                <div class="menu_element_container" onclick="toggleHighlight(event, this)">
+                    <div class="menu_element">
+                        <div class="menu_icons center">                
+                            <img src="./assets/img/board.png" alt="Board">
+                        </div>
+                        <span>Board</span>
+                    </div>    
                 </div>
-            </div>
+            </a>
 
-            <div id="toggle_link" onclick="toggleHighlight(this)" class="menu_element_container">
-                <div class="menu_element">                
-                    <div class="menu_icons center">
-                    <img src="./assets/img/perm_contact_calendar.png" alt="Contacts">
+            <a href="../../contacts.html">
+                <div class="menu_element_container" onclick="toggleHighlight(event, this)">
+                    <div class="menu_element">
+                        <div class="menu_icons center">                
+                            <img src="./assets/img/perm_contact_calendar.png" alt="Contacts">
+                        </div>
+                        <span>Contacts</span>
+                    </div>    
                 </div>
-                <a href="../../contacts.html">Contacts</a></div>
-            </div>
+            </a>
         </div>
     
         <div class="side_nav_footer">
