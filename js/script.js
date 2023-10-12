@@ -106,4 +106,3 @@ function checkForSelectedPage(hrefLink, containerId) {
         document.getElementById(containerId).classList.add('selected');
     }
 }
-

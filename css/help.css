@@ -1,3 +1,7 @@
+main {
+    overflow: auto;
+}
+
 .help_list {
     display: flex;
     gap: 35px;
@@ -16,4 +20,14 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.help_list_count {
+    color: black;
+}
+
+.help_page_join_text {
+    color: #29ABE2;
+    font-size: 16px!important;
+    font-weight: 400!important;
 }

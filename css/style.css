@@ -3,10 +3,6 @@
 @import url('./sidenav.css');
 @import url('./help.css');
 
-html {
-    overflow: hidden;
-}
-
 * {
     padding: 0;
     margin: 0;

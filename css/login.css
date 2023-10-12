@@ -202,6 +202,7 @@ h1 {
     margin-left: 37px;
     gap: 8px; 
     cursor: pointer;
+    align-items: center;
 }
 
 .login_remember_container input {
@@ -209,6 +210,34 @@ h1 {
     height: 16px;
     border: 2px solid #2A3647;
     border-radius: 3px;
+}
+
+.remember_me_checkbox,
+.accept_privacy_policy_checkbox {
+    z-index: -1;
+    display: none;
+    position: absolute;
+}
+
+.remember_me_checkbox + label,
+.accept_privacy_policy_checkbox + label {
+    background: url('../assets/img/unchecked.png') no-repeat;
+    background-position: center;
+    width: 24px;
+    height: 24px;
+}
+
+.remember_me_checkbox:checked + label,
+.accept_privacy_policy_checkbox:checked + label {
+    background: url('../assets/img/checked.png') no-repeat;
+    background-position: center;
+    width: 24px;
+    height: 24px;
+}
+
+.remember_me_checkbox_text,
+.accept_privacy_policy_checkbox_text {
+    font-family: 'Inter', sans-serif;
 }
 
 .login_button_container {
