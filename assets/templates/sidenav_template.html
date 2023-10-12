@@ -1,96 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="js/script.js"></script>
-    <link rel="stylesheet" href="css/sidenav.css">
-    <title></title>
-</head>
-<body>
-    <script>
-        // Überprüfe den ausgewählten Zustand beim Laden der Seite
-        document.addEventListener('DOMContentLoaded', function () {
-            const currentPage = window.location.pathname.split('/').pop();
-            const menuItems = document.querySelectorAll('.menu_element_container');
+<nav>
+    <a href="summary.html">
+        <img src="./assets/img/joinLogoLight.png" alt="Join Logo">
+    </a>
+    <div class="side_menu">
+            <div id="summary_link" data-href="../../summary.html" class="menu_element_container"  onclick="navigateToPage(this, '../../summary.html')">
+                <div class="menu_element">
+                    <div class="menu_icons center">                
+                        <img src="./assets/img/summary.png" alt="Summary">
+                    </div>
+                    <span>Summary</span>
+                </div>    
+            </div>
         
-            menuItems.forEach(item => {
-                if (item.getAttribute('data-href') === currentPage) {
-                    item.classList.add('selected');
-                }
-            });
-        });
+            <div id="add_task_link" data-href="../../add_task.html" class="menu_element_container" onclick="navigateToPage(this, '../../add_task.html')">
+                <div class="menu_element">
+                    <div class="menu_icons center">                
+                        <img src="./assets/img/edit_square.png" alt="Add Task">
+                    </div>
+                    <span>Add Task</span>
+                </div>    
+            </div>
         
-        const menuItems = document.querySelectorAll('.menu_element_container');
+            <div id="board_link" data-href="../../board.html" class="menu_element_container" onclick="navigateToPage(this, '../../board.html')">
+                <div class="menu_element">
+                    <div class="menu_icons center">                
+                        <img src="./assets/img/board.png" alt="Board">
+                    </div>
+                    <span>Board</span>
+                </div>    
+            </div>
         
-        menuItems.forEach(item => {
-            item.addEventListener('click', function() {
-                const href = item.getAttribute('data-href');
-                if (href) {
-                    // Entferne die "selected"-Klasse von allen Menüelementen
-                    menuItems.forEach(menuItem => {
-                        menuItem.classList.remove('selected');
-                    });
+            <div id="contacts_link" data-href="../../contacts.html" class="menu_element_container" onclick="navigateToPage(this, '../../contacts.html')">
+                <div class="menu_element">
+                    <div class="menu_icons center">                
+                        <img src="./assets/img/perm_contact_calendar.png" alt="Contacts">
+                    </div>
+                    <span>Contacts</span>
+                </div>    
+            </div>
         
-                    // Setze die "selected"-Klasse für das angeklickte Menüelement
-                    item.classList.add('selected');
-        
-                    // Navigiere zur verlinkten Seite
-                    window.location.href = href;
-                }
-            });
-        });
-        </script>
-    <nav>
-        <a href="summary.html">
-            <img src="./assets/img/joinLogoLight.png" alt="Join Logo">
-        </a>
-        <div class="side_menu">
-                <div data-href="../../summary.html" class="menu_element_container"  onclick="navigateToPage(this, '../../summary.html')">
-                    <div class="menu_element">
-                        <div class="menu_icons center">                
-                            <img src="./assets/img/summary.png" alt="Summary">
-                        </div>
-                        <span>Summary</span>
-                    </div>    
-                </div>
-            
-                <div data-href="../../add_task.html" class="menu_element_container" onclick="navigateToPage(this, '../../ass_task.html')">
-                    <div class="menu_element">
-                        <div class="menu_icons center">                
-                            <img src="./assets/img/edit_square.png" alt="Add Task">
-                        </div>
-                        <span>Add Task</span>
-                    </div>    
-                </div>
-            
-                <div data-href="../../board.html" class="menu_element_container" onclick="navigateToPage(this, '../../board.html')">
-                    <div class="menu_element">
-                        <div class="menu_icons center">                
-                            <img src="./assets/img/board.png" alt="Board">
-                        </div>
-                        <span>Board</span>
-                    </div>    
-                </div>
-           
-                <div data-href="../../contacts.html" class="menu_element_container" onclick="navigateToPage(this, '../../contacts.html')">
-                    <div class="menu_element">
-                        <div class="menu_icons center">                
-                            <img src="./assets/img/perm_contact_calendar.png" alt="Contacts">
-                        </div>
-                        <span>Contacts</span>
-                    </div>    
-                </div>
-            
-        </div>
-    
-        <div class="side_nav_footer">
+    </div>
+
+    <div class="side_nav_footer">
+        <div id="privacy_policy_link" class="menu_element_container footer_link" data-href="../../PrivacyPolicy.html" onclick="navigateToPage(this, '../../PrivacyPolicy.html')">
             <a class="side_nav_footer_link" href="../../PrivacyPolicy.html">Privacy Policy</a>
+        </div>
+        <div id="legal_notice_link" class="menu_element_container footer_link" data-href="../../legal_notice.html" onclick="navigateToPage(this, '../../legal_notice.html')">
             <a class="side_nav_footer_link" href="../../legal_notice.html">Legal Notice</a>
         </div>
-    </nav>
-</body>
-</html>
-    
-    
+    </div>
+</nav>
     

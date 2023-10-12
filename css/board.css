@@ -93,6 +93,12 @@ section {
     margin-bottom: 8px;
 }
 
+.task_list_headlines span {
+    color: #42526E;
+    font-size: 20px;
+    font-weight: 700;
+}
+
 .board_section {
     display: flex;
     justify-content: space-around;
@@ -238,6 +244,7 @@ section {
 
 .task_information h2 {
     font-size: 16px;
+    color: #2A3647;
 }
 
 .task_information p {
@@ -256,6 +263,12 @@ section {
     height: 8px;
     background-color: #F4F4F4;
     border-radius: 8px;
+}
+
+.subtask_count {
+    font-family: 'Inter', sans-serif;
+    color: black;
+    font-size: 12px;
 }
 
 .current_subtask_progress {
@@ -290,6 +303,10 @@ section {
     color: white;
     font-size: 12px;
     margin-right: -6px;
+}
+
+.task_member span {
+    color: white;
 }
 
 .first_member {

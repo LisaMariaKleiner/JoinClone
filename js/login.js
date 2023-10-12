@@ -18,32 +18,36 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function loginWhenEnterIsPressed() {
-    let loginEmail = document.getElementById('login_email');
-    let loginPassword = document.getElementById('login_password');
+    if(isOnLoginPage()) {
+        let loginEmail = document.getElementById('login_email');
+        let loginPassword = document.getElementById('login_password');
 
-    loginEmail.addEventListener('keyup', (event) => {
-        if(event.keyCode === 13) {
-            login(login_email.value, login_password.value);
-        }
-    });
-    
-    loginPassword.addEventListener('keyup', (event) => {
-        if(event.keyCode === 13) {
-            login(login_email.value, login_password.value);
-        }
-    });
+        loginEmail.addEventListener('keyup', (event) => {
+            if(event.keyCode === 13) {
+                login(login_email.value, login_password.value);
+            }
+        });
+        
+        loginPassword.addEventListener('keyup', (event) => {
+            if(event.keyCode === 13) {
+                login(login_email.value, login_password.value);
+            }
+        });
+    }
 }
 
 function autoLogin() {
-    const rememberMeStatusString = localStorage.getItem('checkbox');
-    const rememberMeStatus = JSON.parse(rememberMeStatusString);
-    
-    if(currentUserExistInRemoteStorage() && isOnLoginPage() && rememberMeStatus) {
-        const userDataString = localStorage.getItem('user');
-        const userData = JSON.parse(userDataString);
-        const userEmail = userData.email;
-        const userPassword = userData.password;
-        login(userEmail, userPassword);
+    if(isOnLoginPage()) {
+        const rememberMeStatusString = localStorage.getItem('checkbox');
+        const rememberMeStatus = JSON.parse(rememberMeStatusString);
+        
+        if(currentUserExistInRemoteStorage() && isOnLoginPage() && rememberMeStatus) {
+            const userDataString = localStorage.getItem('user');
+            const userData = JSON.parse(userDataString);
+            const userEmail = userData.email;
+            const userPassword = userData.password;
+            login(userEmail, userPassword);
+        }
     }
 }
 
@@ -71,20 +75,30 @@ function isOnLoginPage() {
     return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/index.html';
 }
 
+function isOnSummaryPage() {
+    return window.location.href === 'http://127.0.0.1:5500' || window.location.pathname === '/summary.html';
+}
+
+function isOnBoardPage() {
+    return window.location.href === 'http://127.0.0.1:5500' || window.location.pathname === '/board.html';
+}
+
 function loadUserInSummary() {
-    const userDataString = localStorage.getItem('user');
+    if(isOnSummaryPage()) {
+        const userDataString = localStorage.getItem('user');
 
-    if (userDataString) {
-        
-        const userData = JSON.parse(userDataString);
-
-        if (userData.name) {  
-            document.getElementById('username').textContent = userData.name;
-            document.getElementById('greeting').textContent = 'Good morning,';
+        if (userDataString) {
+            
+            const userData = JSON.parse(userDataString);
+    
+            if (userData.name) {  
+                document.getElementById('username').textContent = userData.name;
+                document.getElementById('greeting').textContent = 'Good morning,';
+            } else {
+                document.getElementById('username').textContent = '';
+            }
         } else {
             document.getElementById('username').textContent = '';
         }
-    } else {
-        document.getElementById('username').textContent = '';
     }
 }

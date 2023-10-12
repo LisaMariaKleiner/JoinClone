@@ -16,6 +16,12 @@ async function init() {
     await loadUsers();
     autoLogin();
     loadUserInSummary();
+    checkForSelectedPage('../../summary.html', 'summary_link');
+    checkForSelectedPage('../../add_task.html', 'add_task_link');
+    checkForSelectedPage('../../board.html', 'board_link');
+    checkForSelectedPage('../../contacts.html', 'contacts_link');
+    checkForSelectedPage('../../PrivacyPolicy.html', 'privacy_policy_link');
+    checkForSelectedPage('../../legal_notice.html', 'legal_notice_link');
 }
 
 async function includeHTML() {
@@ -85,7 +91,6 @@ function slideCardOut(container) {
     }, 500);
 }
 
-
 function navigateToPage(container, page) {
     const href = container.getAttribute('data-href');
     if (href) {
@@ -94,3 +99,11 @@ function navigateToPage(container, page) {
         window.location.href = href;
     }
 }
+
+function checkForSelectedPage(hrefLink, containerId) {
+    const selectedPage = localStorage.getItem('selectedPage');
+    if (selectedPage === hrefLink) {
+        document.getElementById(containerId).classList.add('selected');
+    }
+}
+

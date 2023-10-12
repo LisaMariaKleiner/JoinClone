@@ -219,5 +219,7 @@ document.addEventListener('mouseup', function(e) {
 });
 
 function isTaskDetailsCardOpen() {
-    return document.getElementById('task_card_opened').style.display != 'none';
+    if(isOnBoardPage()) {
+        return document.getElementById('task_card_opened').style.display != 'none';
+    }
 }

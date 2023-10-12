@@ -25,10 +25,17 @@ form {
     font-size: 20px;
     color: #2a3647;
     gap: 8px;
+
 }
 
 .highlighted_object {
     display: flex;
+}
+
+.title span,
+.highlighted_object span {
+    color: #2A3647;
+    font-size: 20px;
 }
 
 .title_input {

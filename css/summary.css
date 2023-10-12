@@ -5,6 +5,12 @@
     font-size: 27px;
 }
 
+.slogan {
+    font-size: 27px;
+    color: #2A3647;
+
+}
+
 .join360_main_content {
     display: flex;
     align-items: center;
@@ -74,6 +80,7 @@
     font-family: 'Inter', sans-serif;
     font-weight: 600;
     font-size: 64px;
+    color: black;
 }
 
 .to_do_text {
@@ -150,6 +157,7 @@
     font-family: 'Inter', sans-serif;
     font-size: 64px;
     font-weight: 600;
+    color: black;
 }
 
 .progress_title {

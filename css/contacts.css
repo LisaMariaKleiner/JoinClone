@@ -81,6 +81,9 @@ html {
     gap: 8px;
 }
 
+.alphabet_container  span {
+    color: black;
+}
 
 .show_contacts {
     display: flex;
@@ -129,6 +132,10 @@ html {
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+
+.member_shortinfo span {
+    color: black;
 }
 
 .task_member {
@@ -181,6 +188,7 @@ html {
     font-size: 27px;
     font-weight: 400;
     font-family: 'Inter', sans-serif;
+    color: #2A3647;
 }
 
 .contact_information_card {
@@ -229,15 +237,21 @@ html {
     cursor: pointer;
 }
 
+.edit_container span,
+.delete_container span {
+    color: #2A3647;
+}
+
 .edit_container:hover, .delete_container:hover {
     color: #29abe2;
     font-weight: 700;
 }
 
-.name span {
+.name {
     font-family: 'Inter', sans-serif;
     font-size: 47px;
     font-weight: 500;
+    color: black;
 }
 
 .icon_container {
@@ -271,6 +285,7 @@ html {
 .contact_information_title span {
     font-size: 20px;
     font-weight: 400;
+    color: black;
 }
 
 .email_phone_container {
@@ -302,6 +317,7 @@ html {
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     font-weight: 700;
+    color: black;
 }
 
 #card_background {
