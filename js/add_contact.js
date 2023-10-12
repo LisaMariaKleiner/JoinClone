@@ -143,60 +143,29 @@ function clearNewContactForm() {
 
 function showContactInformation(contactInitial, contactName, contactEmail, contactPhone, contactId) {
     let contactInformationCard = document.getElementById('contact_information_card');
-    contactInformationCard.innerHTML = createContactInformationCard(contactInitial, contactName, contactEmail, contactPhone, contactId);
+    createContactInformationCard(contactInitial, contactName, contactEmail, contactPhone, contactId);
     contactInformationCard.style.display = 'flex';
     contactInformationCard.classList.add('slide_in');
     contactInformationCard.style.transform = 'translate(0%)';
-    document.getElementById('contact').setAttribute('onclick', `hideContactInformation(${contactInitial}, ${contactName}, ${contactEmail}, ${contactPhone}, ${contactId})`);
+    document.getElementById(`contact_${contactId}`).setAttribute('onclick', `hideContactInformation('${contactInitial}', '${contactName}', '${contactEmail}', '${contactPhone}', '${contactId}')`);
 }
 
 function createContactInformationCard(contactInitial, contactName, contactEmail, contactPhone, contactId) {
-    return /*html*/ `
-                    <div class="name_container">
-                        <div class="name_icon">${contactInitial}</div>
-                        <div>
-                            <div class="name"><span>${contactName}</span></div>
-                            <div class="edit_delete_container">
-                                <div class="edit_container">
-                                    <div class="icon_container">
-                                        <img src="./assets/img/edit.svg" alt="edit">
-                                    </div>
-                                    <span>Edit</span>
-                                </div>
-                                <div class="delete_container">
-                                    <div class="icon_container">
-                                        <img src="./assets/img/delete.png" alt="edit">
-                                    </div>
-                                    <span>Delete</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contact_information_title">
-                        <span>Contact Information</span>
-                    </div>
-                    <div class="email_phone_container">
-                        <div class="email_container">
-                            <span>Email</span>
-                            <a id="contact_email" href = "mailto: ${contactEmail}">${contactEmail}</a>
-                        </div>
-                        <div class="phone_container">
-                            <span>Phone</span>
-                            <a id="phone_number" href="tel:${contactPhone}">${contactPhone}</a>
-                        </div>
-                    </div>
-            `;
+    document.getElementById('contact_initials').innerText = contactInitial;
+    document.getElementById('contact_name').innerText = contactName;
+    document.getElementById('contact_email').innerText = contactEmail;
+    document.getElementById('phone_number').innerText = contactPhone;
 }
 
 function hideContactInformation(contactInitial, contactName, contactEmail, contactPhone, contactId) {
     let contactInformationCard = document.getElementById('contact_information_card');
     contactInformationCard.style.display = 'none';
-    document.getElementById('contact').setAttribute('onclick', `showContactInformation(${contactInitial}, ${contactName}, ${contactEmail}, ${contactPhone}, ${contactId})`);
+    document.getElementById(`contact_${contactId}`).setAttribute('onclick', `showContactInformation('${contactInitial}', '${contactName}', '${contactEmail}', '${contactPhone}', '${contactId}')`);
 }
 
 function createContactCard(contactInitial, contactName, contactEmail, contactPhone, contactId) {
     return /*html*/`
-                    <div id="contact" class="contact" onclick="showContactInformation(${contactInitial}, ${contactName}, ${contactEmail}, ${contactPhone}, ${contactId})"> <!--Wird dann über JS generiert -->
+                    <div id="contact_${contactId}" class="contact" onclick="showContactInformation('${contactInitial}', '${contactName}', '${contactEmail}', '${contactPhone}', '${contactId}')">
                         <div class="task_member first_member">
                             <span>${contactInitial}</span>
                         </div>
