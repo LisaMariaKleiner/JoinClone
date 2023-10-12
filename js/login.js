@@ -76,11 +76,11 @@ function isOnLoginPage() {
 }
 
 function isOnSummaryPage() {
-    return window.location.href === 'http://127.0.0.1:5500' || window.location.pathname === '/summary.html';
+    return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/summary.html';
 }
 
 function isOnBoardPage() {
-    return window.location.href === 'http://127.0.0.1:5500' || window.location.pathname === '/board.html';
+    return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/board.html';
 }
 
 function loadUserInSummary() {

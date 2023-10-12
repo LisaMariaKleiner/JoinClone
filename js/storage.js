@@ -12,6 +12,7 @@ async function loadUsers(){
 }
 
 async function setItem(key, value) {
+    console.log('Er lädt in setItem den Key und Value: ', key, value)
     const payload = { key, value, token: STORAGE_TOKEN };
     return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
         .then(res => res.json());
