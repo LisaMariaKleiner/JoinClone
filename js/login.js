@@ -83,6 +83,7 @@ function isOnBoardPage() {
     return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/board.html';
 }
 
+
 function loadUserInSummary() {
     if(isOnSummaryPage()) {
         const userDataString = localStorage.getItem('user');
@@ -93,7 +94,6 @@ function loadUserInSummary() {
     
             if (userData.name) {  
                 document.getElementById('username').textContent = userData.name;
-                document.getElementById('greeting').textContent = 'Good morning,';
             } else {
                 document.getElementById('username').textContent = '';
             }
@@ -102,3 +102,36 @@ function loadUserInSummary() {
         }
     }
 }
+
+function greetUser() {
+    
+    if (isOnSummaryPage()) {
+        const storedUser = localStorage.getItem('user');
+        const greeting = getGreeting();
+
+        if (storedUser) {
+            document.getElementById('greeting').innerHTML = greeting;
+            loadUserInSummary();
+        } else {
+            document.getElementById('greeting').innerHTML = greeting;
+        }
+    } 
+}
+
+
+function getGreeting() {
+    const now = new Date();
+    const currentHour = now.getHours();
+    let greeting = '';
+  
+    if (currentHour >= 5 && currentHour < 12) {
+      greeting = 'Good Morning';
+    } else if (currentHour >= 12 && currentHour < 17) {
+      greeting = 'Good Afternoon';
+    } else {
+      greeting = 'Good Evening';
+    }
+  
+    return greeting;
+  }
+  
