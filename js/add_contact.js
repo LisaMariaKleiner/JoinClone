@@ -141,13 +141,50 @@ function clearNewContactForm() {
 }
 
 
+let lastOpenedContact;
 function showContactInformation(contactInitial, contactName, contactEmail, contactPhone, contactId) {
-    let contactInformationCard = document.getElementById('contact_information_card');
-    createContactInformationCard(contactInitial, contactName, contactEmail, contactPhone, contactId);
+    if(lastOpenedContact === contactId) {
+        hideContactInformation();
+        changeSelectedState(lastOpenedContact, 'unselected');
+        lastOpenedContact = '';
+    } else {
+        hideContactInformation();
+        setTimeout(() => {
+            let contactInformationCard = document.getElementById('contact_information_card');
+            createContactInformationCard(contactInitial, contactName, contactEmail, contactPhone, contactId);
+            setEditButtonOnClick(contactId, `${contactInitial}`);
+            addOpenedContactAnimation(contactInformationCard);
+            changeSelectedState(contactId, 'selected');
+            if(lastOpenedContact) {
+                changeSelectedState(lastOpenedContact,'unselected');
+            }
+            lastOpenedContact = contactId;
+        }, 200);
+    }
+}
+
+function setEditButtonOnClick(contactId, contactInitial) {
+    document.getElementById('edit_button').setAttribute('onclick', `moveEditContactCard(${contactId}, '${contactInitial}' ,'open')`)
+}
+
+function addOpenedContactAnimation(contactInformationCard) {
     contactInformationCard.style.display = 'flex';
     contactInformationCard.classList.add('slide_in');
     contactInformationCard.style.transform = 'translate(0%)';
-    document.getElementById(`contact_${contactId}`).setAttribute('onclick', `hideContactInformation('${contactInitial}', '${contactName}', '${contactEmail}', '${contactPhone}', '${contactId}')`);
+}
+
+function changeSelectedState(contactId, action) {
+    if(action === 'selected') {
+        document.getElementById(`contact_${contactId}`).classList.add('selected');
+        document.getElementById(`contact_card_name_${contactId}`).classList.add('color_white');
+    } else if (action  === 'unselected' && containerHasClassSelected(contactId)) { 
+        document.getElementById(`contact_${contactId}`).classList.remove('selected');
+        document.getElementById(`contact_card_name_${contactId}`).classList.remove('color_white');
+    }
+}
+
+function containerHasClassSelected(contactId) {
+    return document.getElementById(`contact_${contactId}`).classList.contains('selected');
 }
 
 function createContactInformationCard(contactInitial, contactName, contactEmail, contactPhone, contactId) {
@@ -157,22 +194,50 @@ function createContactInformationCard(contactInitial, contactName, contactEmail,
     document.getElementById('phone_number').innerText = contactPhone;
 }
 
-function hideContactInformation(contactInitial, contactName, contactEmail, contactPhone, contactId) {
+function hideContactInformation() {
     let contactInformationCard = document.getElementById('contact_information_card');
     contactInformationCard.style.display = 'none';
-    document.getElementById(`contact_${contactId}`).setAttribute('onclick', `showContactInformation('${contactInitial}', '${contactName}', '${contactEmail}', '${contactPhone}', '${contactId}')`);
 }
 
 function createContactCard(contactInitial, contactName, contactEmail, contactPhone, contactId) {
     return /*html*/`
                     <div id="contact_${contactId}" class="contact" onclick="showContactInformation('${contactInitial}', '${contactName}', '${contactEmail}', '${contactPhone}', '${contactId}')">
                         <div class="task_member first_member">
-                            <span>${contactInitial}</span>
+                            <span class="color_white">${contactInitial}</span>
                         </div>
                         <div class="member_shortinfo">
-                            <span>${contactName}</span>
+                            <span id="contact_card_name_${contactId}">${contactName}</span>
                             <span><a>${contactEmail}</a></span>
                         </div>
                     </div>
     `;
+}
+
+function moveAddNewContactCard(event) {
+    let addNewContactCard = document.getElementById('card_background');
+    if (event === 'open') {
+        slideCardIn(addNewContactCard);
+    } else if (event === 'close') {
+        slideCardOut(addNewContactCard);
+    }
+}
+
+function moveEditContactCard(contactId, contactInitial, event) {
+    let editCard = document.getElementById('edit_card_background');
+    if (event === 'open') {
+        slideCardIn(editCard);
+        fillContactInformation(contactId, contactInitial);
+    } else if (event === 'close') {
+        slideCardOut(editCard);
+    }
+}
+
+function fillContactInformation(contactId, contactInitial) {
+    let contactName = contacts[contactId].name;
+    let contactEmail = contacts[contactId].email;
+    let contactPhone = contacts[contactId].phone;
+    document.getElementById('edit_contact_initials').innerText = contactInitial;
+    document.getElementById('edit_contact_name').value = contactName;
+    document.getElementById('edit_contact_email').value = contactEmail;
+    document.getElementById('edit_contact_phone').value = contactPhone;
 }
