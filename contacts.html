@@ -41,7 +41,7 @@
                 <div>
                     <div class="name"><span id="contact_name">Anton Mayer</span></div>
                     <div class="edit_delete_container">
-                        <div id="edit_button" class="edit_container" onclick="moveEditContactCard('open')">
+                        <div id="edit_button" class="edit_container">
                             <div class="icon_container_edit_icon">
 
                             </div>
@@ -84,25 +84,25 @@
                 <button class="close_contact_card_button" onclick="moveAddNewContactCard('close')">
                     <img src="./assets/img/x.png" alt="Close Button">
                 </button>
-                <div class="edit_profile_picture">
+                <div class="add_new_contact_profile_picture">
                     <img src="./assets/img/person_light.png" alt="Contact Profile Picture">
                 </div>
-                <div class="edit_input_container">
+                <div class="add_new_contact_input_container">
                     <form onsubmit="createNewContact()">
                         <div class="input_container">
-                            <input type="name" id="edit_contact_name" placeholder="Name">
+                            <input type="name" id="new_contact_name" placeholder="Name">
                             <div class="input_icon_container">
                                 <img src="./assets/img/person.png" alt="Name Icon">
                             </div>
                         </div>
                         <div class="input_container">
-                            <input type="email" id="edit_contact_email" placeholder="Email">
+                            <input type="email" id="new_contact_email" placeholder="Email">
                             <div class="input_icon_container">
                                 <img src="./assets/img/mail.png" alt="Email Icon">
                             </div>
                         </div>
                         <div class="input_container">
-                            <input type="tel" id="edit_contact_phone" placeholder="Phone">
+                            <input type="tel" id="new_contact_phone" placeholder="Phone">
                             <div class="input_icon_container">
                                 <img src="./assets/img/call.png" alt="Phone Icon">
                             </div>
@@ -125,7 +125,7 @@
     </div>
 
     <div id="edit_card_background">
-       
+
     </div>
 
 </body>

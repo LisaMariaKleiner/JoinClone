@@ -626,3 +626,17 @@ form input:focus {
 .color_white {
     color: white!important;
 }
+
+.edit_save_container {
+    display: flex;
+    position: relative;
+    text-align: center;
+}
+
+.edit_save_container img{
+    position: absolute;
+    width: 15px;
+    height: 11px;
+    right: 0;
+    top: 50%;
+}

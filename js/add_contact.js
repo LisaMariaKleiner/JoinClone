@@ -243,6 +243,30 @@ function fillContactInformation(contactId, contactInitial) {
     document.getElementById('edit_contact_phone').value = contactPhone;
 }
 
+function saveContact(contactId){
+    // Zieht die Value aus den Input Feldern: Name, Email, Phone
+    const editedContactName= edit_contact_name.value;
+    const editedContactEmail= edit_contact_email.value;
+    const editedContactPhone = edit_contact_phone.value;
+
+    console.log(edit_contact_name.value);
+
+    // Aktualisiert die Daten im Array contacts[contactId]
+    let currentContact = contacts[contactId];
+    currentContact.name = editedContactName;
+    currentContact.email = editedContactEmail;
+    currentContact.phone = editedContactPhone;
+
+    // Aktualisiert die Kontakte im LocalStorage
+    currentUser = JSON.parse(localStorage.getItem('user'));
+    currentUser.contacts = contacts;
+    
+    currentUser = JSON.stringify(currentUser);
+
+    // Gebe den aktualisierten Stand des Users in die Funktion und aktualisiert somit den User im RemoteStorage
+    updateUserInRemoteStorage(currentUser);
+}
+
 function createEditCard(contactName, contactEmail, contactPhone, contactId, contactInitial) {
     return /*html*/ `
            <div id="edit_contact_card" class="edit_contact_card"> 
@@ -259,7 +283,7 @@ function createEditCard(contactName, contactEmail, contactPhone, contactId, cont
                         <span id="edit_contact_initials">${contactInitial}"</span>
                     </div>
                     <div class="edit_contact_input_container">
-                        <form onsubmit="editContact()">
+                        <form onsubmit="saveContact(${contactId})">
                             <div class="input_container">
                                 <input type="name" id="edit_contact_name" value="${contactName}" placeholder="Name">
                                 <div class="input_icon_container">
