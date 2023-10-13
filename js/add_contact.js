@@ -152,7 +152,7 @@ function showContactInformation(contactInitial, contactName, contactEmail, conta
         setTimeout(() => {
             let contactInformationCard = document.getElementById('contact_information_card');
             createContactInformationCard(contactInitial, contactName, contactEmail, contactPhone, contactId);
-            setEditButtonOnClick(contactId, `${contactInitial}`);
+            setEditButtonOnClick(contactInitial, contactName, contactEmail, contactPhone, contactId);
             addOpenedContactAnimation(contactInformationCard);
             changeSelectedState(contactId, 'selected');
             if(lastOpenedContact) {
@@ -163,8 +163,8 @@ function showContactInformation(contactInitial, contactName, contactEmail, conta
     }
 }
 
-function setEditButtonOnClick(contactId, contactInitial) {
-    document.getElementById('edit_button').setAttribute('onclick', `moveEditContactCard(${contactId}, '${contactInitial}' ,'open')`)
+function setEditButtonOnClick(contactInitial, contactName, contactEmail, contactPhone, contactId) {
+    document.getElementById('edit_button').setAttribute('onclick', `moveEditContactCard('${contactInitial}', '${contactName}', '${contactEmail}', '${contactPhone}', '${contactId}','open')`)
 }
 
 function addOpenedContactAnimation(contactInformationCard) {
@@ -222,9 +222,10 @@ function moveAddNewContactCard(event) {
     }
 }
 
-function moveEditContactCard(contactId, contactInitial, event) {
+function moveEditContactCard(contactInitial, contactName, contactEmail, contactPhone, contactId, event) {
     let editCard = document.getElementById('edit_card_background');
     if (event === 'open') {
+        document.getElementById('edit_card_background').innerHTML = createEditCard(contactName, contactEmail, contactPhone, contactId, contactInitial);
         slideCardIn(editCard);
         fillContactInformation(contactId, contactInitial);
     } else if (event === 'close') {
@@ -240,4 +241,55 @@ function fillContactInformation(contactId, contactInitial) {
     document.getElementById('edit_contact_name').value = contactName;
     document.getElementById('edit_contact_email').value = contactEmail;
     document.getElementById('edit_contact_phone').value = contactPhone;
+}
+
+function createEditCard(contactName, contactEmail, contactPhone, contactId, contactInitial) {
+    return /*html*/ `
+           <div id="edit_contact_card" class="edit_contact_card"> 
+                <div class="left_side">
+                    <img src="./assets/img/joinLogoLight.png" alt="Join Logo">
+                    <h2>Edit contact</h2>
+                    <div class="left_side_seperator"></div>
+                </div>
+                <div class="right_side">
+                    <button class="close_contact_card_button" onclick="moveEditContactCard('${contactInitial}', '${contactName}', '${contactEmail}', '${contactPhone}', '${contactId}', 'close')">
+                        <img src="./assets/img/x.png" alt="Close Button">
+                    </button>
+                    <div class="edit_contact_profile_picture">
+                        <span id="edit_contact_initials">${contactInitial}"</span>
+                    </div>
+                    <div class="edit_contact_input_container">
+                        <form onsubmit="editContact()">
+                            <div class="input_container">
+                                <input type="name" id="edit_contact_name" value="${contactName}" placeholder="Name">
+                                <div class="input_icon_container">
+                                    <img src="./assets/img/person.png" alt="Name Icon">
+                                </div>
+                            </div>
+                            <div class="input_container">
+                                <input type="email" id="edit_contact_email" value="${contactEmail}" placeholder="Email">
+                                <div class="input_icon_container">
+                                    <img src="./assets/img/mail.png" alt="Email Icon">
+                                </div>
+                            </div>
+                            <div class="input_container">
+                                <input type="tel" id="edit_contact_phone" value="${contactPhone}" placeholder="Phone">
+                                <div class="input_icon_container">
+                                    <img src="./assets/img/call.png" alt="Phone Icon">
+                                </div>
+                            </div>
+                            <div class="edit_contact_button_container">
+                                <button class="secondary_button">
+                                    Delete
+                                </button>
+                                <button class="primary_button save_contact_button">
+                                    Save
+                                    <img src="./assets/img/done.png" alt="Create Contact">
+                                </button>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>`;
 }

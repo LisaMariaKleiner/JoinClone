@@ -66,15 +66,6 @@ function moveAddTaskCard(event) {
     }
 }
 
-function moveAddNewContactCard(event) {
-    let addNewContactCard = document.getElementById('card_background');
-    if (event === 'open') {
-        slideCardIn(addNewContactCard);
-    } else if (event === 'close') {
-        slideCardOut(addNewContactCard);
-    }
-}
-
 function slideCardIn(container) {
     container.classList.remove('slide_out')
     container.style.display = 'flex';
