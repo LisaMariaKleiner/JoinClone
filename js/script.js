@@ -22,6 +22,7 @@ async function init() {
     checkForSelectedPage('../../contacts.html', 'contacts_link');
     checkForSelectedPage('../../PrivacyPolicy.html', 'privacy_policy_link');
     checkForSelectedPage('../../legal_notice.html', 'legal_notice_link');
+    await updateTaskCounts();
 }
 
 async function includeHTML() {
