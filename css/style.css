@@ -33,6 +33,10 @@ main {
     padding-bottom: 20px;
 }
 
+input::placeholder {
+    transform: translateY(2px);
+}
+
 .headline_container {
     display: flex;
     align-items: center;

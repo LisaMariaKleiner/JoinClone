@@ -4,6 +4,7 @@ let contactContainerLetters =
 ['A','B','C','D','E','F','G','H','I','J','K',
 'L','M','N','O','P','Q','R','S','T','U','V',
 'W','X','Y','Z'];
+let lastOpenedContact;
 
 async function loadContacts() {
     users = await getItem('users');
@@ -13,7 +14,20 @@ async function resetContacts() {
     let currentUserData = JSON.parse(localStorage.user);
     let currentUserContacts = currentUserData.contacts;
     currentUserContacts.splice(0, currentUserContacts.length);
-    updateUserInRemoteStorage(currentUserData);
+    await updateUserInRemoteStorage(currentUserData);
+}
+
+async function setContacts() {
+    currentUserEmail = JSON.parse(localStorage.getItem('user')).email;
+    users = await getItem('users');
+    users = JSON.parse(users);
+    console.log(users);
+    user = users.find(user => user.email === currentUserEmail);
+
+    if(user) {
+        contacts = user.contacts;
+    }
+    sortContacts(contacts);
 }
 
 function renderContactLetterContainer() {
@@ -53,21 +67,75 @@ async function createNewContact() {
     currentUserContacts.push(newContact);
     localStorage.setItem('user', JSON.stringify(currentUserData));
     clearNewContactForm();
-    updateUserInRemoteStorage(currentUserData);
+    await updateUserInRemoteStorage(currentUserData);
     setContacts();
+    showContactSuccessMessage('open');
 }
 
-async function setContacts() {
-    currentUserEmail = JSON.parse(localStorage.getItem('user')).email;
-    users = await getItem('users');
-    users = JSON.parse(users);
-    console.log(users);
-    user = users.find(user => user.email === currentUserEmail);
+function clearNewContactForm() {
+    new_contact_name.value = '';
+    new_contact_email.value = '';
+    new_contact_phone.value = '';
+}
 
-    if(user) {
-        contacts = user.contacts;
+async function updateUserInRemoteStorage(updatedUserData) {
+    const localStorageUserData = localStorage.getItem('user');
+    if (localStorageUserData) {
+        const userData = JSON.parse(localStorageUserData);
+        const userEmail = userData.email;
+        const userPassword = userData.password;
+
+        const remoteUsersData = users;
+        // Find the user in the remote Storage and give the Index back
+        const userIndex = remoteUsersData.findIndex(u => u.email === userEmail && u.password === userPassword);
+
+        if (userIndex !== -1) {
+            // Updates the data of the user
+            remoteUsersData[userIndex] = { ...remoteUsersData[userIndex], ...updatedUserData };
+
+            // User will be updated in the remote Storage
+            const updatedUsersDataString = JSON.stringify(remoteUsersData);
+            await setItem('users', updatedUsersDataString);
+        } else {
+            console.warn('User could not be found in the remote Storage.');
+        }
+    } else {
+        console.warn('User could not be found in the remote Storage.');
     }
-    sortContacts(contacts);
+}
+
+function showContactSuccessMessage(action) {
+    let successMessageBackground = document.getElementById('contact_success_message_container');
+    let successMessageCard = document.getElementById('contact_success_message_card');
+
+    if(action === 'open') {
+        openContactSuccessMessage(successMessageBackground, successMessageCard);
+    } else if (action === 'close') {
+        closeContactSuccessMessage(successMessageBackground, successMessageCard);
+    }
+}
+
+function openContactSuccessMessage(successMessageBackground, successMessageCard) {
+    successMessageBackground.style.display = 'flex';
+    successMessageBackground.classList.add('background_fade_in');
+    successMessageCard.classList.add('slide_up_without_bg')
+    setTimeout(() => {
+        successMessageBackground.classList.remove('background_fade_in');
+        successMessageCard.classList.remove('slide_up_without_bg')
+        setTimeout(() => {
+            showContactSuccessMessage('close');
+        }, 1000);
+    }, 500);
+}
+
+function closeContactSuccessMessage() {
+    successMessageBackground.classList.add('background_fade_out');
+    successMessageCard.classList.add('slide_down_without_bg');
+    setTimeout(() => {
+        successMessageBackground.classList.remove('background_fade_out');
+        successMessageCard.classList.remove('slide_down_without_bg');
+        successMessageBackground.style.display = 'none';
+    }, 500);
 }
 
 function sortContacts(contacts) {
@@ -96,52 +164,16 @@ function showContactContainer(contactFirstInitial) {
     }
 }
 
-function currentContactContainerHasDisplayNone(contactContainer) {
-    contactContainer = contactContainer;
-    return contactContainer.classList.contains('container_d_none');
-}
-
 function renderContactCardIntoRightContainer(contactName, contactEmail, contactInitial, contactFirstInitial, contactPhone, contactId) {
     let contactCardContainer = document.getElementById(`contact_container_letter_${contactFirstInitial}`);
     contactCardContainer.innerHTML += createContactCard(contactInitial, contactName, contactEmail, contactPhone, contactId);
 }
 
-async function updateUserInRemoteStorage(updatedUserData) {
-    const localStorageUserData = localStorage.getItem('user');
-    if (localStorageUserData) {
-        const userData = JSON.parse(localStorageUserData);
-        const userEmail = userData.email;
-        const userPassword = userData.password;
-
-        const remoteUsersData = users;
-        console.log('RemoteUsersData lädt er: ', remoteUsersData);
-        // Find the user in the remote Storage and give the Index back
-        const userIndex = remoteUsersData.findIndex(u => u.email === userEmail && u.password === userPassword);
-
-        if (userIndex !== -1) {
-            // Updates the data of the user
-            remoteUsersData[userIndex] = { ...remoteUsersData[userIndex], ...updatedUserData };
-
-            // User will be updated in the remote Storage
-            const updatedUsersDataString = JSON.stringify(remoteUsersData);
-            console.log('updatedUsersDataString lädt er: ', updatedUsersDataString);
-            await setItem('users', updatedUsersDataString);
-        } else {
-            console.warn('User could not be found in the remote Storage.');
-        }
-    } else {
-        console.warn('User could not be found in the remote Storage.');
-    }
+function currentContactContainerHasDisplayNone(contactContainer) {
+    contactContainer = contactContainer;
+    return contactContainer.classList.contains('container_d_none');
 }
 
-function clearNewContactForm() {
-    new_contact_name.value = '';
-    new_contact_email.value = '';
-    new_contact_phone.value = '';
-}
-
-
-let lastOpenedContact;
 function showContactInformation(contactInitial, contactName, contactEmail, contactPhone, contactId) {
     if(lastOpenedContact === contactId) {
         hideContactInformation();
@@ -214,11 +246,22 @@ function createContactCard(contactInitial, contactName, contactEmail, contactPho
 }
 
 function moveAddNewContactCard(event) {
-    let addNewContactCard = document.getElementById('card_background');
+    let addNewContactBackground = document.getElementById('card_background');
+    let addNewContactCard = document.getElementById('add_new_contact_card');
     if (event === 'open') {
+        addNewContactBackground.style.display = 'flex';
+        addNewContactBackground.classList.add('background_fade_in');
         slideCardIn(addNewContactCard);
+        setTimeout(() => {
+            addNewContactBackground.classList.remove('background_fade_in');
+        }, 500);
     } else if (event === 'close') {
+        addNewContactBackground.classList.add('background_fade_out');
         slideCardOut(addNewContactCard);
+        setTimeout(() => {
+            addNewContactBackground.classList.remove('background_fade_out');
+            addNewContactBackground.style.display = 'none';
+        }, 500)
     }
 }
 
@@ -243,7 +286,15 @@ function fillContactInformation(contactId, contactInitial) {
     document.getElementById('edit_contact_phone').value = contactPhone;
 }
 
-function saveContact(contactId){
+function handleContact(contactId) {
+    if (isset($_POST['save_button'])) {
+        saveContact(contactId)
+    } else if (isset($_POST['delete_button'])) {
+        deleteContact(contactId)
+    }
+}
+
+async function saveContact(contactId){
     // Zieht die Value aus den Input Feldern: Name, Email, Phone
     const editedContactName= edit_contact_name.value;
     const editedContactEmail= edit_contact_email.value;
@@ -264,8 +315,33 @@ function saveContact(contactId){
     currentUser = JSON.stringify(currentUser);
 
     // Gebe den aktualisierten Stand des Users in die Funktion und aktualisiert somit den User im RemoteStorage
-    updateUserInRemoteStorage(currentUser);
+    await updateUserInRemoteStorage(currentUser);
 }
+
+async function deleteContact(contactId) {
+    contacts.forEach(contact => {
+        if(contact.id >= contactId)
+        console.log(contact.id);
+        contact.id--;
+        if(contact.id < 0) {
+            contact.id = 0;
+        }});
+
+    contacts.splice(contactId, 1);
+    currentContactId = contacts.length;
+    currentUser = JSON.parse(localStorage.getItem('user'));
+    currentUser.contacts = contacts;
+    currentUser = JSON.stringify(currentUser);
+    await updateUserInRemoteStorage(currentUser);
+}
+
+document.addEventListener('click', (e) => {
+    if(e.target.id === 'delete_contact_button') {
+        const contactId = e.target.value;
+        deleteContact(contactId);
+    }
+
+})
 
 function createEditCard(contactName, contactEmail, contactPhone, contactId, contactInitial) {
     return /*html*/ `
@@ -303,7 +379,7 @@ function createEditCard(contactName, contactEmail, contactPhone, contactId, cont
                                 </div>
                             </div>
                             <div class="edit_contact_button_container">
-                                <button class="secondary_button">
+                                <button id="delete_contact_button" class="secondary_button" value="${contactId}">
                                     Delete
                                 </button>
                                 <button class="primary_button save_contact_button">

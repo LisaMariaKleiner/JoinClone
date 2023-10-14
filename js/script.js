@@ -58,24 +58,35 @@ function setIndexCard(event) {
 }
 
 function moveAddTaskCard(event) {
-    let taskCard = document.getElementById('add_task_card');
+    let taskCardBackground = document.getElementById('add_task_card')
+    let taskCard = document.getElementById('add_task_slide_card');
     if (event === 'open') {
+        taskCardBackground.style.display = 'flex';
+        taskCardBackground.classList.add('background_fade_in')
         slideCardIn(taskCard);
+        setTimeout(() => {
+            taskCardBackground.classList.remove('background_fade_in')
+        }, 500);
     } else if (event === 'close') {
+        taskCardBackground.classList.add('background_fade_out')
         slideCardOut(taskCard);
+        setTimeout(() => {
+            taskCardBackground.style.display = 'none';
+            taskCardBackground.classList.remove('background_fade_out')
+        }, 500);
     }
 }
 
 function slideCardIn(container) {
-    container.classList.remove('slide_out')
+    container.classList.remove('slide_out_no_bg_change')
     container.style.display = 'flex';
-    container.classList.add('slide_in');
+    container.classList.add('slide_in_no_bg_change');
     container.style.transform = 'translateX(0%)';
 }
 
 function slideCardOut(container) {
-    container.classList.remove('slide_in');
-    container.classList.add('slide_out');
+    container.classList.remove('slide_in_no_bg_change');
+    container.classList.add('slide_out_no_bg_change');
     container.style.transform = 'translateX(150%)';
     setTimeout(() => {
         container.style.display = 'none';

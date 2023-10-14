@@ -24,20 +24,20 @@
 
 @keyframes backgroundFadeIn {
   from {
-    background-color: rgba(246, 247, 248, 0);
+    background-color: rgba(0, 0, 0, 0);
     z-index: 1;
   } to {
-    background-color: rgba(246, 247, 248, 0.25);
+    background-color: rgba(0, 0, 0, 0.25);
     z-index: 99;
   }
 }
 
 @keyframes backgroundFadeOut {
   from {
-    background-color: rgba(246, 247, 248, 0.25);
+    background-color: rgba(0, 0, 0, 0.25);
     z-index: 99;
   } to {
-    background-color: rgba(246, 247, 248, 0);
+    background-color: rgba(0, 0, 0, 0);
     z-index: 1;
   }
 }
@@ -167,11 +167,11 @@
 }
 
 .background_fade_in {
-  animation: backgroundFadeIn 0.5 ease;
+  animation: backgroundFadeIn 0.5s ease;
 }
 
 .background_fade_out {
-  animation: backgroundFadeOut 0.5 ease;
+  animation: backgroundFadeOut 0.5s ease;
 }
 
 .slide_in {

@@ -6,8 +6,9 @@ function login(loginEmail, loginPassword) {
     if (user) {
         userData = user;
         localStorage.setItem('user', JSON.stringify(userData));
+        localStorage.setItem('selectedPage', '../../summary.html');
         currentUserWantsAutoLogin();
-        window.location.href = 'http://127.0.0.1:5500/summary.html';
+        window.location.href = 'http://join-716.developerakademie.net/summary.html';
     } else {
         console.warn('Login failed');
     }
@@ -72,15 +73,15 @@ function currentUserWantsAutoLogin() {
 }
 
 function isOnLoginPage() {
-    return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/index.html';
+    return window.location.href === 'http://join-716.developerakademie.net/' || window.location.pathname === '/index.html';
 }
 
 function isOnSummaryPage() {
-    return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/summary.html';
+    return window.location.href === 'http://join-716.developerakademie.net/' || window.location.pathname === '/summary.html';
 }
 
 function isOnBoardPage() {
-    return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/board.html';
+    return window.location.href === 'http://join-716.developerakademie.net/' || window.location.pathname === '/board.html';
 }
 
 
@@ -89,9 +90,7 @@ function loadUserInSummary() {
         const userDataString = localStorage.getItem('user');
 
         if (userDataString) {
-            
             const userData = JSON.parse(userDataString);
-    
             if (userData.name) {  
                 document.getElementById('username').textContent = userData.name;
             } else {
@@ -125,11 +124,11 @@ function getGreeting() {
     let greeting = '';
   
     if (currentHour >= 5 && currentHour < 12) {
-      greeting = 'Good Morning';
+      greeting = 'Good Morning,';
     } else if (currentHour >= 12 && currentHour < 17) {
-      greeting = 'Good Afternoon';
+      greeting = 'Good Afternoon,';
     } else {
-      greeting = 'Good Evening';
+      greeting = 'Good Evening,';
     }
   
     return greeting;

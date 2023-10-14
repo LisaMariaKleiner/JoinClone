@@ -12,10 +12,17 @@ async function loadUsers(){
 }
 
 async function setItem(key, value) {
-    console.log('Er lädt in setItem den Key und Value: ', key, value)
     const payload = { key, value, token: STORAGE_TOKEN };
-    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
-        .then(res => res.json());
+    try {
+        const response = await fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Fehler beim Abrufen von Daten:', error);
+        throw error;
+    }
 }
 
 async function getItem(key) {
