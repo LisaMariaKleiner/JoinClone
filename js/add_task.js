@@ -51,6 +51,7 @@ async function updateHTML() {
     await updateCard('inProgress', 'in_progress');
     await updateCard('awaitFeedback', 'await_feedback');
     await updateCard('done', 'done');
+    await updateTaskCounts();
 };
 
 async function updateCard(category, containerId) {
@@ -223,3 +224,53 @@ function isTaskDetailsCardOpen() {
         return document.getElementById('task_card_opened').style.display != 'none';
     }
 }
+
+
+
+// Funktion, um die Anzahl der Tasks in einer bestimmten Kategorie zu zählen
+function countTasksInCategory(category) {
+    return tasks.filter(task => task.category === category).length;
+}
+
+function countTasksInProgress() {
+    return countTasksInCategory('inProgress');
+}
+
+function countTasksInFeedback() {
+    return countTasksInCategory('awaitFeedback');
+}
+
+function countTasksToDo() {
+    return countTasksInCategory('toDo');
+}
+
+function countCompletedTasks() {
+    return countTasksInCategory('done');
+}
+
+// Funktion zum Aktualisieren der Anzeige der Task-Zahlen in den HTML-Elementen
+async function updateTaskCounts() {
+    let tasksCountElement = document.getElementById('tasks_count');
+    let progressCountElement = document.getElementById('progress_count');
+    let feedbackCountElement = document.getElementById('feedback_count');
+    let todoCountElement = document.getElementById('todo_count');
+    let doneCountElement = document.getElementById('done_count');
+
+    let totalTasks = tasks.length;
+    let inProgressTasks = countTasksInProgress();
+    let feedbackTasks = countTasksInFeedback();
+    let todoTasks = countTasksToDo();
+    let doneTasks = countCompletedTasks();
+
+    tasksCountElement.textContent = totalTasks;
+    progressCountElement.textContent = inProgressTasks;
+    feedbackCountElement.textContent = feedbackTasks;
+    todoCountElement.textContent = todoTasks;
+    doneCountElement.textContent = doneTasks;
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    updateHTML();
+    updateTaskCounts();
+});
