@@ -8,7 +8,7 @@ function login(loginEmail, loginPassword) {
         localStorage.setItem('user', JSON.stringify(userData));
         localStorage.setItem('selectedPage', '../../summary.html');
         currentUserWantsAutoLogin();
-        window.location.href = 'http://join-716.developerakademie.net/summary.html';
+        window.location.href = 'http://127.0.0.1:5500/summary.html';
     } else {
         console.warn('Login failed');
     }
@@ -73,15 +73,15 @@ function currentUserWantsAutoLogin() {
 }
 
 function isOnLoginPage() {
-    return window.location.href === 'http://join-716.developerakademie.net/' || window.location.pathname === '/index.html';
+    return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/index.html';
 }
 
 function isOnSummaryPage() {
-    return window.location.href === 'http://join-716.developerakademie.net/' || window.location.pathname === '/summary.html';
+    return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/summary.html';
 }
 
 function isOnBoardPage() {
-    return window.location.href === 'http://join-716.developerakademie.net/' || window.location.pathname === '/board.html';
+    return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/board.html';
 }
 
 

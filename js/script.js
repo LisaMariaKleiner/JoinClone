@@ -22,7 +22,6 @@ async function init() {
     checkForSelectedPage('../../contacts.html', 'contacts_link');
     checkForSelectedPage('../../PrivacyPolicy.html', 'privacy_policy_link');
     checkForSelectedPage('../../legal_notice.html', 'legal_notice_link');
-    await updateTaskCounts();
 }
 
 async function includeHTML() {
@@ -108,4 +107,16 @@ function checkForSelectedPage(hrefLink, containerId) {
     if (selectedPage === hrefLink) {
         document.getElementById(containerId).classList.add('selected');
     }
+}
+
+function isOnLoginPage() {
+    return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/index.html';
+}
+
+function isOnSummaryPage() {
+    return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/summary.html';
+}
+
+function isOnBoardPage() {
+    return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/board.html';
 }

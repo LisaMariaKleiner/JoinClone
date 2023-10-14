@@ -128,7 +128,7 @@ function openContactSuccessMessage(successMessageBackground, successMessageCard)
     }, 500);
 }
 
-function closeContactSuccessMessage() {
+function closeContactSuccessMessage(successMessageBackground, successMessageCard) {
     successMessageBackground.classList.add('background_fade_out');
     successMessageCard.classList.add('slide_down_without_bg');
     setTimeout(() => {
@@ -359,7 +359,7 @@ function createEditCard(contactName, contactEmail, contactPhone, contactId, cont
                         <span id="edit_contact_initials">${contactInitial}"</span>
                     </div>
                     <div class="edit_contact_input_container">
-                        <form onsubmit="saveContact(${contactId})">
+                        <form onsubmit="saveContact(${contactId}); return false">
                             <div class="input_container">
                                 <input type="name" id="edit_contact_name" value="${contactName}" placeholder="Name">
                                 <div class="input_icon_container">

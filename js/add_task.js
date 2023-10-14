@@ -47,15 +47,16 @@ function clearInputFields() {
 
 async function updateHTML() {
     await loadTasks();
-    await updateCard('toDo', 'to_do');
-    await updateCard('inProgress', 'in_progress');
-    await updateCard('awaitFeedback', 'await_feedback');
-    await updateCard('done', 'done');
+    if(isOnBoardPage()) {
+        await updateCard('toDo', 'to_do');
+        await updateCard('inProgress', 'in_progress');
+        await updateCard('awaitFeedback', 'await_feedback');
+        await updateCard('done', 'done');
+    }
     await updateTaskCounts();
 };
 
 async function updateCard(category, containerId) {
-    console.log('Dies sind die aktuellen Tasks in updateCard: ' + tasks);
     category = tasks.filter(t => t['category'] == category);
 
     document.getElementById(containerId).innerHTML = '';
@@ -250,6 +251,7 @@ function countCompletedTasks() {
 
 // Funktion zum Aktualisieren der Anzeige der Task-Zahlen in den HTML-Elementen
 async function updateTaskCounts() {
+    if(isOnSummaryPage()) {
     let tasksCountElement = document.getElementById('tasks_count');
     let progressCountElement = document.getElementById('progress_count');
     let feedbackCountElement = document.getElementById('feedback_count');
@@ -267,10 +269,12 @@ async function updateTaskCounts() {
     feedbackCountElement.textContent = feedbackTasks;
     todoCountElement.textContent = todoTasks;
     doneCountElement.textContent = doneTasks;
+    }
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    updateHTML();
-    updateTaskCounts();
+document.addEventListener('DOMContentLoaded', async function() {
+    if(isOnSummaryPage()) {
+        await updateHTML();
+    }
 });
