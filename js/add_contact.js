@@ -7,7 +7,7 @@ let contactContainerLetters =
 let lastOpenedContact;
 
 async function loadContacts() {
-    users = await getItem('users');
+    let users = await getItem('users');
 }
 
 async function resetContacts() {
@@ -94,7 +94,7 @@ async function updateUserInRemoteStorage(updatedUserData) {
             remoteUsersData[userIndex] = { ...remoteUsersData[userIndex], ...updatedUserData };
 
             // User will be updated in the remote Storage
-            const updatedUsersDataString = JSON.stringify(remoteUsersData);
+            let updatedUsersDataString = JSON.stringify(remoteUsersData);
             await setItem('users', updatedUsersDataString);
         } else {
             console.warn('User could not be found in the remote Storage.');
@@ -140,15 +140,15 @@ function closeContactSuccessMessage(successMessageBackground, successMessageCard
 
 function sortContacts(contacts) {
     contacts.forEach(contact => {
-        contactName = contact.name;
-        contactFirstName = contactName.split(' ')[0];
-        contactLastName = contactName.split(' ')[1];
-        contactPhone = contact.phone;
-        contactId = contact.id;
+        let contactName = contact.name;
+        let contactFirstName = contactName.split(' ')[0];
+        let contactLastName = contactName.split(' ')[1];
+        let contactPhone = contact.phone;
+        let contactId = contact.id;
 
-        contactEmail = contact.email;
+        let contactEmail = contact.email;
 
-        contactFirstInitial = contactFirstName.charAt(0);
+        let contactFirstInitial = contactFirstName.charAt(0);
         contactSecondInitial = contact.name.split(' ')[1].charAt(0);
         contactInitial = contactFirstInitial + contactSecondInitial;
         showContactContainer(contactFirstInitial);

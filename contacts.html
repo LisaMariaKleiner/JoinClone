@@ -12,6 +12,13 @@
     <script src="/js/logout.js"></script>
     <script src="./js/add_contact.js"></script>
     <script src="./js/script.js"></script>
+
+    <script>
+        function deleteAllUsers() {
+            setItem('users', []);
+            console.log('Das sind die vorhandenen User', users);
+        }
+    </script>
 </head>
 
 <body onload="init(); loadContacts(); renderContactLetterContainer(); setContacts()">
@@ -33,6 +40,7 @@
             <h1>Contacts</h1>
             <img src="./assets/img/verticalSeperator.png" alt="">
             <span>Better with a team</span>
+            <button onclick="deleteAllUsers()">Users Löschen</button>
         </div>
 
         <div id="contact_information_card" class="contact_information_card">
