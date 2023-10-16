@@ -421,10 +421,10 @@ async function saveContact(contactId) {
   currentUser = JSON.parse(localStorage.getItem("user"));
   currentUser.contacts = contacts;
 
-  currentUser = JSON.stringify(currentUser);
+  currentUser = JSON.stringify(currentUser.contacts);
 
   // Gebe den aktualisierten Stand des Users in die Funktion und aktualisiert somit den User im RemoteStorage
-  await updateUserInRemoteStorage(currentUser);
+  await updateUserInRemoteStorage(currentUser.contacts);
 }
 
 async function deleteContact(contactId) {
