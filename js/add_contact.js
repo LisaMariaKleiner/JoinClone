@@ -430,35 +430,99 @@ async function saveContact(contactId) {
   await updateUserInRemoteStorage(currentUser.contacts);
 }
 
+
 async function deleteContact(contactId) {
-  const currentUserData = JSON.parse(localStorage.user);
-  let currentUserContacts = currentUserData.contacts;
+  // Die Benutzerdaten aus dem Remote Storage abrufen
+  const remoteUserData = await getItem("users");
 
-  // Überprüfe, ob der Kontaktindex innerhalb des gültigen Bereichs liegt
-  if (contactId >= 0 && contactId < currentUserContacts.length) {
-    // Entferne den Kontakt anhand des Index
-    currentUserContacts.splice(contactId, 1);
+  if (remoteUserData) {
+    // Die Benutzerdaten in ein JavaScript-Objekt umwandeln
+    const remoteUsersData = JSON.parse(remoteUserData);
 
-    // Aktualisiere die IDs der verbleibenden Kontakte
-    for (let i = contactId; i < currentUserContacts.length; i++) {
-      currentUserContacts[i].id = i;
+    // Die E-Mail-Adresse des aktuellen Benutzers
+    const currentUserEmail = JSON.parse(localStorage.getItem("user")).email;
+
+    // Den aktuellen Benutzer anhand seiner E-Mail-Adresse finden
+    const currentUser = remoteUsersData.find((user) => user.email === currentUserEmail);
+
+    if (currentUser) {
+      // Die Kontakte des aktuellen Benutzers
+      const currentUserContacts = currentUser.contacts;
+
+      // Überprüfen, ob der Kontaktindex innerhalb des gültigen Bereichs liegt
+      if (contactId >= 0 && contactId < currentUserContacts.length) {
+        // Den ausgewählten Kontakt aus dem Array entfernen
+        currentUserContacts.splice(contactId, 1);
+
+        // Aktualisieren Sie den Benutzerdatensatz mit den geänderten Kontakten
+        currentUser.contacts = currentUserContacts;
+
+        // Aktualisieren Sie die Daten im Remote Storage
+        const updatedUsersDataString = JSON.stringify(remoteUsersData);
+
+        // Die Benutzerdaten im Remote Storage aktualisieren
+        await setItem("users", updatedUsersDataString);
+
+        
+        renderContactLetterContainer();
+        init();
+      } else {
+        console.warn("Ungültiger Kontaktindex.");
+      }
+    } else {
+      console.warn("Benutzer nicht gefunden im Remote Storage.");
     }
-
-    // Aktualisiere den Benutzerdatensatz mit den geänderten Kontakten
-    currentUserData.contacts = currentUserContacts;
-
-    // Speichere die aktualisierten Daten im lokalen Speicher
-    localStorage.setItem("user", JSON.stringify(currentUserData));
-
-    // Aktualisiere die Daten im Remote-Speicher
-    await updateUserInRemoteStorage(currentUserData);
-
-    // Optional: Aktualisiere die Ansicht
-    await setContacts();
-    renderContactLetterContainer();
-    init();
+  } else {
+    console.warn("Fehler beim Abrufen der Benutzerdaten aus dem Remote Storage.");
   }
 }
+
+
+
+
+/*async function deleteContact(contactId) {
+  const remoteUserData = await getItem("users"); // Die Benutzerdaten aus dem Remote Storage abrufen
+
+  if (remoteUserData) {
+    const remoteUsersData = JSON.parse(remoteUserData);
+
+    // Durchsuchen Sie die Benutzerdatensätze, um den aktuellen Benutzer zu finden
+    for (const user of remoteUsersData) {
+      if (user.email === currentUserEmail) {
+        const currentUser = user;
+        
+        const currentUserContacts = currentUser.contacts;
+
+        // Überprüfen, ob der Kontaktindex innerhalb des gültigen Bereichs liegt
+        if (contactId >= 0 && contactId < currentUserContacts.length) {
+          // Den ausgewählten Kontakt aus dem Array entfernen
+          currentUserContacts.splice(contactId, 1);
+
+          // Aktualisieren Sie den Benutzerdatensatz mit den geänderten Kontakten
+          currentUser.contacts = currentUserContacts;
+
+          // Aktualisieren Sie die Daten im Remote Storage
+          const updatedUsersDataString = JSON.stringify(remoteUsersData);
+          await setItem("users", updatedUsersDataString);
+
+          // Aktualisieren Sie die lokale Kontaktdaten, um die Ansicht zu aktualisieren
+          contacts = currentUserContacts;
+          renderContactLetterContainer();
+          init();
+          return; // Um die Schleife zu beenden, nachdem der Benutzer gefunden wurde
+        }
+      }
+    }
+    console.warn("Benutzer nicht gefunden im Remote Storage.");
+  } else {
+    console.warn("Fehler beim Abrufen der Benutzerdaten aus dem Remote Storage.");
+  }
+}*/
+
+
+
+
+
 
 function resetContactInformations(contactInitial, 
     contactName, 
