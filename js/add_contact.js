@@ -76,13 +76,12 @@ async function createNewContact() {
     phone: newContactPhone,
   };
 
-  let currentUserData = JSON.parse(localStorage.user);
-  let currentUserContacts = currentUserData.contacts;
-  currentUserContacts.push(newContact);
-  localStorage.setItem("user", JSON.stringify(currentUserData));
+  contacts.push(newContact);
+  user = JSON.parse(localStorage.getItem('user'));
+  user.contacts = contacts;
+  user = JSON.stringify(user);
   clearNewContactForm();
-  await updateUserInRemoteStorage(currentUserData);
-  resetContactCards();
+  await updateUserInRemoteStorage(user);
   showContactSuccessMessage("open");
   renderContactLetterContainer();
   await setContacts();
