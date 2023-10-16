@@ -50,9 +50,12 @@ async function setContacts() {
 
   if (user) {
     contacts = user.contacts;
+  } else {
+    contacts = []; // Wenn kein Nutzer gefunden wurde, setze die Variable auf ein leeres Array
   }
   sortContacts(contacts);
 }
+
 
 function renderContactLetterContainer() {
   contactContainerLetters.forEach((letter) => {
@@ -93,9 +96,10 @@ async function createNewContact() {
   localStorage.setItem("user", JSON.stringify(currentUserData));
   clearNewContactForm();
   await updateUserInRemoteStorage(currentUserData);
-  setContacts();
   showContactSuccessMessage("open");
-  init();
+  renderContactLetterContainer();
+  await setContacts();
+  
 }
 
 function clearNewContactForm() {
@@ -421,14 +425,14 @@ function fillContactInformation(contactId, contactInitial) {
   document.getElementById("edit_contact_phone").value = contactPhone;
 }
 
-function handleContact(contactId) {
+/*function handleContact(contactId) {
   if (isset($_POST["save_button"])) {
     saveContact(contactId);
   } else if (isset($_POST["delete_button"])) {
     deleteContact(contactId);
   }
 }
-
+*/
 async function saveContact(contactId) {
   // Zieht die Value aus den Input Feldern: Name, Email, Phone
   const editedContactName = edit_contact_name.value;
@@ -454,28 +458,35 @@ async function saveContact(contactId) {
 }
 
 async function deleteContact(contactId) {
-  contacts.forEach((contact) => {
-    if (contact.id >= contactId) console.log(contact.id);
-    contact.id--;
-    if (contact.id < 0) {
-      contact.id = 0;
-    }
-  });
+  const currentUserData = JSON.parse(localStorage.user);
+  let currentUserContacts = currentUserData.contacts;
 
-  contacts.splice(contactId, 1);
-  currentContactId = contacts.length;
-  currentUser = JSON.parse(localStorage.getItem("user"));
-  currentUser.contacts = contacts;
-  currentUser = JSON.stringify(currentUser);
-  await updateUserInRemoteStorage(currentUser);
+  // Überprüfe, ob der Kontaktindex innerhalb des gültigen Bereichs liegt
+  if (contactId >= 0 && contactId < currentUserContacts.length) {
+    // Entferne den Kontakt anhand des Index
+    currentUserContacts.splice(contactId, 1);
+
+    // Aktualisiere die IDs der verbleibenden Kontakte
+    for (let i = contactId; i < currentUserContacts.length; i++) {
+      currentUserContacts[i].id = i;
+    }
+
+    // Aktualisiere den Benutzerdatensatz mit den geänderten Kontakten
+    currentUserData.contacts = currentUserContacts;
+
+    // Speichere die aktualisierten Daten im lokalen Speicher
+    localStorage.setItem("user", JSON.stringify(currentUserData));
+
+    // Aktualisiere die Daten im Remote-Speicher
+    await updateUserInRemoteStorage(currentUserData);
+
+    // Optional: Aktualisiere die Ansicht
+    await setContacts();
+    renderContactLetterContainer();
+    init();
+  }
 }
 
-document.addEventListener("click", (e) => {
-  if (e.target.id === "delete_contact_button") {
-    const contactId = e.target.value;
-    deleteContact(contactId);
-  }
-});
 
 function createEditCard(
   contactName,
