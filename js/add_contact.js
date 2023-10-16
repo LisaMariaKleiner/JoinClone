@@ -64,6 +64,7 @@ function renderContactLetterContainer() {
 }
 
 async function createNewContact() {
+  resetContactCards();
   const newContactName = new_contact_name.value;
   const newContactEmail = new_contact_email.value;
   const newContactPhone = new_contact_phone.value;
@@ -83,8 +84,10 @@ async function createNewContact() {
   clearNewContactForm();
   await updateUserInRemoteStorage(user.contacts);
   showContactSuccessMessage("open");
+  
   renderContactLetterContainer();
   await setContacts();
+  
 }
 
 function clearNewContactForm() {
