@@ -81,7 +81,7 @@ async function createNewContact() {
   user.contacts = contacts;
   user = JSON.stringify(user);
   clearNewContactForm();
-  await updateUserInRemoteStorage(user);
+  await updateUserInRemoteStorage(user.contacts);
   showContactSuccessMessage("open");
   renderContactLetterContainer();
   await setContacts();
