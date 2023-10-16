@@ -1,6 +1,5 @@
 let tasks = [];
 
-let currentId = 0;
 let currentDraggedElement;
 
 async function loadTasks() {
@@ -17,7 +16,7 @@ async function createNewTask() {
     let subtaskCategory = document.getElementById('subtask_category_input').value;
 
     tasks.push({
-        id: currentId,
+        id: tasks.length,
         title: title,
         description: description,
         assignedTo: assignedTo,
@@ -32,8 +31,8 @@ async function createNewTask() {
     if (window.location.pathname == '/board.html') {
         await updateHTML();
     }
-    await updateTasksInRemoteStorage(tasks, currentId)
-    currentId++;
+    await updateTasksInRemoteStorage(tasks)
+    moveAddTaskCard('close');
 };
 
 function clearInputFields() {
@@ -108,7 +107,7 @@ function allowDrop(ev) {
 
 async function moveTo(category, containerId) {
     tasks[currentDraggedElement]['category'] = category; // tasks[0]['category']
-    await updateTasksInRemoteStorage(tasks, currentDraggedElement);
+    await updateTasksInRemoteStorage(tasks);
     await updateHTML();
     removeHighlight(containerId);
 }
