@@ -443,27 +443,39 @@ function fillContactInformation(contactId, contactInitial) {
 }
 */
 async function saveContact(contactId) {
-  // Zieht die Value aus den Input Feldern: Name, Email, Phone
-  const editedContactName = edit_contact_name.value;
-  const editedContactEmail = edit_contact_email.value;
-  const editedContactPhone = edit_contact_phone.value;
-
-  // Aktualisiert die Daten im Array contacts[contactId]
-  let currentContact = contacts[getContactIdIndex(contactId)];
-  currentContact.name = editedContactName;
-  currentContact.email = editedContactEmail;
-  currentContact.phone = editedContactPhone;
-
-  // Aktualisiert die Kontakte im LocalStorage
-  currentUser = JSON.parse(localStorage.getItem("user"));
-  currentUser.contacts = contacts;
-
-  currentUser = JSON.stringify(currentUser.contacts);
-
-  // Gebe den aktualisierten Stand des Users in die Funktion und aktualisiert somit den User im RemoteStorage
-  await updateUserInRemoteStorage(currentUser.contacts);
-  renderContactInformation(contactId, contactInitial);
-}
+  
+    // Zieht die Value aus den Input Feldern: Name, Email, Phone
+    const editedContactName = edit_contact_name.value;
+    const editedContactEmail = edit_contact_email.value;
+    const editedContactPhone = edit_contact_phone.value;
+  
+    // Aktualisiert die Daten im Array contacts[contactId]
+    let currentContact = contacts[getContactIdIndex(contactId)];
+    currentContact.name = editedContactName;
+    currentContact.email = editedContactEmail;
+    currentContact.phone = editedContactPhone;
+  
+    // Aktualisiert die Kontakte im LocalStorage
+    currentUser = JSON.parse(localStorage.getItem("user"));
+    currentUser.contacts = contacts;
+  
+    // Aktualisiert den Benutzer im Remote Storage
+    await updateUserInRemoteStorage(currentUser);
+  
+    // Rufe die aktualisierten Benutzerdaten aus dem Remote Storage ab
+    const updatedUsersData = await getItem("users");
+    if (updatedUsersData) {
+      users = JSON.parse(updatedUsersData);
+      // Aktualisiere die lokale "users"-Variable
+      users = users;
+    }
+  
+    // Zeige die aktualisierten Kontaktinformationen an
+    renderContactInformation(contactId, contactInitial);
+  
+    // Gib die aktualisierten Benutzerdaten zurück
+    return users;
+  }
 
 
 function getContactIdIndex(contactId){
