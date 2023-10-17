@@ -50,7 +50,7 @@ function createEditCard(
                           <img src="./assets/img/x.png" alt="Close Button">
                       </button>
                       <div class="edit_contact_profile_picture">
-                          <span id="edit_contact_initials">${contactInitial}"</span>
+                          <span id="edit_contact_initials">${contactInitial}</span>
                       </div>
                       <div class="edit_contact_input_container">
                           <form onsubmit="saveContact(${contactId}); 
@@ -75,7 +75,7 @@ function createEditCard(
                                   </div>
                               </div>
                               <div class="edit_contact_button_container">
-                                  <button id="delete_contact_button" class="secondary_button" value="${contactId}">
+                                  <button onclick="deleteContact(${contactId})" id="delete_contact_button" class="secondary_button" value="${contactId}">
                                       Delete
                                   </button>
                                   <button class="primary_button save_contact_button">

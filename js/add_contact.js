@@ -194,6 +194,7 @@ function sortContacts(contacts) {
          contactPhone,
          contactId
        );
+       contactId = '';
      } else {
        console.log('Name kann nicht angezeigt werden');
      }
@@ -273,6 +274,13 @@ function showContactInformation(
         contactPhone,
         contactId
       );
+      setDeleteButtonOnClick(
+        contactInitial,
+        contactName,
+        contactEmail,
+        contactPhone,
+        contactId
+      );
       addOpenedContactAnimation(contactInformationCard);
       changeSelectedState(contactId, "selected");
       if (lastOpenedContact) {
@@ -295,6 +303,22 @@ function setEditButtonOnClick(
     .setAttribute(
       "onclick",
       `moveEditContactCard('${contactInitial}', '${contactName}', '${contactEmail}', '${contactPhone}', '${contactId}','open')`
+    );
+}
+
+
+function setDeleteButtonOnClick(
+  contactInitial,
+  contactName,
+  contactEmail,
+  contactPhone,
+  contactId
+) {
+  document
+    .getElementById("delete_button")
+    .setAttribute(
+      "onclick",
+      `deleteContact('${contactId}')`
     );
 }
 
@@ -391,9 +415,9 @@ function moveEditContactCard(
 }
 
 function fillContactInformation(contactId, contactInitial) {
-  let contactName = contacts[contactId].name;
-  let contactEmail = contacts[contactId].email;
-  let contactPhone = contacts[contactId].phone;
+  let contactName = contacts[getContactIdIndex(contactId)].name;
+  let contactEmail = contacts[getContactIdIndex(contactId)].email;
+  let contactPhone = contacts[getContactIdIndex(contactId)].phone;
   document.getElementById("edit_contact_initials").innerText = contactInitial;
   document.getElementById("edit_contact_name").value = contactName;
   document.getElementById("edit_contact_email").value = contactEmail;
@@ -415,7 +439,7 @@ async function saveContact(contactId) {
   const editedContactPhone = edit_contact_phone.value;
 
   // Aktualisiert die Daten im Array contacts[contactId]
-  let currentContact = contacts[contactId];
+  let currentContact = contacts[getContactIdIndex(contactId)];
   currentContact.name = editedContactName;
   currentContact.email = editedContactEmail;
   currentContact.phone = editedContactPhone;
@@ -428,10 +452,24 @@ async function saveContact(contactId) {
 
   // Gebe den aktualisierten Stand des Users in die Funktion und aktualisiert somit den User im RemoteStorage
   await updateUserInRemoteStorage(currentUser.contacts);
+  renderContactInformation(contactId, contactInitial);
 }
 
 
+function getContactIdIndex(contactId){
+  let currentIndex;
+  //console.log(typeof contactId)
+  //console.log(typeof contacts[0].id)
+
+    for (let i = 0; i < contacts.length; i++) {
+    if (Number(contactId) === contacts[i].id) {
+      return currentIndex = i;
+    }
+  }
+}
+
 async function deleteContact(contactId) {
+
   // Die Benutzerdaten aus dem Remote Storage abrufen
   const remoteUserData = await getItem("users");
 
@@ -450,9 +488,9 @@ async function deleteContact(contactId) {
       const currentUserContacts = currentUser.contacts;
 
       // Überprüfen, ob der Kontaktindex innerhalb des gültigen Bereichs liegt
-      if (contactId >= 0 && contactId < currentUserContacts.length) {
+      if (getContactIdIndex(contactId) > -1) {
         // Den ausgewählten Kontakt aus dem Array entfernen
-        currentUserContacts.splice(contactId, 1);
+        currentUserContacts.splice(getContactIdIndex(contactId), 1);
 
         // Aktualisieren Sie den Benutzerdatensatz mit den geänderten Kontakten
         currentUser.contacts = currentUserContacts;
@@ -462,10 +500,7 @@ async function deleteContact(contactId) {
 
         // Die Benutzerdaten im Remote Storage aktualisieren
         await setItem("users", updatedUsersDataString);
-
-        
-        renderContactLetterContainer();
-        init();
+        location.reload();
       } else {
         console.warn("Ungültiger Kontaktindex.");
       }
@@ -476,51 +511,6 @@ async function deleteContact(contactId) {
     console.warn("Fehler beim Abrufen der Benutzerdaten aus dem Remote Storage.");
   }
 }
-
-
-
-
-/*async function deleteContact(contactId) {
-  const remoteUserData = await getItem("users"); // Die Benutzerdaten aus dem Remote Storage abrufen
-
-  if (remoteUserData) {
-    const remoteUsersData = JSON.parse(remoteUserData);
-
-    // Durchsuchen Sie die Benutzerdatensätze, um den aktuellen Benutzer zu finden
-    for (const user of remoteUsersData) {
-      if (user.email === currentUserEmail) {
-        const currentUser = user;
-        
-        const currentUserContacts = currentUser.contacts;
-
-        // Überprüfen, ob der Kontaktindex innerhalb des gültigen Bereichs liegt
-        if (contactId >= 0 && contactId < currentUserContacts.length) {
-          // Den ausgewählten Kontakt aus dem Array entfernen
-          currentUserContacts.splice(contactId, 1);
-
-          // Aktualisieren Sie den Benutzerdatensatz mit den geänderten Kontakten
-          currentUser.contacts = currentUserContacts;
-
-          // Aktualisieren Sie die Daten im Remote Storage
-          const updatedUsersDataString = JSON.stringify(remoteUsersData);
-          await setItem("users", updatedUsersDataString);
-
-          // Aktualisieren Sie die lokale Kontaktdaten, um die Ansicht zu aktualisieren
-          contacts = currentUserContacts;
-          renderContactLetterContainer();
-          init();
-          return; // Um die Schleife zu beenden, nachdem der Benutzer gefunden wurde
-        }
-      }
-    }
-    console.warn("Benutzer nicht gefunden im Remote Storage.");
-  } else {
-    console.warn("Fehler beim Abrufen der Benutzerdaten aus dem Remote Storage.");
-  }
-}*/
-
-
-
 
 
 
@@ -544,7 +534,7 @@ async function renderContactInformation(contactId, contactInitial) {
     currentUserEmail = currentUser.email;
     user = users.find(user => user.email === currentUserEmail);
     let userContacts = user.contacts;
-    let currentContact = userContacts[contactId];
+    let currentContact = userContacts[getContactIdIndex(contactId)];
 
     console.log(contactInitial, currentContact.name, currentContact.email, currentContact.phone)
     
