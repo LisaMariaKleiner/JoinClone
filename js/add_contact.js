@@ -63,12 +63,22 @@ function renderContactLetterContainer() {
   });
 }
 
+
+function findFreeId() {
+  for (let index = 0; index < 100; index++) {
+    if ((contacts.findIndex(k => k['id'] === index) == -1)){
+      return index;
+    }
+  }
+}
+
+
 async function createNewContact() {
   resetContactCards();
   const newContactName = new_contact_name.value;
   const newContactEmail = new_contact_email.value;
   const newContactPhone = new_contact_phone.value;
-  currentContactId = contacts.length;
+  currentContactId = findFreeId();
 
   const newContact = {
     id: currentContactId,
