@@ -148,8 +148,7 @@ section {
 
 .progressbar {
     display: flex;
-    justify-content: space-between;
-    gap: 54px;
+    gap: 88px;
     flex-wrap: wrap;
     overflow-y: auto;
 }
