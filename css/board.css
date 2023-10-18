@@ -508,6 +508,48 @@ section {
     font-size: 21px;
 }
 
+.edite_delete_options {
+    display: flex; 
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.open_task_delete, .open_task_edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.seperator_edit_delete {
+    display: flex;
+    width: 1px;
+    height: 24px;
+    background-color: #D1D1D1;
+}
+
+.delete_img_task_open img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+}
+
+.edit_img_task_open img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 /* ===========================Dropdown Member============================== */
 #select_contacts option {
