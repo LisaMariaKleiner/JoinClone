@@ -75,6 +75,7 @@ function moveAddTaskCard(event) {
             taskCardBackground.classList.remove('background_fade_out')
         }, 500);
     }
+    renderContactsInDatalist()
 }
 
 function slideCardIn(container) {
