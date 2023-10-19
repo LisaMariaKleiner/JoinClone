@@ -8,13 +8,32 @@ async function loadTasks() {
   tasks = loadedTasks;
 }
 
-function findFreeId() {
+function findFreeIdForTasks() {
+
+  /*let maxId = 0; // Für später!
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].id >= maxId){
+      maxId = tasks[i].id;
+    }
+  }*/
+
   for (let index = 0; index < 100; index++) {
-    if (tasks.findIndex((k) => k["id"] === index) == -1) {
+    if ((tasks.findIndex(k => k['id'] === index) == -1)){
       return index;
     }
   }
 }
+
+
+function getcardIdIndex(cardId){
+  let currentIndex;
+    for (let i = 0; i < tasks.length; i++) {
+    if (Number(cardId) === tasks[i].id) {
+      return currentIndex = i;
+    }
+  }
+}
+
 
 async function createNewTask() {
   let title = document.getElementById("title_input").value;
@@ -33,8 +52,9 @@ async function createNewTask() {
     subtasks.push({ title: subtaskTitle });
   });
 
+
   let newTask = {
-    id: findFreeId(),
+    id: findFreeIdForTasks(),
     title: title,
     description: description,
     assignedTo: assignedTo,
@@ -265,7 +285,7 @@ function closeDetailsCard(taskDetailsBackground, taskDetailsCard) {
 }
 
 function renderTaskDetails(cardId) {
-  let currentTask = tasks[cardId];
+  let currentTask = tasks[getcardIdIndex(cardId)];
   renderTaskTitle(currentTask);
   renderTaskDescription(currentTask);
   renderTaskDate(currentTask);
