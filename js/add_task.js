@@ -70,27 +70,58 @@ async function renderContactsInDatalist() {
   }
 }
 
-async function updateHTML() {
+
+document.addEventListener("DOMContentLoaded", async function () {
+  if (isOnSummaryPage()) {
+    updateHTML(); // Fügen Sie diesen Aufruf hinzu
+  }
+});
+
+
+async function updateHTML(searchTerm = "") {
   await loadTasks();
   if (isOnBoardPage()) {
-    await updateCard("toDo", "to_do");
-    await updateCard("inProgress", "in_progress");
-    await updateCard("awaitFeedback", "await_feedback");
-    await updateCard("done", "done");
+    await updateCard("toDo", "to_do", searchTerm);
+    await updateCard("inProgress", "in_progress", searchTerm);
+    await updateCard("awaitFeedback", "await_feedback", searchTerm);
+    await updateCard("done", "done", searchTerm);
   }
   await updateTaskCounts();
 }
 
-async function updateCard(category, containerId) {
-  category = tasks.filter((t) => t["category"] == category);
+
+
+function filterTasks() {
+  const searchTerm = document.getElementById("search_input").value;
+  if (searchTerm.trim() !== "") {
+    updateHTML(searchTerm);
+  } else {
+    // Wenn das Suchfeld leer ist, zeige alle Aufgaben an
+    updateHTML();
+  }
+}
+
+
+function taskMatchesSearch(task, searchTerm) {
+  const taskText = `${task.title} ${task.description} ${task.assignedTo} ${task.date} ${task.taskCategory} ${task.subtaskCategory}`.toLowerCase();
+  return taskText.includes(searchTerm.toLowerCase());
+}
+
+
+
+async function updateCard(category, containerId, searchTerm = "") {
+  const filteredTasks = tasks.filter((task) => task["category"] === category && taskMatchesSearch(task, searchTerm));
 
   document.getElementById(containerId).innerHTML = "";
 
-  for (let index = 0; index < category.length; index++) {
-    const element = category[index];
+  for (let index = 0; index < filteredTasks.length; index++) {
+    const element = filteredTasks[index];
     document.getElementById(containerId).innerHTML += createTask(element);
   }
 }
+
+
+
 
 function startDragging(id) {
   currentDraggedElement = id; // id = 0
