@@ -58,6 +58,10 @@ function setIndexCard(event) {
 }
 
 function moveAddTaskCard(event) {
+    subtasks = [];
+    let subtaskList = document.querySelector('#subtask_list ul');
+    subtaskList.innerHTML = '';
+    clearInputFields();
     let taskCardBackground = document.getElementById('add_task_card')
     let taskCard = document.getElementById('add_task_slide_card');
     if (event === 'open') {
@@ -75,7 +79,7 @@ function moveAddTaskCard(event) {
             taskCardBackground.classList.remove('background_fade_out')
         }, 500);
     }
-    //renderContactsInDatalist()
+    //renderContactsInDatalist() WIEDER FREI GEBEN WENN DATALIST FUNKTIONIERT
 }
 
 function slideCardIn(container) {

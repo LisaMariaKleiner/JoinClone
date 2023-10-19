@@ -8,6 +8,14 @@ async function loadTasks() {
   tasks = loadedTasks;
 }
 
+function findFreeId() {
+  for (let index = 0; index < 100; index++) {
+    if ((tasks.findIndex(k => k['id'] === index) == -1)){
+      return index;
+    }
+  }
+}
+
 
 
 async function createNewTask() {
@@ -22,14 +30,13 @@ async function createNewTask() {
     .filter((title) => title.trim() !== "");
     
     subtaskInput = [];
-
-  // Fügen Sie die Subtasks zur Subtasks-Liste hinzu
+  // Fügt die Subtasks zur Subtasks-Liste hinzu
   subtaskTitles.forEach((subtaskTitle) => {
     subtasks.push({ title: subtaskTitle });
   });
 
   let newTask = {
-    id: tasks.length,
+    id: findFreeId(),
     title: title,
     description: description,
     assignedTo: assignedTo,
@@ -63,14 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
       // Erstellen Sie ein neues Listenelement für den Subtask
       let subtaskItem = document.createElement("li");
       subtaskItem.textContent = subtaskTitle;
-
-      // Holen Sie das parent <ul>-Element
       let subtaskList = document.querySelector(".title ul");
-
-      // Fügen Sie den Subtask der Liste hinzu
       subtaskList.appendChild(subtaskItem);
-
-      // Das Eingabefeld leeren
       subtaskInput.value = "";
     }
   });
@@ -83,16 +84,9 @@ function addSubtaskToList(subtaskTitle) {
   subtaskTitle = subtaskTitle.trim();
 
   if (subtaskTitle) {
-    // Erstellen Sie ein Subtask-Element mit dem Subtask-Titel
     let subtaskElement = createSubtaskElement(subtaskTitle);
-
-    // Holen Sie das Element mit der ID "task_card_opened"
     let taskCardOpened = document.getElementById("subtask_container");
-
-    // Fügen Sie das Subtask-Element zur "task_card_opened"-Karte hinzu
     taskCardOpened.appendChild(subtaskElement);
-
-    // Fügen Sie den Subtask auch zum `subtasks`-Array der aktuellen Aufgabe hinzu
     let currentTask = tasks[tasks.length - 1]; // Nehmen Sie die letzte Aufgabe im Array
     currentTask.subtasks.push({ title: subtaskTitle });
 
