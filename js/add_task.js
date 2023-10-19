@@ -10,13 +10,11 @@ async function loadTasks() {
 
 function findFreeId() {
   for (let index = 0; index < 100; index++) {
-    if ((tasks.findIndex(k => k['id'] === index) == -1)){
+    if (tasks.findIndex((k) => k["id"] === index) == -1) {
       return index;
     }
   }
 }
-
-
 
 async function createNewTask() {
   let title = document.getElementById("title_input").value;
@@ -28,8 +26,8 @@ async function createNewTask() {
   let subtaskTitles = subtaskInput.value
     .split("\n")
     .filter((title) => title.trim() !== "");
-    
-    subtaskInput = [];
+
+  subtaskInput = [];
   // Fügt die Subtasks zur Subtasks-Liste hinzu
   subtaskTitles.forEach((subtaskTitle) => {
     subtasks.push({ title: subtaskTitle });
@@ -46,16 +44,14 @@ async function createNewTask() {
     category: "toDo",
   };
   tasks.push(newTask);
-  clearInputFields();
   await updateTasksInRemoteStorage(tasks);
+  clearAddTaskCard();
   moveAddTaskCard("close");
-  subtasks = [];
 
   if (window.location.pathname == "/board.html") {
     await updateHTML();
   }
 }
-
 
 // Onclickfunktion für das "+" beim Subtasks erstellen
 document.addEventListener("DOMContentLoaded", function () {
@@ -77,7 +73,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-
 // Funktion zum Hinzufügen eines Subtasks zur Liste und zum Aktualisieren der Benutzeroberfläche
 function addSubtaskToList(subtaskTitle) {
   let subtaskInput = document.getElementById("subtask_category_input");
@@ -94,8 +89,6 @@ function addSubtaskToList(subtaskTitle) {
     subtaskInput.value = "";
   }
 }
-
-
 
 function clearInputFields() {
   document.getElementById("title_input").value = "";
@@ -132,8 +125,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     updateHTML(); // Fügen Sie diesen Aufruf hinzu
   }
 });
-
-
 
 async function updateHTML(searchTerm = "") {
   await loadTasks();
@@ -283,14 +274,14 @@ function renderTaskDetails(cardId) {
 }
 
 function renderSubtasks(subtasks) {
-  let subtasksContainer = document.getElementById('subtask_container');
+  let subtasksContainer = document.getElementById("subtask_container");
   subtasksContainer.innerHTML = ""; // Leeren Sie den Container, um vorhandene Subtasks zu entfernen.
 
   for (let index = 0; index < subtasks.length; index++) {
     subtasksContainer.innerHTML += `
     <span>${subtasks[index]}</span
     `;
-  } 
+  }
 }
 
 function renderTaskTitle(currentTask) {
@@ -384,7 +375,12 @@ document.addEventListener("mouseup", async function (e) {
   }
 });
 
-
+function clearAddTaskCard() {
+  subtasks = [];
+  let subtaskList = document.querySelector("#subtask_list ul");
+  subtaskList.innerHTML = "";
+  clearInputFields();
+}
 
 async function deleteAllTasks() {
   // Bestätigen Sie zuerst, ob der Benutzer sicher alle Tasks löschen möchte
@@ -401,7 +397,4 @@ async function deleteAllTasks() {
 
   // Aktualisieren Sie die Anzeige
   await updateHTML();
-
-  
 }
-

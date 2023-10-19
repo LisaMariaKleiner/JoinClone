@@ -58,10 +58,6 @@ function setIndexCard(event) {
 }
 
 function moveAddTaskCard(event) {
-    subtasks = [];
-    let subtaskList = document.querySelector('#subtask_list ul');
-    subtaskList.innerHTML = '';
-    clearInputFields();
     let taskCardBackground = document.getElementById('add_task_card')
     let taskCard = document.getElementById('add_task_slide_card');
     if (event === 'open') {
