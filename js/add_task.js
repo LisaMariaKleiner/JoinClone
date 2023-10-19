@@ -1,11 +1,11 @@
 let tasks = [];
-
 let currentDraggedElement;
 
 async function loadTasks() {
   let loadedTasks = JSON.parse(await getItem("tasks"));
   tasks = loadedTasks;
 }
+
 
 async function createNewTask() {
   //let tasks = []; // Falls wir die Tasks mal leeren müssen
@@ -15,7 +15,6 @@ async function createNewTask() {
   let date = document.getElementById("date_input").value;
   let taskCategory = document.getElementById("task_category_input").value;
   let subtaskCategory = document.getElementById("subtask_category_input").value;
-
   tasks.push({
     id: tasks.length,
     title: title,
@@ -26,7 +25,6 @@ async function createNewTask() {
     subtaskCategory: subtaskCategory,
     category: "toDo",
   });
-
   await setItem("tasks", JSON.stringify(tasks));
   clearInputFields();
   if (window.location.pathname == "/board.html") {
@@ -45,19 +43,16 @@ function clearInputFields() {
   document.getElementById("subtask_category_input").value = "";
 }
 
+
 async function renderContactsInDatalist() {
   let selectContacts = document.getElementById('select_contacts');
   let  usersData = await getItem("users");
-
   if (usersData) {
     const users = JSON.parse(usersData);
-
     if (Array.isArray(users)) {
       const currentUser = users[0];
-
       if (currentUser.contacts && Array.isArray(currentUser.contacts)) {
         const contacts = currentUser.contacts;
-
         contacts.forEach((contact) => {
           const option = document.createElement("option");
           option.value = `${contact.name} (${contact.initials})`;
@@ -90,7 +85,6 @@ async function updateHTML(searchTerm = "") {
 }
 
 
-
 function filterTasks() {
   const searchTerm = document.getElementById("search_input").value;
   if (searchTerm.trim() !== "") {
@@ -108,12 +102,9 @@ function taskMatchesSearch(task, searchTerm) {
 }
 
 
-
 async function updateCard(category, containerId, searchTerm = "") {
   const filteredTasks = tasks.filter((task) => task["category"] === category && taskMatchesSearch(task, searchTerm));
-
   document.getElementById(containerId).innerHTML = "";
-
   for (let index = 0; index < filteredTasks.length; index++) {
     const element = filteredTasks[index];
     document.getElementById(containerId).innerHTML += createTask(element);
@@ -121,12 +112,11 @@ async function updateCard(category, containerId, searchTerm = "") {
 }
 
 
-
-
 function startDragging(id) {
   currentDraggedElement = id; // id = 0
   console.log("CurrentDraggedElement is: " + currentDraggedElement);
 }
+
 
 function allowDrop(ev) {
   ev.preventDefault();
@@ -139,18 +129,22 @@ async function moveTo(category, containerId) {
   removeHighlight(containerId);
 }
 
+
 function highlight(id) {
   document.getElementById(id).classList.add("drag-area-highlight");
 }
+
 
 function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
+
 async function updateTasksInRemoteStorage(updatedTasks) {
   const updatedTasksAsString = JSON.stringify(updatedTasks);
   await setItem("tasks", updatedTasksAsString);
 }
+
 
 function slideCardUp() {
   document
@@ -163,6 +157,7 @@ function slideCardUp() {
   document.getElementById("success_feedback").style.transform =
     "translateY(0%)";
 }
+
 
 function slideCardDown() {
   document
@@ -181,10 +176,12 @@ function slideCardDown() {
   }, 1000);
 }
 
+
 function openTaskDetailsCard(cardId, action) {
   showTaskDetailsCard(action);
   renderTaskDetails(cardId);
 }
+
 
 function showTaskDetailsCard(action) {
   let taskDetailsBackground = document.getElementById("task_card_opened");
@@ -196,9 +193,11 @@ function showTaskDetailsCard(action) {
   }
 }
 
+
 function showDropDownMenu(containerId) {
   document.getElementById(containerId).display = 'flex';
 }
+
 
 function openDetailsCard(taskDetailsBackground, taskDetailsCard) {
   taskDetailsBackground.style.display = "flex";
@@ -211,6 +210,7 @@ function openDetailsCard(taskDetailsBackground, taskDetailsCard) {
   }, 500);
 }
 
+
 function closeDetailsCard(taskDetailsBackground, taskDetailsCard) {
   taskDetailsCard.classList.add("slide_out_no_bg_change");
   taskDetailsBackground.classList.add("background_fade_in");
@@ -222,6 +222,7 @@ function closeDetailsCard(taskDetailsBackground, taskDetailsCard) {
   }, 500);
 }
 
+
 function renderTaskDetails(cardId) {
   let currentTask = tasks[cardId];
   renderTaskTitle(currentTask);
@@ -230,25 +231,30 @@ function renderTaskDetails(cardId) {
   renderTaskPriority(currentTask);
 }
 
+
 function renderTaskTitle(currentTask) {
   let taskTitle = document.getElementById("task_title");
   taskTitle.innerText = currentTask.title;
 }
+
 
 function renderTaskDescription(currentTask) {
   let taskDescription = document.getElementById("task_description");
   taskDescription.innerText = currentTask.description;
 }
 
+
 function renderTaskDate(currentTask) {
   let taskDate = document.getElementById("task_date");
   taskDate.innerText = currentTask.date;
 }
 
+
 function renderTaskPriority(currentTask) {
   let taskPriority = document.getElementById("task_priority");
   taskPriority.innerText = currentTask.priority;
 }
+
 
 document.addEventListener("mouseup", function (e) {
   let taskDetailsCard = document.getElementById("current_task_card");
@@ -259,11 +265,13 @@ document.addEventListener("mouseup", function (e) {
   }
 });
 
+
 function isTaskDetailsCardOpen() {
   if (isOnBoardPage()) {
     return document.getElementById("task_card_opened").style.display != "none";
   }
 }
+
 
 // Funktion, um die Anzahl der Tasks in einer bestimmten Kategorie zu zählen
 function countTasksInCategory(category) {
@@ -294,13 +302,11 @@ async function updateTaskCounts() {
     let feedbackCountElement = document.getElementById("feedback_count");
     let todoCountElement = document.getElementById("todo_count");
     let doneCountElement = document.getElementById("done_count");
-
     let totalTasks = tasks.length;
     let inProgressTasks = countTasksInProgress();
     let feedbackTasks = countTasksInFeedback();
     let todoTasks = countTasksToDo();
     let doneTasks = countCompletedTasks();
-
     tasksCountElement.textContent = totalTasks;
     progressCountElement.textContent = inProgressTasks;
     feedbackCountElement.textContent = feedbackTasks;
@@ -309,11 +315,13 @@ async function updateTaskCounts() {
   }
 }
 
+
 document.addEventListener("DOMContentLoaded", async function () {
   if (isOnSummaryPage()) {
     await updateHTML();
   }
 });
+
 
 document.addEventListener('mouseup', async function (e) {
   if (e.target.id === 'assigned_to_input') {

@@ -46,7 +46,6 @@ async function setContacts() {
   users = await getItem("users");
   users = JSON.parse(users);
   user = users.find((user) => user.email === currentUserEmail);
-
   if (user) {
     contacts = user.contacts;
   } else {
@@ -79,14 +78,12 @@ async function createNewContact() {
   const newContactEmail = new_contact_email.value;
   const newContactPhone = new_contact_phone.value;
   currentContactId = findFreeId();
-
   const newContact = {
     id: currentContactId,
     name: newContactName,
     email: newContactEmail,
     phone: newContactPhone,
   };
-
   contacts.push(newContact);
   user = JSON.parse(localStorage.getItem('user'));
   user.contacts = contacts;
@@ -94,10 +91,8 @@ async function createNewContact() {
   clearNewContactForm();
   await updateUserInRemoteStorage(user.contacts);
   showContactSuccessMessage("open");
-  
   renderContactLetterContainer();
   await setContacts();
-  
 }
 
 function clearNewContactForm() {
@@ -105,6 +100,7 @@ function clearNewContactForm() {
   new_contact_email.value = "";
   new_contact_phone.value = "";
 }
+
 
 async function updateUserInRemoteStorage(updatedUserData) {
   const localStorageUserData = localStorage.getItem("user");
@@ -114,19 +110,14 @@ async function updateUserInRemoteStorage(updatedUserData) {
     const userPassword = userData.password;
 
     const remoteUsersData = users;
-    // Find the user in the remote Storage and give the Index back
     const userIndex = remoteUsersData.findIndex(
       (u) => u.email === userEmail && u.password === userPassword
     );
-
     if (userIndex !== -1) {
-      // Updates the data of the user
       remoteUsersData[userIndex] = {
         ...remoteUsersData[userIndex],
         ...updatedUserData,
       };
-
-      // User will be updated in the remote Storage
       let updatedUsersDataString = JSON.stringify(remoteUsersData);
       await setItem("users", updatedUsersDataString);
     } else {
@@ -137,6 +128,7 @@ async function updateUserInRemoteStorage(updatedUserData) {
   }
 }
 
+
 function showContactSuccessMessage(action) {
   let successMessageBackground = document.getElementById(
     "contact_success_message_container"
@@ -144,13 +136,13 @@ function showContactSuccessMessage(action) {
   let successMessageCard = document.getElementById(
     "contact_success_message_card"
   );
-
   if (action === "open") {
     openContactSuccessMessage(successMessageBackground, successMessageCard);
   } else if (action === "close") {
     closeContactSuccessMessage(successMessageBackground, successMessageCard);
   }
 }
+
 
 function openContactSuccessMessage(
   successMessageBackground,
@@ -168,6 +160,7 @@ function openContactSuccessMessage(
   }, 500);
 }
 
+
 function closeContactSuccessMessage(
   successMessageBackground,
   successMessageCard
@@ -181,6 +174,7 @@ function closeContactSuccessMessage(
   }, 500);
 }
 
+
 function sortContacts(contacts) {
   contacts.forEach((contact) => {
      if (contact.name) {
@@ -191,7 +185,6 @@ function sortContacts(contacts) {
        contactPhone = contact.phone;
        contactId = contact.id;
        contactEmail = contact.email;
-
        contactFirstInitial = contactFirstName.charAt(0);
        contactSecondInitial = contactLastName.charAt(0);
        contactInitial = contactFirstInitial + contactSecondInitial;
@@ -211,6 +204,7 @@ function sortContacts(contacts) {
   });
 }
 
+
 function showContactContainer(contactFirstInitial) {
   contactContainer = document.getElementById(
     `contact_container_${contactFirstInitial.toLowerCase()}`
@@ -220,6 +214,7 @@ function showContactContainer(contactFirstInitial) {
     contactContainer.classList.add("container_d_flex");
   }
 }
+
 
 function renderContactCardIntoRightContainer(
   contactName,
@@ -241,6 +236,7 @@ function renderContactCardIntoRightContainer(
   );
 }
 
+
 function resetContactCards() {
       contactContainerLetters.forEach((letter) => {
         const contactContainerLetter = letter.toLowerCase();
@@ -248,10 +244,12 @@ function resetContactCards() {
       })
 }
 
+
 function currentContactContainerHasDisplayNone(contactContainer) {
   contactContainer = contactContainer;
   return contactContainer.classList.contains("container_d_none");
 }
+
 
 function showContactInformation(
   contactInitial,
@@ -301,6 +299,7 @@ function showContactInformation(
   }
 }
 
+
 function setEditButtonOnClick(
   contactInitial,
   contactName,
@@ -338,6 +337,7 @@ function addOpenedContactAnimation(contactInformationCard) {
   contactInformationCard.style.transform = "translate(0%)";
 }
 
+
 function changeSelectedState(contactId, action) {
   if (action === "selected") {
     document.getElementById(`contact_${contactId}`).classList.add("selected");
@@ -354,11 +354,13 @@ function changeSelectedState(contactId, action) {
   }
 }
 
+
 function containerHasClassSelected(contactId) {
   return document
     .getElementById(`contact_${contactId}`)
     .classList.contains("selected");
 }
+
 
 function createContactInformationCard(
   contactInitial,
@@ -380,6 +382,7 @@ function hideContactInformation() {
   contactInformationCard.style.display = "none";
 }
 
+
 function moveAddNewContactCard(event) {
   let addNewContactBackground = document.getElementById("card_background");
   let addNewContactCard = document.getElementById("add_new_contact_card");
@@ -399,6 +402,7 @@ function moveAddNewContactCard(event) {
     }, 500);
   }
 }
+
 
 function moveEditContactCard(
   contactInitial,
@@ -424,6 +428,7 @@ function moveEditContactCard(
   }
 }
 
+
 function fillContactInformation(contactId, contactInitial) {
   let contactName = contacts[getContactIdIndex(contactId)].name;
   let contactEmail = contacts[getContactIdIndex(contactId)].email;
@@ -434,55 +439,30 @@ function fillContactInformation(contactId, contactInitial) {
   document.getElementById("edit_contact_phone").value = contactPhone;
 }
 
-/*function handleContact(contactId) {
-  if (isset($_POST["save_button"])) {
-    saveContact(contactId);
-  } else if (isset($_POST["delete_button"])) {
-    deleteContact(contactId);
-  }
-}
-*/
+
 async function saveContact(contactId) {
-  
-    // Zieht die Value aus den Input Feldern: Name, Email, Phone
     const editedContactName = edit_contact_name.value;
     const editedContactEmail = edit_contact_email.value;
     const editedContactPhone = edit_contact_phone.value;
-  
-    // Aktualisiert die Daten im Array contacts[contactId]
     let currentContact = contacts[getContactIdIndex(contactId)];
     currentContact.name = editedContactName;
     currentContact.email = editedContactEmail;
     currentContact.phone = editedContactPhone;
-  
-    // Aktualisiert die Kontakte im LocalStorage
     currentUser = JSON.parse(localStorage.getItem("user"));
     currentUser.contacts = contacts;
-  
-    // Aktualisiert den Benutzer im Remote Storage
     await updateUserInRemoteStorage(currentUser);
-  
-    // Rufe die aktualisierten Benutzerdaten aus dem Remote Storage ab
     const updatedUsersData = await getItem("users");
     if (updatedUsersData) {
       users = JSON.parse(updatedUsersData);
-      // Aktualisiere die lokale "users"-Variable
       users = users;
     }
-  
-    // Zeige die aktualisierten Kontaktinformationen an
     renderContactInformation(contactId, contactInitial);
-  
-    // Gib die aktualisierten Benutzerdaten zurück
     return users;
   }
 
 
 function getContactIdIndex(contactId){
   let currentIndex;
-  //console.log(typeof contactId)
-  //console.log(typeof contacts[0].id)
-
     for (let i = 0; i < contacts.length; i++) {
     if (Number(contactId) === contacts[i].id) {
       return currentIndex = i;
@@ -490,37 +470,19 @@ function getContactIdIndex(contactId){
   }
 }
 
+
 async function deleteContact(contactId) {
-
-  // Die Benutzerdaten aus dem Remote Storage abrufen
   const remoteUserData = await getItem("users");
-
   if (remoteUserData) {
-    // Die Benutzerdaten in ein JavaScript-Objekt umwandeln
     const remoteUsersData = JSON.parse(remoteUserData);
-
-    // Die E-Mail-Adresse des aktuellen Benutzers
     const currentUserEmail = JSON.parse(localStorage.getItem("user")).email;
-
-    // Den aktuellen Benutzer anhand seiner E-Mail-Adresse finden
     const currentUser = remoteUsersData.find((user) => user.email === currentUserEmail);
-
     if (currentUser) {
-      // Die Kontakte des aktuellen Benutzers
       const currentUserContacts = currentUser.contacts;
-
-      // Überprüfen, ob der Kontaktindex innerhalb des gültigen Bereichs liegt
       if (getContactIdIndex(contactId) > -1) {
-        // Den ausgewählten Kontakt aus dem Array entfernen
         currentUserContacts.splice(getContactIdIndex(contactId), 1);
-
-        // Aktualisieren Sie den Benutzerdatensatz mit den geänderten Kontakten
         currentUser.contacts = currentUserContacts;
-
-        // Aktualisieren Sie die Daten im Remote Storage
         const updatedUsersDataString = JSON.stringify(remoteUsersData);
-
-        // Die Benutzerdaten im Remote Storage aktualisieren
         await setItem("users", updatedUsersDataString);
         location.reload();
       } else {
@@ -535,7 +497,6 @@ async function deleteContact(contactId) {
 }
 
 
-
 function resetContactInformations(contactInitial, 
     contactName, 
     contactEmail, 
@@ -548,18 +509,15 @@ function resetContactInformations(contactInitial,
     document.getElementById('phone_number').innerText = contactPhone;
 }
 
+
 async function renderContactInformation(contactId, contactInitial) {
     users = await getItem('users');
     users = JSON.parse(users);
-
     currentUser = JSON.parse(localStorage.getItem('user'));
     currentUserEmail = currentUser.email;
     user = users.find(user => user.email === currentUserEmail);
     let userContacts = user.contacts;
     let currentContact = userContacts[getContactIdIndex(contactId)];
-
-    console.log(contactInitial, currentContact.name, currentContact.email, currentContact.phone)
-    
     resetContactCards();
     await setContacts();
     resetContactInformations(contactInitial, currentContact.name, currentContact.email, currentContact.phone);
