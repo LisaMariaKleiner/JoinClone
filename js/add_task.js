@@ -1,11 +1,11 @@
 let tasks = [];
 let currentDraggedElement;
+let subtaskCounter = 0; // Um eindeutige IDs für Subtasks zu erstellen
 
 async function loadTasks() {
   let loadedTasks = JSON.parse(await getItem("tasks"));
   tasks = loadedTasks;
 }
-
 
 /*async function createNewTask() {
   //let tasks = []; // Falls wir die Tasks mal leeren müssen
@@ -40,8 +40,17 @@ async function createNewTask() {
   let assignedTo = document.getElementById("assigned_to_input").value;
   let date = document.getElementById("date_input").value;
   let taskCategory = document.getElementById("task_category_input").value;
-  let subtaskCategory = document.getElementById("subtask_category_input").value;
-  let subtaskCheckboxId = `subtask_checkbox_${tasks.length}`;
+
+  // Holen Sie die Eingabe für Subtasks und teilen Sie sie in einzelne Subtask-Titel auf
+  let subtaskInput = document.getElementById("subtask_category_input");
+  let subtaskTitles = subtaskInput.value
+    .split("\n")
+    .filter((title) => title.trim() !== "");
+  // Fügen Sie die Subtasks zur Liste hinzu und aktualisieren Sie die Benutzeroberfläche
+  subtaskTitles.forEach((subtaskTitle) => {
+    addSubtaskToList(subtaskTitle);
+  });
+  subtaskInput.value = "";
   let newTask = {
     id: tasks.length,
     title: title,
@@ -49,25 +58,47 @@ async function createNewTask() {
     assignedTo: assignedTo,
     date: date,
     taskCategory: taskCategory,
-    subtasks: [
-      {
-        id: tasks.length,
-        title: subtaskCategory,
-        checkboxId: subtaskCheckboxId,
-      },
-    ],
+    subtasks: subtaskInput,
     category: "toDo",
   };
   tasks.push(newTask);
-  await updateTasksInRemoteStorage(tasks);
-  renderSubtasks(newTask.subtasks);
   clearInputFields();
+  await updateTasksInRemoteStorage(tasks);
+
+  // Rufen Sie renderSubtasks auf, um die Subtasks anzuzeigen
+  renderSubtasks(newTask.subtasks);
+
+  moveAddTaskCard("close");
   if (window.location.pathname == "/board.html") {
     await updateHTML();
   }
-  moveAddTaskCard("close");
 }
 
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const addSubtaskButton = document.querySelector(".subtasks img");
+
+  addSubtaskButton.addEventListener("click", () => {
+    const subtaskInput = document.getElementById("subtask_category_input");
+    const subtaskTitle = subtaskInput.value.trim();
+
+    if (subtaskTitle) {
+      // Erstellen Sie ein neues Listenelement für den Subtask
+      const subtaskItem = document.createElement("li");
+      subtaskItem.textContent = subtaskTitle;
+
+      // Holen Sie das parent <ul>-Element
+      const subtaskList = document.querySelector(".title ul");
+
+      // Fügen Sie den Subtask der Liste hinzu
+      subtaskList.appendChild(subtaskItem);
+
+      // Das Eingabefeld leeren
+      subtaskInput.value = "";
+    }
+  });
+});
 
 
 function createSubtaskElement(subtask) {
@@ -81,33 +112,24 @@ function createSubtaskElement(subtask) {
   subtaskCheckbox.name = `subtask_checkbox_${subtask.id}`;
   subtaskCheckbox.id = `subtask_checkbox_${subtask.id}`;
   subtaskCheckbox.classList.add("subtask_checkbox");
-
   // Erstellen Sie ein Label-Element für die Checkbox
   const subtaskLabel = document.createElement("label");
   subtaskLabel.htmlFor = `subtask_checkbox_${subtask.id}`;
-
   // Erstellen Sie ein Textknoten für den Subtask-Titel
   const subtaskTitle = document.createElement("span");
   subtaskTitle.textContent = subtask.title;
-
   // Fügen Sie die Checkbox, das Label und den Titel zum Subtask-Container hinzu
   subtaskContainer.appendChild(subtaskCheckbox);
   subtaskContainer.appendChild(subtaskLabel);
   subtaskContainer.appendChild(subtaskTitle);
-
   return subtaskContainer;
 }
 
+
 function renderSubtasks(subtasks) {
-  // Holen Sie das Container-Element für Subtasks
   const subtaskContainer = document.querySelector(".subtask_container");
+  subtaskContainer.innerHTML = ""; // Leeren Sie den Container, um vorhandene Subtasks zu entfernen.
 
-  // Entfernen Sie zuerst alle vorhandenen Subtasks
-  while (subtaskContainer.firstChild) {
-    subtaskContainer.removeChild(subtaskContainer.firstChild);
-  }
-
-  // Erstellen und hinzufügen Sie die neuen Subtask-Elemente
   subtasks.forEach((subtask) => {
     const subtaskElement = createSubtaskElement(subtask);
     subtaskContainer.appendChild(subtaskElement);
@@ -115,7 +137,17 @@ function renderSubtasks(subtasks) {
 }
 
 
+// Funktion zum Hinzufügen eines Subtasks zur Liste und zum Aktualisieren der Benutzeroberfläche
+function addSubtaskToList(subtaskTitle) {
+  let subtaskList = document.querySelector(".subtasks ul");
 
+  // Erstellen Sie ein neues Listenelement für den Subtask
+  const subtaskItem = document.createElement("li");
+  subtaskItem.textContent = subtaskTitle;
+
+  // Fügen Sie den Subtask der Liste hinzu
+  subtaskList.appendChild(subtaskItem);
+}
 
 function clearInputFields() {
   document.getElementById("title_input").value = "";
@@ -126,10 +158,9 @@ function clearInputFields() {
   document.getElementById("subtask_category_input").value = "";
 }
 
-
-async function renderContactsInDatalist() {
-  let selectContacts = document.getElementById('select_contacts');
-  let  usersData = await getItem("users");
+/*async function renderContactsInDatalist() {
+  let selectContacts = document.getElementById("select_contacts");
+  let usersData = await getItem("users");
   if (usersData) {
     const users = JSON.parse(usersData);
     if (Array.isArray(users)) {
@@ -146,14 +177,14 @@ async function renderContactsInDatalist() {
       }
     }
   }
-}
-
+}*/ // Wieder frei geben wenn an  Datalist gearbeitet wird!!!!!
 
 document.addEventListener("DOMContentLoaded", async function () {
   if (isOnSummaryPage()) {
     updateHTML(); // Fügen Sie diesen Aufruf hinzu
   }
 });
+
 
 
 async function updateHTML(searchTerm = "") {
@@ -167,7 +198,6 @@ async function updateHTML(searchTerm = "") {
   await updateTaskCounts();
 }
 
-
 function filterTasks() {
   const searchTerm = document.getElementById("search_input").value;
   if (searchTerm.trim() !== "") {
@@ -178,15 +208,17 @@ function filterTasks() {
   }
 }
 
-
 function taskMatchesSearch(task, searchTerm) {
-  const taskText = `${task.title} ${task.description} ${task.assignedTo} ${task.date} ${task.taskCategory} ${task.subtaskCategory}`.toLowerCase();
+  const taskText =
+    `${task.title} ${task.description} ${task.assignedTo} ${task.date} ${task.taskCategory} ${task.subtaskCategory}`.toLowerCase();
   return taskText.includes(searchTerm.toLowerCase());
 }
 
-
 async function updateCard(category, containerId, searchTerm = "") {
-  const filteredTasks = tasks.filter((task) => task["category"] === category && taskMatchesSearch(task, searchTerm));
+  const filteredTasks = tasks.filter(
+    (task) =>
+      task["category"] === category && taskMatchesSearch(task, searchTerm)
+  );
   document.getElementById(containerId).innerHTML = "";
   for (let index = 0; index < filteredTasks.length; index++) {
     const element = filteredTasks[index];
@@ -194,12 +226,10 @@ async function updateCard(category, containerId, searchTerm = "") {
   }
 }
 
-
 function startDragging(id) {
   currentDraggedElement = id; // id = 0
   console.log("CurrentDraggedElement is: " + currentDraggedElement);
 }
-
 
 function allowDrop(ev) {
   ev.preventDefault();
@@ -212,22 +242,18 @@ async function moveTo(category, containerId) {
   removeHighlight(containerId);
 }
 
-
 function highlight(id) {
   document.getElementById(id).classList.add("drag-area-highlight");
 }
-
 
 function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
-
 async function updateTasksInRemoteStorage(updatedTasks) {
   const updatedTasksAsString = JSON.stringify(updatedTasks);
   await setItem("tasks", updatedTasksAsString);
 }
-
 
 function slideCardUp() {
   document
@@ -240,7 +266,6 @@ function slideCardUp() {
   document.getElementById("success_feedback").style.transform =
     "translateY(0%)";
 }
-
 
 function slideCardDown() {
   document
@@ -259,7 +284,6 @@ function slideCardDown() {
   }, 1000);
 }
 
-
 function openTaskDetailsCard(cardId, action) {
   showTaskDetailsCard(action);
   if (action === "open") {
@@ -268,7 +292,6 @@ function openTaskDetailsCard(cardId, action) {
   }
   renderTaskDetails(cardId);
 }
-
 
 function showTaskDetailsCard(action) {
   let taskDetailsBackground = document.getElementById("task_card_opened");
@@ -280,11 +303,9 @@ function showTaskDetailsCard(action) {
   }
 }
 
-
 function showDropDownMenu(containerId) {
-  document.getElementById(containerId).display = 'flex';
+  document.getElementById(containerId).display = "flex";
 }
-
 
 function openDetailsCard(taskDetailsBackground, taskDetailsCard) {
   taskDetailsBackground.style.display = "flex";
@@ -297,7 +318,6 @@ function openDetailsCard(taskDetailsBackground, taskDetailsCard) {
   }, 500);
 }
 
-
 function closeDetailsCard(taskDetailsBackground, taskDetailsCard) {
   taskDetailsCard.classList.add("slide_out_no_bg_change");
   taskDetailsBackground.classList.add("background_fade_in");
@@ -309,7 +329,6 @@ function closeDetailsCard(taskDetailsBackground, taskDetailsCard) {
   }, 500);
 }
 
-
 function renderTaskDetails(cardId) {
   let currentTask = tasks[cardId];
   renderTaskTitle(currentTask);
@@ -318,30 +337,25 @@ function renderTaskDetails(cardId) {
   renderTaskPriority(currentTask);
 }
 
-
 function renderTaskTitle(currentTask) {
   let taskTitle = document.getElementById("task_title");
   taskTitle.innerText = currentTask.title;
 }
-
 
 function renderTaskDescription(currentTask) {
   let taskDescription = document.getElementById("task_description");
   taskDescription.innerText = currentTask.description;
 }
 
-
 function renderTaskDate(currentTask) {
   let taskDate = document.getElementById("task_date");
   taskDate.innerText = currentTask.date;
 }
 
-
 function renderTaskPriority(currentTask) {
   let taskPriority = document.getElementById("task_priority");
   taskPriority.innerText = currentTask.priority;
 }
-
 
 document.addEventListener("mouseup", function (e) {
   let taskDetailsCard = document.getElementById("current_task_card");
@@ -352,13 +366,11 @@ document.addEventListener("mouseup", function (e) {
   }
 });
 
-
 function isTaskDetailsCardOpen() {
   if (isOnBoardPage()) {
     return document.getElementById("task_card_opened").style.display != "none";
   }
 }
-
 
 // Funktion, um die Anzahl der Tasks in einer bestimmten Kategorie zu zählen
 function countTasksInCategory(category) {
@@ -402,18 +414,38 @@ async function updateTaskCounts() {
   }
 }
 
-
 document.addEventListener("DOMContentLoaded", async function () {
   if (isOnSummaryPage()) {
     await updateHTML();
   }
 });
 
-
-document.addEventListener('mouseup', async function (e) {
-  if (e.target.id === 'assigned_to_input') {
-    document.getElementById('assigned_to_datalist').style.display = 'flex';
+document.addEventListener("mouseup", async function (e) {
+  if (e.target.id === "assigned_to_input") {
+    document.getElementById("assigned_to_datalist").style.display = "flex";
   } else {
-    document.getElementById('assigned_to_datalist').style.display = 'none';
+    document.getElementById("assigned_to_datalist").style.display = "none";
   }
-})
+});
+
+
+
+async function deleteAllTasks() {
+  // Bestätigen Sie zuerst, ob der Benutzer sicher alle Tasks löschen möchte
+  const confirmation = confirm("Are you sure you want to delete all tasks?");
+  if (!confirmation) {
+    return; // Wenn der Benutzer die Aktion nicht bestätigt, brechen Sie die Funktion ab.
+  }
+
+  // Löschen Sie alle Tasks, indem Sie das `tasks` Array leeren
+  tasks = [];
+
+  // Aktualisieren Sie die Tasks in der Remote-Speicherung
+  await setItem("tasks", JSON.stringify(tasks));
+
+  // Aktualisieren Sie die Anzeige
+  await updateHTML();
+
+  
+}
+
