@@ -1,4 +1,5 @@
 let tasks = [];
+let subtasks = [];
 let currentDraggedElement;
 let subtaskCounter = 0; // Um eindeutige IDs für Subtasks zu erstellen
 
@@ -7,32 +8,7 @@ async function loadTasks() {
   tasks = loadedTasks;
 }
 
-/*async function createNewTask() {
-  //let tasks = []; // Falls wir die Tasks mal leeren müssen
-  let title = document.getElementById("title_input").value;
-  let description = document.getElementById("description_textarea").value;
-  let assignedTo = document.getElementById("assigned_to_input").value;
-  let date = document.getElementById("date_input").value;
-  let taskCategory = document.getElementById("task_category_input").value;
-  let subtaskCategory = document.getElementById("subtask_category_input").value;
-  tasks.push({
-    id: tasks.length,
-    title: title,
-    description: description,
-    assignedTo: assignedTo,
-    date: date,
-    taskCategory: taskCategory,
-    subtaskCategory: subtaskCategory,
-    category: "toDo",
-  });
-  await setItem("tasks", JSON.stringify(tasks));
-  clearInputFields();
-  if (window.location.pathname == "/board.html") {
-    await updateHTML();
-  }
-  await updateTasksInRemoteStorage(tasks);
-  moveAddTaskCard("close");
-}*/
+
 
 async function createNewTask() {
   let title = document.getElementById("title_input").value;
@@ -40,17 +16,18 @@ async function createNewTask() {
   let assignedTo = document.getElementById("assigned_to_input").value;
   let date = document.getElementById("date_input").value;
   let taskCategory = document.getElementById("task_category_input").value;
-
-  // Holen Sie die Eingabe für Subtasks und teilen Sie sie in einzelne Subtask-Titel auf
   let subtaskInput = document.getElementById("subtask_category_input");
   let subtaskTitles = subtaskInput.value
     .split("\n")
     .filter((title) => title.trim() !== "");
-  // Fügen Sie die Subtasks zur Liste hinzu und aktualisieren Sie die Benutzeroberfläche
+    
+    subtaskInput = [];
+
+  // Fügen Sie die Subtasks zur Subtasks-Liste hinzu
   subtaskTitles.forEach((subtaskTitle) => {
-    addSubtaskToList(subtaskTitle);
+    subtasks.push({ title: subtaskTitle });
   });
-  subtaskInput.value = "";
+
   let newTask = {
     id: tasks.length,
     title: title,
@@ -58,38 +35,37 @@ async function createNewTask() {
     assignedTo: assignedTo,
     date: date,
     taskCategory: taskCategory,
-    subtasks: subtaskInput,
+    subtasks: subtasks,
     category: "toDo",
   };
   tasks.push(newTask);
   clearInputFields();
   await updateTasksInRemoteStorage(tasks);
-
-  // Rufen Sie renderSubtasks auf, um die Subtasks anzuzeigen
-  renderSubtasks(newTask.subtasks);
-
   moveAddTaskCard("close");
+  subtasks = [];
+
   if (window.location.pathname == "/board.html") {
     await updateHTML();
   }
 }
 
 
-
+// Onclickfunktion für das "+" beim Subtasks erstellen
 document.addEventListener("DOMContentLoaded", function () {
   const addSubtaskButton = document.querySelector(".subtasks img");
 
   addSubtaskButton.addEventListener("click", () => {
-    const subtaskInput = document.getElementById("subtask_category_input");
-    const subtaskTitle = subtaskInput.value.trim();
+    let subtaskInput = document.getElementById("subtask_category_input");
+    let subtaskTitle = subtaskInput.value.trim();
+    subtasks.push(subtaskTitle);
 
     if (subtaskTitle) {
       // Erstellen Sie ein neues Listenelement für den Subtask
-      const subtaskItem = document.createElement("li");
+      let subtaskItem = document.createElement("li");
       subtaskItem.textContent = subtaskTitle;
 
       // Holen Sie das parent <ul>-Element
-      const subtaskList = document.querySelector(".title ul");
+      let subtaskList = document.querySelector(".title ul");
 
       // Fügen Sie den Subtask der Liste hinzu
       subtaskList.appendChild(subtaskItem);
@@ -101,53 +77,31 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-function createSubtaskElement(subtask) {
-  // Erstellen Sie ein Container-Div für die Subtask
-  const subtaskContainer = document.createElement("div");
-  subtaskContainer.classList.add("subtask");
-
-  // Erstellen Sie ein Checkbox-Element für die Subtask
-  const subtaskCheckbox = document.createElement("input");
-  subtaskCheckbox.type = "checkbox";
-  subtaskCheckbox.name = `subtask_checkbox_${subtask.id}`;
-  subtaskCheckbox.id = `subtask_checkbox_${subtask.id}`;
-  subtaskCheckbox.classList.add("subtask_checkbox");
-  // Erstellen Sie ein Label-Element für die Checkbox
-  const subtaskLabel = document.createElement("label");
-  subtaskLabel.htmlFor = `subtask_checkbox_${subtask.id}`;
-  // Erstellen Sie ein Textknoten für den Subtask-Titel
-  const subtaskTitle = document.createElement("span");
-  subtaskTitle.textContent = subtask.title;
-  // Fügen Sie die Checkbox, das Label und den Titel zum Subtask-Container hinzu
-  subtaskContainer.appendChild(subtaskCheckbox);
-  subtaskContainer.appendChild(subtaskLabel);
-  subtaskContainer.appendChild(subtaskTitle);
-  return subtaskContainer;
-}
-
-
-function renderSubtasks(subtasks) {
-  const subtaskContainer = document.querySelector(".subtask_container");
-  subtaskContainer.innerHTML = ""; // Leeren Sie den Container, um vorhandene Subtasks zu entfernen.
-
-  subtasks.forEach((subtask) => {
-    const subtaskElement = createSubtaskElement(subtask);
-    subtaskContainer.appendChild(subtaskElement);
-  });
-}
-
-
 // Funktion zum Hinzufügen eines Subtasks zur Liste und zum Aktualisieren der Benutzeroberfläche
 function addSubtaskToList(subtaskTitle) {
-  let subtaskList = document.querySelector(".subtasks ul");
+  let subtaskInput = document.getElementById("subtask_category_input");
+  subtaskTitle = subtaskTitle.trim();
 
-  // Erstellen Sie ein neues Listenelement für den Subtask
-  const subtaskItem = document.createElement("li");
-  subtaskItem.textContent = subtaskTitle;
+  if (subtaskTitle) {
+    // Erstellen Sie ein Subtask-Element mit dem Subtask-Titel
+    let subtaskElement = createSubtaskElement(subtaskTitle);
 
-  // Fügen Sie den Subtask der Liste hinzu
-  subtaskList.appendChild(subtaskItem);
+    // Holen Sie das Element mit der ID "task_card_opened"
+    let taskCardOpened = document.getElementById("subtask_container");
+
+    // Fügen Sie das Subtask-Element zur "task_card_opened"-Karte hinzu
+    taskCardOpened.appendChild(subtaskElement);
+
+    // Fügen Sie den Subtask auch zum `subtasks`-Array der aktuellen Aufgabe hinzu
+    let currentTask = tasks[tasks.length - 1]; // Nehmen Sie die letzte Aufgabe im Array
+    currentTask.subtasks.push({ title: subtaskTitle });
+
+    // Das Eingabefeld leeren
+    subtaskInput.value = "";
+  }
 }
+
+
 
 function clearInputFields() {
   document.getElementById("title_input").value = "";
@@ -286,10 +240,6 @@ function slideCardDown() {
 
 function openTaskDetailsCard(cardId, action) {
   showTaskDetailsCard(action);
-  if (action === "open") {
-    const currentTask = tasks[cardId];
-    renderSubtasks(currentTask.subtasks);
-  }
   renderTaskDetails(cardId);
 }
 
@@ -335,6 +285,18 @@ function renderTaskDetails(cardId) {
   renderTaskDescription(currentTask);
   renderTaskDate(currentTask);
   renderTaskPriority(currentTask);
+  renderSubtasks(currentTask.subtasks);
+}
+
+function renderSubtasks(subtasks) {
+  let subtasksContainer = document.getElementById('subtask_container');
+  subtasksContainer.innerHTML = ""; // Leeren Sie den Container, um vorhandene Subtasks zu entfernen.
+
+  for (let index = 0; index < subtasks.length; index++) {
+    subtasksContainer.innerHTML += `
+    <span>${subtasks[index]}</span
+    `;
+  } 
 }
 
 function renderTaskTitle(currentTask) {
