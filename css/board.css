@@ -508,7 +508,7 @@ section {
     font-size: 21px;
 }
 
-.edite_delete_options {
+.edit_delete_options {
     display: flex; 
     justify-content: flex-end;
     gap: 15px;
@@ -519,6 +519,7 @@ section {
     justify-content: center;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
 }
 
 .seperator_edit_delete {
@@ -528,20 +529,49 @@ section {
     background-color: #D1D1D1;
 }
 
-.delete_img_task_open img{
+.delete_img_task_open {
+    background-image: url("../assets/img/delete.png");
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
 }
 
-.edit_img_task_open img{
+.open_task_delete:hover .delete_img_task_open {
+    background-image: url("../assets/img/deleteBlue.png");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.open_task_delete:hover .delete_text {
+    color: #29ABE2!important;
+}
+
+.edit_img_task_open {
+    background-image: url("../assets/img/editDark.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.open_task_edit:hover .edit_img_task_open {
+    background-image: url("../assets/img/editBlue.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 18px;
+}
+
+.open_task_edit:hover .edit_text {
+    color: #29ABE2!important;
 }
 
 .center {
@@ -562,9 +592,23 @@ section {
     justify-content: center;
     align-items: center;
     width: 440px;
+    position: absolute;
+    bottom: 4px;
 }
 
 .datalist_button img {
     width: 31px;
     height: 22px;
+}
+
+.datalist_container {
+    display: none;
+    width: 483px;
+    height: 130px;
+    position: relative;
+    top: -8px;
+    border: 1px solid #d1d1d1;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    justify-content: center;
 }
