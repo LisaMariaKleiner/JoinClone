@@ -10,6 +10,7 @@
     <script src="./js/storage.js"></script>
     <script src="./js/login.js"></script>
     <script src="/js/logout.js"></script>
+    <script src="./js/templates.js"></script>
     <script src="./js/add_task.js"></script>
     <script src="./js/script.js"></script>
     <script src="./js/add_contact.js"></script>
@@ -133,20 +134,15 @@
                     </div>
                     <div class="assigned_to title">
                         <span>Assigned to</span>
-                        <div class="datalist_container"></div>
-                        <input id="assigned_to_input" class="title_input" list="select_contacts">
-                        <datalist id="select_contacts">
-                            <!--Hier werden die Kontakte angezeigt-->
-                        </datalist>
-            
-                        <button class="primary_button datalist_button" id="create_contact_button" onclick="createNewContact()">
+                        <input id="assigned_to_input" class="title_input" onclick="showDropDownMenu('assigned_to_datalist')">
+                        <div id="assigned_to_datalist" class="datalist_container">
+                            <button class="primary_button datalist_button" id="create_contact_button" onclick="createNewContact()">
                                 Add new contact
-                            <div>
-                                <img src="./assets/img/person_add.png">
-                            </div>
-                        </button> <!-- Noch über css im Dropwdown anzeigen lassen, geht nicht innerhalb der Datalist-->
-                            
-                        
+                                <div>
+                                    <img src="./assets/img/person_add.png">
+                                </div>
+                            </button> <!-- Noch über css im Dropwdown anzeigen lassen, geht nicht innerhalb der Datalist-->
+                        </div>
                     </div>
                 </div>
 
@@ -158,7 +154,7 @@
                             <span>Due date</span>
                             <p class="highlighted">*</p>
                         </div>
-                        <input id="date_input" type="date" class="title_input">
+                        <input required id="date_input" type="date" class="title_input">
                     </div>
                     <div class="title">
                         <span>Prio</span>
@@ -259,22 +255,22 @@
                     </div>
                 </div>
             </div>
-            <div class="edite_delete_options">
+            <div class="edit_delete_options">
                 <div class="open_task_delete">
                     <div class="delete_img_task_open">
-                        <img src="./assets/img/deleteDunkelblau.png" alt="">
+
                     </div>
-                    <div class="center">
-                        <span>Delete</span>
+                    <div class="delete_text center">
+                        <span class="delete_text">Delete</span>
                     </div>
                 </div>
                 <div class="seperator_edit_delete"></div>
                 <div class="open_task_edit">
                     <div class="edit_img_task_open">
-                        <img src="./assets/img/editDark.png" alt="">
+
                     </div>
                     <div class="center">
-                        <span>Edit</span>
+                        <span class="edit_text">Edit</span>
                     </div>
                 </div>
             </div>
