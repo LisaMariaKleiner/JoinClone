@@ -7,7 +7,7 @@ async function loadTasks() {
 }
 
 
-async function createNewTask() {
+/*async function createNewTask() {
   //let tasks = []; // Falls wir die Tasks mal leeren müssen
   let title = document.getElementById("title_input").value;
   let description = document.getElementById("description_textarea").value;
@@ -32,7 +32,90 @@ async function createNewTask() {
   }
   await updateTasksInRemoteStorage(tasks);
   moveAddTaskCard("close");
+}*/
+
+async function createNewTask() {
+  let title = document.getElementById("title_input").value;
+  let description = document.getElementById("description_textarea").value;
+  let assignedTo = document.getElementById("assigned_to_input").value;
+  let date = document.getElementById("date_input").value;
+  let taskCategory = document.getElementById("task_category_input").value;
+  let subtaskCategory = document.getElementById("subtask_category_input").value;
+  let subtaskCheckboxId = `subtask_checkbox_${tasks.length}`;
+  let newTask = {
+    id: tasks.length,
+    title: title,
+    description: description,
+    assignedTo: assignedTo,
+    date: date,
+    taskCategory: taskCategory,
+    subtasks: [
+      {
+        id: tasks.length,
+        title: subtaskCategory,
+        checkboxId: subtaskCheckboxId,
+      },
+    ],
+    category: "toDo",
+  };
+  tasks.push(newTask);
+  await updateTasksInRemoteStorage(tasks);
+  renderSubtasks(newTask.subtasks);
+  clearInputFields();
+  if (window.location.pathname == "/board.html") {
+    await updateHTML();
+  }
+  moveAddTaskCard("close");
 }
+
+
+
+function createSubtaskElement(subtask) {
+  // Erstellen Sie ein Container-Div für die Subtask
+  const subtaskContainer = document.createElement("div");
+  subtaskContainer.classList.add("subtask");
+
+  // Erstellen Sie ein Checkbox-Element für die Subtask
+  const subtaskCheckbox = document.createElement("input");
+  subtaskCheckbox.type = "checkbox";
+  subtaskCheckbox.name = `subtask_checkbox_${subtask.id}`;
+  subtaskCheckbox.id = `subtask_checkbox_${subtask.id}`;
+  subtaskCheckbox.classList.add("subtask_checkbox");
+
+  // Erstellen Sie ein Label-Element für die Checkbox
+  const subtaskLabel = document.createElement("label");
+  subtaskLabel.htmlFor = `subtask_checkbox_${subtask.id}`;
+
+  // Erstellen Sie ein Textknoten für den Subtask-Titel
+  const subtaskTitle = document.createElement("span");
+  subtaskTitle.textContent = subtask.title;
+
+  // Fügen Sie die Checkbox, das Label und den Titel zum Subtask-Container hinzu
+  subtaskContainer.appendChild(subtaskCheckbox);
+  subtaskContainer.appendChild(subtaskLabel);
+  subtaskContainer.appendChild(subtaskTitle);
+
+  return subtaskContainer;
+}
+
+function renderSubtasks(subtasks) {
+  // Holen Sie das Container-Element für Subtasks
+  const subtaskContainer = document.querySelector(".subtask_container");
+
+  // Entfernen Sie zuerst alle vorhandenen Subtasks
+  while (subtaskContainer.firstChild) {
+    subtaskContainer.removeChild(subtaskContainer.firstChild);
+  }
+
+  // Erstellen und hinzufügen Sie die neuen Subtask-Elemente
+  subtasks.forEach((subtask) => {
+    const subtaskElement = createSubtaskElement(subtask);
+    subtaskContainer.appendChild(subtaskElement);
+  });
+}
+
+
+
 
 function clearInputFields() {
   document.getElementById("title_input").value = "";
@@ -179,6 +262,10 @@ function slideCardDown() {
 
 function openTaskDetailsCard(cardId, action) {
   showTaskDetailsCard(action);
+  if (action === "open") {
+    const currentTask = tasks[cardId];
+    renderSubtasks(currentTask.subtasks);
+  }
   renderTaskDetails(cardId);
 }
 
