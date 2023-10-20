@@ -2,6 +2,7 @@ let tasks = [];
 let subtasks = [];
 let currentDraggedElement;
 let subtaskCounter = 0; // Um eindeutige IDs für Subtasks zu erstellen
+let selectedPriority;
 
 async function loadTasks() {
   let loadedTasks = JSON.parse(await getItem("tasks"));

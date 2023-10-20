@@ -69,6 +69,8 @@ section {
     font-family: 'Inter', sans-serif;
     cursor: pointer;
     border: none;
+    box-shadow: 0px 0px 4px 0px #00000026;
+
 }
 
 #save_task_button {
@@ -643,4 +645,39 @@ section {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     justify-content: center;
+}
+
+#confirm_delete_task_container {
+    position: absolute;
+    z-index: 99;
+    height: 100vh;
+    width: 100vw;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#confirm_delete_task_subcontainer {
+    border-radius: 20px;
+    background-color: #2A3647;
+    padding: 24px 24px;
+    text-align: center;
+}
+
+#confirm_delete_task_subcontainer span {
+    color: white;
+    font-weight: 700;
+    font-size: 21px;
+}
+
+#confirm_delete_task_button_container {
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-around;
+}
+
+#confirm_delete_task_button {
+    border: 1px solid white;
+    box-shadow: 0px 0px 4px 0px #7c7c7c26 !important;
+    width: 110px;
 }
