@@ -333,7 +333,7 @@ function setDeleteButtonOnClick(
 
 function addOpenedContactAnimation(contactInformationCard) {
   contactInformationCard.style.display = "flex";
-  contactInformationCard.classList.add("slide_in");
+  contactInformationCard.classList.add("slide_in_no_bg_change");
   contactInformationCard.style.transform = "translate(0%)";
 }
 
