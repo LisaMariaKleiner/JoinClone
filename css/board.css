@@ -71,6 +71,10 @@ section {
     border: none;
 }
 
+#save_task_button {
+    width: 90px !important;
+}
+
 .primary_button img {
     width: 15px;
     height: 11px;
@@ -384,25 +388,48 @@ section {
     width: 525px;
     background-color: white;
     border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
     padding: 48px 40px;
     position: relative;
     transform: translate(200%);
 }
 
-#current_task_card h2 {
+.task_details {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.task_details h2 {
     font-weight: 700;
     font-size: 61px;
 }
 
-#current_task_card p, #current_task_card span {
+.task_details p, .task_details span {
     font-size: 20px;
 }
 
-#current_task_card span {
+.task_details span {
     color: #2A3647;
+}
+
+#edit_task_card {
+    display: none;
+}
+
+.edit_task_card_form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    height: 772px;
+    overflow-y: auto;
+    position: relative;
+    top: 48px;
+    padding-right: 18px;
+}
+
+.save_task {
+    display: flex;
+    justify-content: end;
 }
 
 .subtask_container {
@@ -520,6 +547,10 @@ section {
     align-items: center;
     gap: 10px;
     cursor: pointer;
+}
+
+#edit_task_description {
+    max-width: 439px;
 }
 
 .seperator_edit_delete {

@@ -246,6 +246,7 @@ function slideCardDown() {
 function openTaskDetailsCard(cardId, action) {
   showTaskDetailsCard(action);
   renderTaskDetails(cardId);
+  setOnClickEvent(cardId);
 }
 
 function showTaskDetailsCard(action) {
@@ -417,4 +418,108 @@ async function deleteAllTasks() {
 
   // Aktualisieren Sie die Anzeige
   await updateHTML();
+}
+
+async function showTaskEditForm(taskId) {
+  const taskDetails = document.getElementById('task_details');
+  const taskEditForm = document.getElementById('edit_task_card');
+
+  taskDetails.style.display = 'none';
+  taskEditForm.style.display = 'flex';
+  document.querySelector('body').style.overflow = 'hidden';
+  await renderTaskEditForm(taskId);
+}
+
+async function renderTaskEditForm(taskId) {
+  tasks = JSON.parse(await getItem('tasks'))
+  const taskTitle = tasks[taskId].title
+  const taskDescription = tasks[taskId].description
+  const taskDueDate = tasks[taskId].date
+  const taskTitleInput = edit_task_title;
+  const taskDescriptionInput = edit_task_description;
+  const taskDateInput = edit_task_date;
+
+  taskTitleInput.setAttribute('value', taskTitle);
+  taskDescriptionInput.value = taskDescription;
+  taskDateInput.setAttribute('value', taskDueDate);
+}
+
+function setOnClickEvent(cardId) {
+  document.getElementById('open_task_delete')
+  .setAttribute('onclick', `deleteTask(${cardId}); return false;`)
+  document.getElementById('open_task_edit')
+    .setAttribute('onclick', `showTaskEditForm(${cardId})`);
+  document.getElementById('edit_task_card_form')
+    .setAttribute('onsubmit', `saveTask(${cardId}); return false`);
+}
+
+async function saveTask(cardId) {
+  const remoteStorageTasksAsString = await getItem("tasks");
+  const editedTaskTitle = edit_task_title.value;
+  const editedTaskDescription = edit_task_description.value;
+  const editedTaskDate = edit_task_date.value;
+
+  if(remoteStorageTasksAsString) {
+    const remoteStorageTasks = JSON.parse(remoteStorageTasksAsString);
+
+    const currentTask = remoteStorageTasks[cardId];
+    currentTask.title = editedTaskTitle;
+    currentTask.description = editedTaskDescription;
+    currentTask.date = editedTaskDate;
+  
+    await updateTasksInRemoteStorage(currentTask);
+    clearTaskEditForm();
+  };
+}
+
+async function updateTasksInRemoteStorage(updatedTask) {
+  tasks = await getItem('tasks');
+  tasks = JSON.parse(tasks);
+  if (tasks) {
+    const updatedTaskId = updatedTask.id;
+    const taskIndex = tasks.findIndex(
+      (t) => t.id === updatedTaskId
+    );
+
+    if (taskIndex !== -1) {
+      tasks[taskIndex] = updatedTask;
+      const tasksAsString = JSON.stringify(tasks);
+      await setItem('tasks', tasksAsString);
+    }
+  }
+}
+
+function clearTaskEditForm() {
+  edit_task_title.value = '';
+  edit_task_description.value = '';
+  edit_task_date.value = '';
+}
+
+async function deleteTask(cardId) {
+  const remoteStorageTasksAsString = await getItem("tasks");
+  
+  if (remoteStorageTasksAsString) {
+    const remoteStorageTasks = JSON.parse(remoteStorageTasksAsString);
+    if (getTaskIdIndex(cardId) > -1) {
+      remoteStorageTasks.splice(getTaskIdIndex(cardId), 1);
+      const remoteStorageTasksAsString = JSON.stringify(remoteStorageTasks);
+      await setItem("tasks", remoteStorageTasksAsString);
+      location.reload();
+    } else {
+      console.warn('Ungültiger TaskIndex.')
+    }
+
+  } else {
+    console.warn('Task konnte im Remote Storage nicht gefunden werden.')
+  }
+
+}
+
+function getTaskIdIndex(taskId) {
+  let currentIndex;
+  for(let i = 0; i < tasks.length; i++) {
+    if (Number(taskId) === tasks[i].id) {
+      return currentIndex = i;
+    }
+  }
 }

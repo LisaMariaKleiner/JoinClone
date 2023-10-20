@@ -230,52 +230,130 @@
     <!-- Der geöffnete Task -->
     <div id="task_card_opened">
         <div id="current_task_card">
-            <h3 class="user_story">User Story</h3>
+            <div id="task_details" class="task_details">
+                <h3 class="user_story">User Story</h3>
+                <h2 id="task_title">Title</h2>
+                <p id="task_description">Description</p>
+                <div>
+                    <span>Date: </span>
+                    <span id="task_date"></span>
+                </div>
+                <div>
+                    <span>Priority: </span>
+                    <span id="task_priority"></span>
+                </div>
+
+                <div>
+                    <span>Assigned To: </span>
+                </div>
+                <div>
+                    <span>Subtasks</span>
+                    <div id="subtask_container" class="subtask_container">
+                        <div class="subtask">
+                            <input type="checkbox" name="" id="subtask_checkbox" class="subtask_checkbox">
+                            <label for="subtask_checkbox"></label>
+                            <span>SUBTASK</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="edit_delete_options">
+                    <div id="open_task_delete" class="open_task_delete">
+                        <div class="delete_img_task_open">
+
+                        </div>
+                        <div class="delete_text center">
+                            <span class="delete_text">Delete</span>
+                        </div>
+                    </div>
+                    <div class="seperator_edit_delete"></div>
+                    <div id="open_task_edit" class="open_task_edit">
+                        <div class="edit_img_task_open">
+
+                        </div>
+                        <div class="center">
+                            <span class="edit_text">Edit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="close_button_container" onclick="openTaskDetailsCard(false, 'close')">
                 <img src="./assets/img/x.png" alt="Close Card">
             </div>
-            <h2 id="task_title">Title</h2>
-            <p id="task_description">Description</p>
-            <div>
-                <span>Date: </span>
-                <span id="task_date"></span>
-            </div>
-            <div>
-                <span>Priority: </span>
-                <span id="task_priority"></span>
-            </div>
-
-            <div>
-                <span>Assigned To: </span>
-            </div>
-            <div>
-                <span>Subtasks</span>
-                <div id="subtask_container" class="subtask_container">
-                    <div class="subtask">
-                        <input type="checkbox" name="" id="subtask_checkbox" class="subtask_checkbox">
-                        <label for="subtask_checkbox"></label>
-                        <span>SUBTASK</span>
+            <!-- Edit Task Card Form -->
+            <div id="edit_task_card">
+                <form class="edit_task_card_form" id="edit_task_card_form">
+                    <div class="title">
+                        <div class="highlighted_object">
+                            <span>Title</span>
+                        </div>
+                        <input id="edit_task_title" type="text" class="title_input" placeholder="Enter a title">
                     </div>
-                </div>
-            </div>
-            <div class="edit_delete_options">
-                <div class="open_task_delete">
-                    <div class="delete_img_task_open">
-
+                    <div class="description title">
+                        <span>Description</span>
+                        <textarea id="edit_task_description" class="title_input" placeholder="Enter a Description"
+                            name="" id="" cols="30" rows="10"></textarea>
                     </div>
-                    <div class="delete_text center">
-                        <span class="delete_text" onclick="deleteTask(taskId)">Delete</span>
-                      </div>
-                </div>
-                <div class="seperator_edit_delete"></div>
-                <div class="open_task_edit">
-                    <div class="edit_img_task_open">
-
+                    <div class="title">
+                        <div class="highlighted_object">
+                            <span>Due date</span>
+                        </div>
+                        <input required id="edit_task_date" type="date" class="title_input">
                     </div>
-                    <div class="center">
-                        <span class="edit_text">Edit</span>
+                    <div class="title">
+                        <span>Priority</span>
+                        <div class="prio_container">
+                            <div class="prio">
+                                <input type="checkbox" name="prio_urgent" id="prio_urgent" class="prio_input">
+                                <label for="prio_urgent" class="prio_input_label">
+                                    <span class="prio_urgent_text">Urgent</span>
+                                    <div class="prio_urgent_icon"></div>
+                                </label>
+                            </div>
+                            <div class="prio">
+                                <input type="checkbox" name="prio_medium" id="prio_medium" class="prio_input">
+                                <label for="prio_medium" class="prio_input_label">
+                                    <span class="prio_medium_text">Medium</span>
+                                    <div class="prio_medium_icon"></div>
+                                </label>
+                            </div>
+                            <div class="prio">
+                                <input type="checkbox" name="prio_low" id="prio_low" class="prio_input">
+                                <label for="prio_low" class="prio_input_label">
+                                    <span class="prio_low_text">Low</span>
+                                    <div class="prio_low_icon"></div>
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <div class="assigned_to title">
+                        <span>Assigned to</span>
+                        <input id="assigned_to_input" class="title_input" onclick="showDropDownMenu('assigned_to_datalist')">
+                        <div id="assigned_to_datalist" class="datalist_container">
+                            <button class="primary_button datalist_button" id="create_contact_button" onclick="createNewContact()">
+                                Add new contact
+                                <div>
+                                    <img src="./assets/img/person_add.png">
+                                </div>
+                            </button> <!-- Noch über css im Dropwdown anzeigen lassen, geht nicht innerhalb der Datalist-->
+                        </div>
+                    </div>
+                    <div id="subtask_list" class="title">
+                        <span>Subtasks</span>
+                        <div class="subtasks">
+                            <input id="subtask_category_input" type="text" class="title_input" placeholder="Add new subtask">
+                            <img src="./assets/img/add.png" alt="">
+                        </div>
+                        <ul> <!-- Dies ist das Parent-Element für die ungeordnete Liste -->
+                            <!-- Hier werden die Subtasks in <li>-Elementen angezeigt -->
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="save_task">
+                            <button id="save_task_button" class="primary_button">Ok<img
+                                    src="./assets/img/done.png" alt=""></button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
