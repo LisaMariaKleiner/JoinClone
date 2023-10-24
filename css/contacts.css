@@ -234,9 +234,11 @@ html {
     display: flex;
     gap: 18px;
     align-items: center;
-    width: 159px;
+    width: 159px; /* Feste Breite für den Container */
+    height: 20px;
     position: relative;
     top: 22px;
+    transition: color 0.3s; /* Übergangseffekt für die Farbänderung */
 }
 
 .edit_container, .delete_container {
@@ -245,8 +247,8 @@ html {
     align-items: center;
     gap: 8px;
     font-family: 'Inter', sans-serif;
-    color: #2a3647;
     cursor: pointer;
+    transition: color 0.3s; /* Übergangseffekt für die Farbänderung */
 }
 
 .edit_container span,
@@ -254,7 +256,12 @@ html {
     color: #2A3647;
 }
 
-.edit_container:hover, .delete_container:hover {
+.edit_container:hover {
+    color: #29abe2;
+    font-weight: 700;
+}
+
+.delete_container:hover {
     color: #29abe2;
     font-weight: 700;
 }
