@@ -331,3 +331,14 @@ h1 {
     font-family: 'Inter', sans-serif;
     font-size: 20px;
 }
+
+.login_failed {
+    border-color: #FF808F;
+}
+
+#password_failed {
+    display: flex;
+    margin-top: -25px;
+    color: #FF919E;
+    font-size: 12px;
+}

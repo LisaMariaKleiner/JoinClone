@@ -8,27 +8,50 @@ function login(loginEmail, loginPassword) {
         localStorage.setItem('user', JSON.stringify(userData));
         localStorage.setItem('selectedPage', '../../summary.html');
         currentUserWantsAutoLogin();
+        removeLoginFailedClass();
         window.location.href = 'http://127.0.0.1:5500/summary.html';
     } else {
         console.warn('Login failed');
+        addLoginFailedClass(); 
     }
 }
+
+
+function addLoginFailedClass() {
+    const loginForm = document.getElementById('failed_pw');
+    if (loginForm) {
+        loginForm.classList.add('login_failed');
+        let failedText = document.getElementById('password_failed');
+        failedText.innerHTML = `Wrong password Ups! Try again.`;
+    }
+}
+
+
+function removeLoginFailedClass() {
+    const loginForm = document.getElementById('failed_pw');
+    if (loginForm) {
+        loginForm.classList.remove('login_failed');
+        let failedText = document.getElementById('password_failed');
+        failedText.innerHTML = '';
+    }
+}
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
     loginWhenEnterIsPressed();
 });
 
+
 function loginWhenEnterIsPressed() {
     if(isOnLoginPage()) {
         let loginEmail = document.getElementById('login_email');
         let loginPassword = document.getElementById('login_password');
-
         loginEmail.addEventListener('keyup', (event) => {
             if(event.keyCode === 13) {
                 login(login_email.value, login_password.value);
             }
         });
-        
         loginPassword.addEventListener('keyup', (event) => {
             if(event.keyCode === 13) {
                 login(login_email.value, login_password.value);
@@ -37,11 +60,11 @@ function loginWhenEnterIsPressed() {
     }
 }
 
+
 function autoLogin() {
     if(isOnLoginPage()) {
         const rememberMeStatusString = localStorage.getItem('checkbox');
         const rememberMeStatus = JSON.parse(rememberMeStatusString);
-        
         if(currentUserExistInRemoteStorage() && isOnLoginPage() && rememberMeStatus) {
             const userDataString = localStorage.getItem('user');
             const userData = JSON.parse(userDataString);
@@ -52,9 +75,9 @@ function autoLogin() {
     }
 }
 
+
 function currentUserExistInRemoteStorage() {
     const localStorageUserData = localStorage.getItem('user');
-
     if(localStorageUserData) {
         const userData = JSON.parse(localStorageUserData);
         const userEmail = userData.email;
@@ -62,6 +85,7 @@ function currentUserExistInRemoteStorage() {
         return users.find(u => u.email === userEmail && u.password === userPassword);
     }   
 }
+
 
 function currentUserWantsAutoLogin() {
     const rememberMeCheckBox = document.getElementById('remember_me');
@@ -72,13 +96,16 @@ function currentUserWantsAutoLogin() {
     }
 }
 
+
 function isOnLoginPage() {
     return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/index.html';
 }
 
+
 function isOnSummaryPage() {
     return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/summary.html';
 }
+
 
 function isOnBoardPage() {
     return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/board.html';
@@ -88,7 +115,6 @@ function isOnBoardPage() {
 function loadUserInSummary() {
     if(isOnSummaryPage()) {
         const userDataString = localStorage.getItem('user');
-
         if (userDataString) {
             const userData = JSON.parse(userDataString);
             if (userData.name) {  
@@ -102,8 +128,8 @@ function loadUserInSummary() {
     }
 }
 
-function greetUser() {
-    
+
+function greetUser() { 
     if (isOnSummaryPage()) {
         const storedUser = localStorage.getItem('user');
         const greeting = getGreeting();
