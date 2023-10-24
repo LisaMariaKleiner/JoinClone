@@ -68,7 +68,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
 function loginWhenEnterIsPressed() {
     if(isOnLoginPage()) {
         let loginEmail = document.getElementById('login_email');

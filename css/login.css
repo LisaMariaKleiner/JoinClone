@@ -332,11 +332,18 @@ h1 {
     font-size: 20px;
 }
 
-.login_failed {
+.login_failed, .sign_up_failed {
     border-color: #FF808F;
 }
 
 #password_failed {
+    display: flex;
+    margin-top: -25px;
+    color: #FF919E;
+    font-size: 12px;
+}
+
+#passwords_failed {
     display: flex;
     margin-top: -25px;
     color: #FF919E;

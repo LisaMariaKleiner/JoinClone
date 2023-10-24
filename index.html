@@ -22,7 +22,7 @@
     </div>
 
 
-
+<!-- ================================= Log In Card ================================= -->
     <div id="header_signup_button" class="signup_container">
         <p>Not a join user ?</p>
         <button class="primary_button" onclick="setIndexCard('signup')">Sign up</button>
@@ -66,6 +66,8 @@
         </div>
     </div>
 
+<!-- ============================================= Sign Up Card ================================= -->
+
     <div id="signup_card" class="signup_card">
         <button id="go_back_to_login_card" onclick="setIndexCard('login')"><img src="./assets/img/arrow-left-line.png" alt=""></button>
         <div class="headline_container">
@@ -87,19 +89,22 @@
                 </div>
             </div>
 
-            <div class="input_border signup_border" >
+            <div class="input_border signup_border" id="pw1">
                 <input type="password" required id="signup_password" min="6" placeholder="Password">
                 <div class="login_icon_container">
-                    <img src="./assets/img/lock.png">
+                    <img id="password_visibility_image_signup" src="./assets/img/lock.png" alt="Schloss" onclick="togglePasswordVisibilitySignUp('signup_password', 'password_visibility_image_signup')">
                 </div>
             </div>
-
-            <div class="input_border signup_border" >
+            
+            <div class="input_border signup_border" id="pw2">
                 <input type="password" required id="signup_confirm_password" min="6" placeholder="Confirm Password">
                 <div class="login_icon_container">
-                    <img src="./assets/img/lock.png">
+                    <img id="password_visibility_image_confirm_signup" src="./assets/img/lock.png" alt="Schloss" onclick="togglePasswordVisibilitySignUp('signup_confirm_password', 'password_visibility_image_confirm_signup')">
                 </div>
             </div>
+            <div id="passwords_failed"></div>
+            
+            
 
             <div>
                 <div class="accept_privatepolicy_container">
@@ -116,6 +121,8 @@
         </form>
     </div>
 
+
+<!-- ====================================== Footer ==================================== -->
     <div class="login_footer_links">
         <a href="./PrivacyPolicy.html" target="_blank">Privacy Policy</a>
         <a href="./legal_notice.html" target="_blank">Legal notice</a>
