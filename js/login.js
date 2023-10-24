@@ -1,5 +1,10 @@
 let userData;
 let user;
+const imageStates = [
+    { src: './assets/img/lock.png', alt: 'Schloss' }, // Bild 0 (Schloss)
+    { src: 'assets/img/visibility.png', alt: 'Zeige Passwort' }, // Bild 1 (Auge)
+    { src: 'assets/img/visibility_off.png', alt: 'Verberge Passwort' } // Bild 2 (Auge mit Strich)
+];
 
 function login(loginEmail, loginPassword) {
     user = users.find(u => u.email.toLowerCase() === loginEmail.toLowerCase()&& u.password === loginPassword);
@@ -37,10 +42,31 @@ function removeLoginFailedClass() {
 }
 
 
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById('login_password');
+    const passwordImage = document.getElementById('password_visibility_image');
+    let currentState = 0;
+    // Zu beginn das Bild mit dem Schloss zeigen
+    passwordImage.src = imageStates[0].src;
+    passwordImage.alt = imageStates[0].alt;
+    passwordImage.addEventListener('click', () => {
+        currentState = (currentState + 1) % (imageStates.length - 1);
+        const { src, alt } = imageStates[currentState + 1];
+        if (currentState === 1) {
+            passwordInput.type = 'password'; // Passwort verbergen
+        } else {
+            passwordInput.type = 'text'; // Passwort anzeigen
+        }
+        passwordImage.src = src;
+        passwordImage.alt = alt;
+    });
+}
+
 
 document.addEventListener('DOMContentLoaded', function () {
     loginWhenEnterIsPressed();
 });
+
 
 
 function loginWhenEnterIsPressed() {

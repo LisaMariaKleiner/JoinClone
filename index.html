@@ -42,9 +42,10 @@
             </div>
 
             <div id="failed_pw" class="input_border">
-                <input type="password" required id="login_password" placeholder="Password">
+                <input type="password" required id="login_password" placeholder="Password" onclick="togglePasswordVisibility()" onfocus="togglePasswordVisibility()">
                 <div class="login_icon_container">
-                    <img src="./assets/img/lock.png">
+                    <img id="password_visibility_image" src="./assets/img/lock.png" alt="Verberge Passwort">
+
                 </div>
             </div>
             <div id="password_failed"></div>
