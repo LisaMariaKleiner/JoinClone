@@ -2,7 +2,6 @@ let tasks = [];
 let subtasks = [];
 let currentDraggedElement;
 let subtaskCounter = 0; // Um eindeutige IDs für Subtasks zu erstellen
-let selectedPriority;
 
 async function loadTasks() {
   let loadedTasks = JSON.parse(await getItem("tasks"));
@@ -43,6 +42,7 @@ async function createNewTask() {
   let date = document.getElementById("date_input").value;
   let taskCategory = document.getElementById("task_category_input").value;
   let subtaskInput = document.getElementById("subtask_category_input");
+  let checkedPriority = getCheckedPriorityCheckbox();
   let subtaskTitles = subtaskInput.value
     .split("\n")
     .filter((title) => title.trim() !== "");
@@ -60,11 +60,13 @@ async function createNewTask() {
     description: description,
     assignedTo: assignedTo,
     date: date,
+    priority: checkedPriority,
     taskCategory: taskCategory,
     subtasks: subtasks,
     category: "toDo",
   };
   tasks.push(newTask);
+  console.log(tasks);
   await updateTasksInRemoteStorage(tasks);
   clearAddTaskCard();
   moveAddTaskCard("close");
@@ -73,6 +75,53 @@ async function createNewTask() {
     await updateHTML();
   }
 }
+
+function getCheckedPriorityCheckbox() {
+  const checkboxes = ['prio_urgent', 'prio_medium', 'prio_low'];
+  if (document.getElementById(checkboxes[0]).checked) {
+    const priority = checkboxes[0].split('_')[1];
+    return priority;
+  } else if (document.getElementById(checkboxes[1]).checked) {
+    const priority = checkboxes[1].split('_')[1];
+    return priority;
+  } else if (document.getElementById(checkboxes[2]).checked) {
+    const priority = checkboxes[2].split('_')[1];
+    return priority;
+  }
+}
+
+function disableOtherCheckboxes(checkboxId) {
+  const checkboxes = ['prio_urgent', 'prio_medium', 'prio_low'];
+  checkboxes.forEach(function(id) {
+    if (id !== checkboxId) {
+      const checkbox = document.getElementById(id);
+      if (checkbox) {
+        checkbox.checked = false;
+      }
+    }
+  });
+}
+
+// EventListener für die Checkboxen
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('prio_urgent').addEventListener('change', function() {
+    if (this.checked) {
+      disableOtherCheckboxes('prio_urgent');
+    }
+  });
+
+  document.getElementById('prio_medium').addEventListener('change', function() {
+    if (this.checked) {
+      disableOtherCheckboxes('prio_medium');
+    }
+  });
+
+  document.getElementById('prio_low').addEventListener('change', function() {
+    if (this.checked) {
+      disableOtherCheckboxes('prio_low');
+    }
+  });
+});
 
 // Onclickfunktion für das "+" beim Subtasks erstellen
 document.addEventListener("DOMContentLoaded", function () {
@@ -118,6 +167,9 @@ function clearInputFields() {
   document.getElementById("date_input").value = "";
   document.getElementById("task_category_input").value = "";
   document.getElementById("subtask_category_input").value = "";
+  document.getElementById('prio_urgent').checked = false;
+  document.getElementById('prio_medium').checked = false;
+  document.getElementById('prio_low').checked = false;
 }
 
 /*async function renderContactsInDatalist() {
@@ -468,12 +520,12 @@ async function saveTask(cardId) {
     currentTask.description = editedTaskDescription;
     currentTask.date = editedTaskDate;
   
-    await updateTasksInRemoteStorage(currentTask);
+    await updateTaskInRemoteStorage(currentTask);
     clearTaskEditForm();
   };
 }
 
-async function updateTasksInRemoteStorage(updatedTask) {
+async function updateTaskInRemoteStorage(updatedTask) {
   tasks = await getItem('tasks');
   tasks = JSON.parse(tasks);
   if (tasks) {
