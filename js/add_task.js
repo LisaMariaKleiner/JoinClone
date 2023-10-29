@@ -370,12 +370,44 @@ function renderTaskDescription(currentTask) {
 
 function renderTaskDate(currentTask) {
   let taskDate = document.getElementById("task_date");
-  taskDate.innerText = currentTask.date;
+  let currentTaskDateSplitted = currentTask.date.split('-');
+  let currentTaskDateFormatted = currentTaskDateSplitted[2] + '/' + currentTaskDateSplitted[1] + '/' + currentTaskDateSplitted[0];
+  taskDate.innerText = currentTaskDateFormatted;
 }
 
 function renderTaskPriority(currentTask) {
-  let taskPriority = document.getElementById("task_priority");
-  taskPriority.innerText = currentTask.priority;
+  let taskPriorityContainer = document.getElementById("task_priority");
+  let taskPriorityImageContainer = document.getElementById("task_priority_image");
+  checkForPriorityClasses();
+  taskPriorityImageContainer.classList.add(getCheckedCheckbox(currentTask));
+  taskPriorityContainer.innerText = createTaskPriority(currentTask);
+}
+
+function getCheckedCheckbox(currentTask) {
+  const currentTaskPriority = currentTask.priority;
+  if(currentTaskPriority === 'urgent') {
+    return 'priority_urgent';
+  } else if(currentTaskPriority === 'medium') {
+    return 'priority_medium';
+  } else if(currentTaskPriority === 'low') {
+    return 'priority_low';
+  }
+}
+
+function checkForPriorityClasses() {
+  let priorityImageContainer = document.getElementById('task_priority_image');
+  if(priorityImageContainer.classList.contains('priority_urgent')) {
+    task_priority_image.classList.remove('priority_urgent');
+  } else if(priorityImageContainer.classList.contains('priority_medium')) {
+    task_priority_image.classList.remove('priority_medium');
+  } else if(priorityImageContainer.classList.contains('priority_low')) {
+    task_priority_image.classList.remove('priority_low');
+  }
+}
+
+function  createTaskPriority(currentTask) {
+  let taskPriority = currentTask.priority.charAt(0).toUpperCase() + currentTask.priority.slice(1);
+  return taskPriority;
 }
 
 document.addEventListener("mouseup", function (e) {
@@ -485,9 +517,10 @@ async function showTaskEditForm(taskId) {
 
 async function renderTaskEditForm(taskId) {
   tasks = JSON.parse(await getItem('tasks'))
-  const taskTitle = tasks[taskId].title
-  const taskDescription = tasks[taskId].description
-  const taskDueDate = tasks[taskId].date
+  const taskTitle = tasks[taskId].title;
+  const taskDescription = tasks[taskId].description;
+  const taskDueDate = tasks[taskId].date;
+  const taskPriority = tasks[taskId].priority;
   const taskTitleInput = edit_task_title;
   const taskDescriptionInput = edit_task_description;
   const taskDateInput = edit_task_date;
@@ -495,6 +528,12 @@ async function renderTaskEditForm(taskId) {
   taskTitleInput.setAttribute('value', taskTitle);
   taskDescriptionInput.value = taskDescription;
   taskDateInput.setAttribute('value', taskDueDate);
+  setEditPrioritySelection(taskPriority);
+}
+
+function setEditPrioritySelection(taskPriority) {
+  let taskPrioritySelector = document.getElementById(`edit_prio_${taskPriority}`)
+  taskPrioritySelector.checked = true;
 }
 
 function setOnClickEvent(cardId) {

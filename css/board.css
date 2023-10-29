@@ -414,6 +414,17 @@ section {
     color: #2A3647;
 }
 
+.task_details_info_container {
+    display: flex;
+    gap: 25px;
+}
+
+.priority_container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
 #edit_task_card {
     display: none;
 }
@@ -680,4 +691,28 @@ section {
     border: 1px solid white;
     box-shadow: 0px 0px 4px 0px #7c7c7c26 !important;
     width: 110px;
+}
+
+.priority_urgent {
+    background-image: url('../assets/img/prio_alta.png');
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    background-position: center;
+}
+
+.priority_medium {
+    background-image: url('../assets/img/prio_media.png');
+    background-repeat: no-repeat;
+    width: 17px;
+    height: 6px;
+    background-position: center;
+}
+
+.priority_low {
+    background-image: url('../assets/img/prio_baja.png');
+    background-repeat: no-repeat;
+    width: 17px;
+    height: 12px;
+    background-position: center;
 }

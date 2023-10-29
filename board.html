@@ -234,13 +234,17 @@
                 <h3 class="user_story">User Story</h3>
                 <h2 id="task_title">Title</h2>
                 <p id="task_description">Description</p>
-                <div>
+                <div class="task_details_info_container">
                     <span>Date: </span>
                     <span id="task_date"></span>
                 </div>
-                <div>
+                <div class="task_details_info_container">
                     <span>Priority: </span>
-                    <span id="task_priority"></span>
+                    <div class="priority_container">
+                        <span id="task_priority"></span>
+                        <div id="task_priority_image"></div>
+                    </div>
+
                 </div>
 
                 <div>
@@ -304,21 +308,21 @@
                         <div class="prio_container">
                             <div class="prio">
                                 <input type="checkbox" name="prio_urgent" id="edit_prio_urgent" class="prio_input">
-                                <label for="prio_urgent" class="prio_input_label">
+                                <label for="prio_urgent" class="prio_input_label" id="edit_prio_urgent_label">
                                     <span class="prio_urgent_text">Urgent</span>
                                     <div class="prio_urgent_icon"></div>
                                 </label>
                             </div>
                             <div class="prio">
                                 <input type="checkbox" name="prio_medium" id="edit_prio_medium" class="prio_input">
-                                <label for="prio_medium" class="prio_input_label">
+                                <label for="prio_medium" class="prio_input_label" id="edit_prio_urgent_medium">
                                     <span class="prio_medium_text">Medium</span>
                                     <div class="prio_medium_icon"></div>
                                 </label>
                             </div>
                             <div class="prio">
                                 <input type="checkbox" name="prio_low" id="edit_prio_low" class="prio_input">
-                                <label for="prio_low" class="prio_input_label">
+                                <label for="prio_low" class="prio_input_label" id="edit_prio_urgent_low">
                                     <span class="prio_low_text">Low</span>
                                     <div class="prio_low_icon"></div>
                                 </label>
