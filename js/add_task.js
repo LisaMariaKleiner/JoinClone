@@ -59,6 +59,7 @@ async function createNewTask() {
     priority: checkedPriority,
     taskCategory: taskCategory,
     subtasks: subtasks,
+    completedSubTasks: [],
     category: "toDo",
   };
   tasks.push(newTask);
@@ -161,6 +162,14 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+document.addEventListener("click", (e) => {
+  const eventTargetId = e.target.id;
+  if(eventTargetId.includes('subtask_checkbox_')) {
+    const subtaskId = e.target.id.split('_')[2];
+    console.log(subtaskId);
+  }
+})
+
 // Funktion zum Hinzufügen eines Subtasks zur Liste und zum Aktualisieren der Benutzeroberfläche
 function addSubtaskToList(subtaskTitle) {
   let subtaskInput = document.getElementById("subtask_category_input");
@@ -252,11 +261,17 @@ async function updateCard(category, containerId, searchTerm = "") {
   for (let index = 0; index < filteredTasks.length; index++) {
     const element = filteredTasks[index];
     document.getElementById(containerId).innerHTML += createTask(element);
+    checkForSubtasks(element);
     checkForPriorityClasses();
     document.getElementById(`task_urgency_information_${element['id']}`).classList.add(getCheckedCheckbox(element));
   }
 }
 
+function checkForSubtasks(element) {
+  if(element.subtasks.length === 0) {
+    document.getElementById(`subtask_progress_container_${element['id']}`).style.display = 'none';
+  }
+}
 
 function startDragging(id) {
   currentDraggedElement = id; // id = 0

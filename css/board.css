@@ -285,6 +285,7 @@ section {
 
 .subtask_progress_container span {
     font-size: 12px;
+    color: black;
 }
 
 .task_footer {

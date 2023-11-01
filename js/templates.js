@@ -99,11 +99,11 @@ function createEditCard(
                   <h2>${element.title}</h2>
                   <p>${element.description}</p>
               </div>
-              <div class="subtask_progress_container">
+              <div class="subtask_progress_container" id="subtask_progress_container_${element.id}">
                   <div class="subtask_progressbar">
                       <div class="current_subtask_progress"></div>
                   </div>
-                  <span>${element["subtaskCategory"]}</span>
+                  <span>0/${element["subtasks"].length} Subtasks</span>
               </div>
               <div class="task_footer">
                   <div class="task_member_container">

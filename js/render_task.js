@@ -14,8 +14,8 @@ function renderTaskDetails(cardId) {
     for (let index = 0; index < subtasks.length; index++) {
       subtasksContainer.innerHTML += 
       `<div class="subtask">
-        <input type="checkbox" name=""  class="subtask_checkbox">
-        <label for="subtask_checkbox"></label>
+        <input type="checkbox" name=""  class="subtask_checkbox" id="subtask_checkbox_${index}">
+        <label for="subtask_checkbox_${index}"></label>
         <span>${subtasks[index]}</span>                  
       </div>
       `;
