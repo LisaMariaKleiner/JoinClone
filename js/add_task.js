@@ -9,7 +9,6 @@ async function loadTasks() {
 }
 
 function findFreeIdForTasks() {
-
   /*let maxId = 0; // Für später!
   for (let i = 0; i < tasks.length; i++) {
     if (tasks[i].id >= maxId){
@@ -18,22 +17,20 @@ function findFreeIdForTasks() {
   }*/
 
   for (let index = 0; index < 100; index++) {
-    if ((tasks.findIndex(k => k['id'] === index) == -1)){
+    if (tasks.findIndex((k) => k["id"] === index) == -1) {
       return index;
     }
   }
 }
 
-
-function getcardIdIndex(cardId){
+function getcardIdIndex(cardId) {
   let currentIndex;
-    for (let i = 0; i < tasks.length; i++) {
+  for (let i = 0; i < tasks.length; i++) {
     if (Number(cardId) === tasks[i].id) {
-      return currentIndex = i;
+      return (currentIndex = i);
     }
   }
 }
-
 
 async function createNewTask() {
   let title = document.getElementById("title_input").value;
@@ -52,7 +49,6 @@ async function createNewTask() {
   subtaskTitles.forEach((subtaskTitle) => {
     subtasks.push({ title: subtaskTitle });
   });
-
 
   let newTask = {
     id: findFreeIdForTasks(),
@@ -77,22 +73,22 @@ async function createNewTask() {
 }
 
 function getCheckedPriorityCheckbox() {
-  const checkboxes = ['prio_urgent', 'prio_medium', 'prio_low'];
+  const checkboxes = ["prio_urgent", "prio_medium", "prio_low"];
   if (document.getElementById(checkboxes[0]).checked) {
-    const priority = checkboxes[0].split('_')[1];
+    const priority = checkboxes[0].split("_")[1];
     return priority;
   } else if (document.getElementById(checkboxes[1]).checked) {
-    const priority = checkboxes[1].split('_')[1];
+    const priority = checkboxes[1].split("_")[1];
     return priority;
   } else if (document.getElementById(checkboxes[2]).checked) {
-    const priority = checkboxes[2].split('_')[1];
+    const priority = checkboxes[2].split("_")[1];
     return priority;
   }
 }
 
 function disableOtherCheckboxes(checkboxId) {
-  const checkboxes = ['prio_urgent', 'prio_medium', 'prio_low'];
-  checkboxes.forEach(function(id) {
+  const checkboxes = ["prio_urgent", "prio_medium", "prio_low"];
+  checkboxes.forEach(function (id) {
     if (id !== checkboxId) {
       const checkbox = document.getElementById(id);
       if (checkbox) {
@@ -103,22 +99,26 @@ function disableOtherCheckboxes(checkboxId) {
 }
 
 // EventListener für die Checkboxen
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('prio_urgent').addEventListener('change', function() {
-    if (this.checked) {
-      disableOtherCheckboxes('prio_urgent');
-    }
-  });
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("prio_urgent")
+    .addEventListener("change", function () {
+      if (this.checked) {
+        disableOtherCheckboxes("prio_urgent");
+      }
+    });
 
-  document.getElementById('prio_medium').addEventListener('change', function() {
-    if (this.checked) {
-      disableOtherCheckboxes('prio_medium');
-    }
-  });
+  document
+    .getElementById("prio_medium")
+    .addEventListener("change", function () {
+      if (this.checked) {
+        disableOtherCheckboxes("prio_medium");
+      }
+    });
 
-  document.getElementById('prio_low').addEventListener('change', function() {
+  document.getElementById("prio_low").addEventListener("change", function () {
     if (this.checked) {
-      disableOtherCheckboxes('prio_low');
+      disableOtherCheckboxes("prio_low");
     }
   });
 });
@@ -167,9 +167,9 @@ function clearInputFields() {
   document.getElementById("date_input").value = "";
   document.getElementById("task_category_input").value = "";
   document.getElementById("subtask_category_input").value = "";
-  document.getElementById('prio_urgent').checked = false;
-  document.getElementById('prio_medium').checked = false;
-  document.getElementById('prio_low').checked = false;
+  document.getElementById("prio_urgent").checked = false;
+  document.getElementById("prio_medium").checked = false;
+  document.getElementById("prio_low").checked = false;
 }
 
 /*async function renderContactsInDatalist() {
@@ -338,75 +338,33 @@ function closeDetailsCard(taskDetailsBackground, taskDetailsCard) {
   }, 500);
 }
 
-function renderTaskDetails(cardId) {
-  let currentTask = tasks[getcardIdIndex(cardId)];
-  renderTaskTitle(currentTask);
-  renderTaskDescription(currentTask);
-  renderTaskDate(currentTask);
-  renderTaskPriority(currentTask);
-  renderSubtasks(currentTask.subtasks);
-}
-
-function renderSubtasks(subtasks) {
-  let subtasksContainer = document.getElementById("subtask_container");
-  subtasksContainer.innerHTML = ""; // Leeren Sie den Container, um vorhandene Subtasks zu entfernen.
-
-  for (let index = 0; index < subtasks.length; index++) {
-    subtasksContainer.innerHTML += `
-    <span>${subtasks[index]}</span
-    `;
-  }
-}
-
-function renderTaskTitle(currentTask) {
-  let taskTitle = document.getElementById("task_title");
-  taskTitle.innerText = currentTask.title;
-}
-
-function renderTaskDescription(currentTask) {
-  let taskDescription = document.getElementById("task_description");
-  taskDescription.innerText = currentTask.description;
-}
-
-function renderTaskDate(currentTask) {
-  let taskDate = document.getElementById("task_date");
-  let currentTaskDateSplitted = currentTask.date.split('-');
-  let currentTaskDateFormatted = currentTaskDateSplitted[2] + '/' + currentTaskDateSplitted[1] + '/' + currentTaskDateSplitted[0];
-  taskDate.innerText = currentTaskDateFormatted;
-}
-
-function renderTaskPriority(currentTask) {
-  let taskPriorityContainer = document.getElementById("task_priority");
-  let taskPriorityImageContainer = document.getElementById("task_priority_image");
-  checkForPriorityClasses();
-  taskPriorityImageContainer.classList.add(getCheckedCheckbox(currentTask));
-  taskPriorityContainer.innerText = createTaskPriority(currentTask);
-}
-
+ 
 function getCheckedCheckbox(currentTask) {
   const currentTaskPriority = currentTask.priority;
-  if(currentTaskPriority === 'urgent') {
-    return 'priority_urgent';
-  } else if(currentTaskPriority === 'medium') {
-    return 'priority_medium';
-  } else if(currentTaskPriority === 'low') {
-    return 'priority_low';
+  if (currentTaskPriority === "urgent") {
+    return "priority_urgent";
+  } else if (currentTaskPriority === "medium") {
+    return "priority_medium";
+  } else if (currentTaskPriority === "low") {
+    return "priority_low";
   }
 }
 
 function checkForPriorityClasses() {
-  let priorityImageContainer = document.getElementById('task_priority_image');
-  if(priorityImageContainer.classList.contains('priority_urgent')) {
-    task_priority_image.classList.remove('priority_urgent');
-  } else if(priorityImageContainer.classList.contains('priority_medium')) {
-    task_priority_image.classList.remove('priority_medium');
-  } else if(priorityImageContainer.classList.contains('priority_low')) {
-    task_priority_image.classList.remove('priority_low');
+  let priorityImageContainer = document.getElementById("task_priority_image");
+  if (priorityImageContainer.classList.contains("priority_urgent")) {
+    task_priority_image.classList.remove("priority_urgent");
+  } else if (priorityImageContainer.classList.contains("priority_medium")) {
+    task_priority_image.classList.remove("priority_medium");
+  } else if (priorityImageContainer.classList.contains("priority_low")) {
+    task_priority_image.classList.remove("priority_low");
   }
 }
 
-function  createTaskPriority(currentTask) {
-  let taskPriority = currentTask.priority.charAt(0).toUpperCase() + currentTask.priority.slice(1);
+function createTaskPriority(currentTask) {
+  let taskPriority =
+    currentTask.priority.charAt(0).toUpperCase() +
+    currentTask.priority.slice(1);
   return taskPriority;
 }
 
@@ -506,17 +464,17 @@ async function deleteAllTasks() {
 }
 
 async function showTaskEditForm(taskId) {
-  const taskDetails = document.getElementById('task_details');
-  const taskEditForm = document.getElementById('edit_task_card');
+  const taskDetails = document.getElementById("task_details");
+  const taskEditForm = document.getElementById("edit_task_card");
 
-  taskDetails.style.display = 'none';
-  taskEditForm.style.display = 'flex';
-  document.querySelector('body').style.overflow = 'hidden';
+  taskDetails.style.display = "none";
+  taskEditForm.style.display = "flex";
+  document.querySelector("body").style.overflow = "hidden";
   await renderTaskEditForm(taskId);
 }
 
 async function renderTaskEditForm(taskId) {
-  tasks = JSON.parse(await getItem('tasks'))
+  tasks = JSON.parse(await getItem("tasks"));
   const taskTitle = tasks[taskId].title;
   const taskDescription = tasks[taskId].description;
   const taskDueDate = tasks[taskId].date;
@@ -525,24 +483,29 @@ async function renderTaskEditForm(taskId) {
   const taskDescriptionInput = edit_task_description;
   const taskDateInput = edit_task_date;
 
-  taskTitleInput.setAttribute('value', taskTitle);
+  taskTitleInput.setAttribute("value", taskTitle);
   taskDescriptionInput.value = taskDescription;
-  taskDateInput.setAttribute('value', taskDueDate);
+  taskDateInput.setAttribute("value", taskDueDate);
   setEditPrioritySelection(taskPriority);
 }
 
 function setEditPrioritySelection(taskPriority) {
-  let taskPrioritySelector = document.getElementById(`edit_prio_${taskPriority}`)
+  let taskPrioritySelector = document.getElementById(
+    `edit_prio_${taskPriority}`
+  );
   taskPrioritySelector.checked = true;
 }
 
 function setOnClickEvent(cardId) {
-  document.getElementById('open_task_delete')
-  .setAttribute('onclick', `deleteTask(${cardId}); return false;`)
-  document.getElementById('open_task_edit')
-    .setAttribute('onclick', `showTaskEditForm(${cardId})`);
-  document.getElementById('edit_task_card_form')
-    .setAttribute('onsubmit', `saveTask(${cardId}); return false`);
+  document
+    .getElementById("open_task_delete")
+    .setAttribute("onclick", `deleteTask(${cardId}); return false;`);
+  document
+    .getElementById("open_task_edit")
+    .setAttribute("onclick", `showTaskEditForm(${cardId})`);
+  document
+    .getElementById("edit_task_card_form")
+    .setAttribute("onsubmit", `saveTask(${cardId}); return false`);
 }
 
 async function saveTask(cardId) {
@@ -551,45 +514,43 @@ async function saveTask(cardId) {
   const editedTaskDescription = edit_task_description.value;
   const editedTaskDate = edit_task_date.value;
 
-  if(remoteStorageTasksAsString) {
+  if (remoteStorageTasksAsString) {
     const remoteStorageTasks = JSON.parse(remoteStorageTasksAsString);
 
     const currentTask = remoteStorageTasks[cardId];
     currentTask.title = editedTaskTitle;
     currentTask.description = editedTaskDescription;
     currentTask.date = editedTaskDate;
-  
+
     await updateTaskInRemoteStorage(currentTask);
     clearTaskEditForm();
-  };
+  }
 }
 
 async function updateTaskInRemoteStorage(updatedTask) {
-  tasks = await getItem('tasks');
+  tasks = await getItem("tasks");
   tasks = JSON.parse(tasks);
   if (tasks) {
     const updatedTaskId = updatedTask.id;
-    const taskIndex = tasks.findIndex(
-      (t) => t.id === updatedTaskId
-    );
+    const taskIndex = tasks.findIndex((t) => t.id === updatedTaskId);
 
     if (taskIndex !== -1) {
       tasks[taskIndex] = updatedTask;
       const tasksAsString = JSON.stringify(tasks);
-      await setItem('tasks', tasksAsString);
+      await setItem("tasks", tasksAsString);
     }
   }
 }
 
 function clearTaskEditForm() {
-  edit_task_title.value = '';
-  edit_task_description.value = '';
-  edit_task_date.value = '';
+  edit_task_title.value = "";
+  edit_task_description.value = "";
+  edit_task_date.value = "";
 }
 
 async function deleteTask(cardId) {
   const remoteStorageTasksAsString = await getItem("tasks");
-  
+
   if (remoteStorageTasksAsString) {
     const remoteStorageTasks = JSON.parse(remoteStorageTasksAsString);
     if (getTaskIdIndex(cardId) > -1) {
@@ -598,20 +559,18 @@ async function deleteTask(cardId) {
       await setItem("tasks", remoteStorageTasksAsString);
       location.reload();
     } else {
-      console.warn('Ungültiger TaskIndex.')
+      console.warn("Ungültiger TaskIndex.");
     }
-
   } else {
-    console.warn('Task konnte im Remote Storage nicht gefunden werden.')
+    console.warn("Task konnte im Remote Storage nicht gefunden werden.");
   }
-
 }
 
 function getTaskIdIndex(taskId) {
   let currentIndex;
-  for(let i = 0; i < tasks.length; i++) {
+  for (let i = 0; i < tasks.length; i++) {
     if (Number(taskId) === tasks[i].id) {
-      return currentIndex = i;
+      return (currentIndex = i);
     }
   }
 }

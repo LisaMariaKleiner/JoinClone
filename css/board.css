@@ -446,13 +446,14 @@ section {
 }
 
 .subtask_container {
-    position: relative;
+    margin-top: 15px;   
+    display: flex;
+    flex-direction: column;
 }
 
 .subtask {
-    position: absolute;
-    left: 8px;
     display: flex;
+    left: 8px;
     gap: 16px;
 }
 
