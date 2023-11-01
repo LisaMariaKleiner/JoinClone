@@ -477,7 +477,8 @@ section {
     box-shadow: 0px 4px 4px 0px #00000040;
 }
 
-#prio_urgent:checked + label {
+#prio_urgent:checked + label,
+#edit_prio_urgent:checked + label {
     background-color: #FF3D00;
 }
 
@@ -491,17 +492,20 @@ section {
 }
 
 /* Stil für das Bild, wenn die Checkbox ausgewählt ist */
-#prio_urgent:checked + .prio_input_label .prio_urgent_icon {
+#prio_urgent:checked + .prio_input_label .prio_urgent_icon,
+#edit_prio_urgent:checked + .prio_input_label .prio_urgent_icon {
     background-image: url('../assets/img/prio_alta_white.png');
 }
 
-#prio_urgent:checked + .prio_input_label .prio_urgent_text {
+#prio_urgent:checked + .prio_input_label .prio_urgent_text,
+#edit_prio_urgent:checked + .prio_input_label .prio_urgent_text {
     color: white;
     font-weight: 700;
     font-size: 21px;
 }
 
-#prio_medium:checked + label {
+#prio_medium:checked + label,
+#edit_prio_medium:checked + label {
     background-color: #FFA800;
     color: white;
 }
@@ -515,17 +519,20 @@ section {
     background-repeat: no-repeat;
 }
 
-#prio_medium:checked + .prio_input_label .prio_medium_icon {
+#prio_medium:checked + .prio_input_label .prio_medium_icon,
+#edit_prio_medium:checked + .prio_input_label .prio_medium_icon {
     background-image: url('../assets/img/prio_media_white.png');
 }
 
-#prio_medium:checked + .prio_input_label .prio_medium_text {
+#prio_medium:checked + .prio_input_label .prio_medium_text,
+#edit_prio_medium:checked + .prio_input_label .prio_medium_text {
     color: white;
     font-weight: 700;
     font-size: 21px;
 }
 
-#prio_low:checked + label {
+#prio_low:checked + label,
+#edit_prio_low:checked + label {
     background-color: #7AE229;
     color: white;
 }
@@ -539,11 +546,13 @@ section {
     background-repeat: no-repeat;
 }
 
-#prio_low:checked + .prio_input_label .prio_low_icon {
+#prio_low:checked + .prio_input_label .prio_low_icon,
+#edit_prio_low:checked + .prio_input_label .prio_low_icon {
     background-image: url('../assets/img/prio_baja_white.png');
 }
 
-#prio_low:checked + .prio_input_label .prio_low_text {
+#prio_low:checked + .prio_input_label .prio_low_text,
+#edit_prio_low:checked + .prio_input_label .prio_low_text {
     color: white;
     font-weight: 700;
     font-size: 21px;

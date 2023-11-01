@@ -73,21 +73,20 @@ async function createNewTask() {
 }
 
 function getCheckedPriorityCheckbox() {
-  const checkboxes = ["prio_urgent", "prio_medium", "prio_low"];
-  if (document.getElementById(checkboxes[0]).checked) {
-    const priority = checkboxes[0].split("_")[1];
-    return priority;
-  } else if (document.getElementById(checkboxes[1]).checked) {
-    const priority = checkboxes[1].split("_")[1];
-    return priority;
-  } else if (document.getElementById(checkboxes[2]).checked) {
-    const priority = checkboxes[2].split("_")[1];
-    return priority;
+  const checkboxes = ["prio_urgent", "prio_medium", "prio_low", "edit_prio_urgent", "edit_prio_medium", "edit_prio_low"];
+  for (let index = 0; index < checkboxes.length; index++) {
+    const element = checkboxes[index];
+    const priority = element.split("_");
+    if (priority.length === 3 && document.getElementById(element).checked) {
+      return priority[2];
+    } else if (document.getElementById(element).checked) {
+      return priority[1];
+    }
   }
 }
 
 function disableOtherCheckboxes(checkboxId) {
-  const checkboxes = ["prio_urgent", "prio_medium", "prio_low"];
+  let checkboxes = ["prio_urgent", "prio_medium", "prio_low", "edit_prio_urgent", "edit_prio_medium", "edit_prio_low"];
   checkboxes.forEach(function (id) {
     if (id !== checkboxId) {
       const checkbox = document.getElementById(id);
@@ -120,6 +119,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Edit Task Card - Priority Checkboxen
+  document
+  .getElementById("edit_prio_urgent")
+  .addEventListener("change", function () {
+    if (this.checked) {
+      disableOtherCheckboxes("edit_prio_urgent");
+    }
+    });
+  document
+    .getElementById("edit_prio_medium")
+    .addEventListener("change", function () {
+      if (this.checked) {
+        disableOtherCheckboxes("edit_prio_medium");
+      }
+    });
+  document.getElementById("edit_prio_low").addEventListener("change", function () {
+    if (this.checked) {
+      disableOtherCheckboxes("edit_prio_low");
+    }
+  });
+})
 
 // Onclickfunktion für das "+" beim Subtasks erstellen
 document.addEventListener("DOMContentLoaded", function () {
@@ -230,8 +252,11 @@ async function updateCard(category, containerId, searchTerm = "") {
   for (let index = 0; index < filteredTasks.length; index++) {
     const element = filteredTasks[index];
     document.getElementById(containerId).innerHTML += createTask(element);
+    checkForPriorityClasses();
+    document.getElementById(`task_urgency_information_${element['id']}`).classList.add(getCheckedCheckbox(element));
   }
 }
+
 
 function startDragging(id) {
   currentDraggedElement = id; // id = 0
@@ -487,6 +512,7 @@ async function saveTask(cardId) {
   const remoteStorageTasksAsString = await getItem("tasks");
   const editedTaskTitle = edit_task_title.value;
   const editedTaskDescription = edit_task_description.value;
+  let checkedPriority = getCheckedPriorityCheckbox();
   const editedTaskDate = edit_task_date.value;
   if (remoteStorageTasksAsString) {
     const remoteStorageTasks = JSON.parse(remoteStorageTasksAsString);
@@ -494,9 +520,11 @@ async function saveTask(cardId) {
     currentTask.title = editedTaskTitle;
     currentTask.description = editedTaskDescription;
     currentTask.date = editedTaskDate;
+    currentTask.priority = checkedPriority;
 
     await updateTaskInRemoteStorage(currentTask);
     clearTaskEditForm();
+    location.reload();
   }
 }
 

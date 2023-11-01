@@ -114,7 +114,7 @@ function createEditCard(
                           <span>EM</span>
                       </div>
                   </div>
-                  <div class="task_urgency_information">
+                  <div id="task_urgency_information_${element["id"]}" class="task_urgency_information">
   
                   </div>
               </div>
