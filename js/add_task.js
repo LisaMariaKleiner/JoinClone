@@ -107,7 +107,6 @@ document.addEventListener("DOMContentLoaded", function () {
         disableOtherCheckboxes("prio_urgent");
       }
     });
-
   document
     .getElementById("prio_medium")
     .addEventListener("change", function () {
@@ -115,7 +114,6 @@ document.addEventListener("DOMContentLoaded", function () {
         disableOtherCheckboxes("prio_medium");
       }
     });
-
   document.getElementById("prio_low").addEventListener("change", function () {
     if (this.checked) {
       disableOtherCheckboxes("prio_low");
@@ -125,13 +123,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Onclickfunktion für das "+" beim Subtasks erstellen
 document.addEventListener("DOMContentLoaded", function () {
-  const addSubtaskButton = document.querySelector(".subtasks img");
-
+  let addSubtaskButton = document.querySelector(".subtasks img");
   addSubtaskButton.addEventListener("click", () => {
     let subtaskInput = document.getElementById("subtask_category_input");
     let subtaskTitle = subtaskInput.value.trim();
     subtasks.push(subtaskTitle);
-
     if (subtaskTitle) {
       // Erstellen Sie ein neues Listenelement für den Subtask
       let subtaskItem = document.createElement("li");
@@ -147,7 +143,6 @@ document.addEventListener("DOMContentLoaded", function () {
 function addSubtaskToList(subtaskTitle) {
   let subtaskInput = document.getElementById("subtask_category_input");
   subtaskTitle = subtaskTitle.trim();
-
   if (subtaskTitle) {
     let subtaskElement = createSubtaskElement(subtaskTitle);
     let taskCardOpened = document.getElementById("subtask_container");
@@ -173,7 +168,6 @@ function clearInputFields() {
 async function renderContactsInDatalist() {
   let contactDatalist = document.getElementById("contact_datalist");
   contactDatalist.innerHTML = ""; 
-
   let usersData = await getItem("users");
   if (usersData) {
     let users = JSON.parse(usersData);
@@ -183,7 +177,7 @@ async function renderContactsInDatalist() {
         let contacts = currentUser.contacts;
         contacts.forEach((contact) => {
           let contactElement = document.createElement("div");
-          contactElement.textContent = `${contact.initials} ${contact.name}`;
+          contactElement.textContent = `${contact.contactInitial} ${contact.name}`;
           contactDatalist.appendChild(contactElement);
         });
       } else {
@@ -193,7 +187,7 @@ async function renderContactsInDatalist() {
   }
 }
 
- // Wieder frei geben wenn an  Datalist gearbeitet wird!!!!!
+
 
 document.addEventListener("DOMContentLoaded", async function () {
   if (isOnSummaryPage()) {
@@ -217,8 +211,7 @@ function filterTasks() {
   if (searchTerm.trim() !== "") {
     updateHTML(searchTerm);
   } else {
-    // Wenn das Suchfeld leer ist, zeige alle Aufgaben an
-    updateHTML();
+    updateHTML();// Wenn das Suchfeld leer ist, zeige alle Aufgaben an
   }
 }
 
@@ -449,17 +442,12 @@ function clearAddTaskCard() {
 }
 
 async function deleteAllTasks() {
-  // Bestätigen Sie zuerst, ob der Benutzer sicher alle Tasks löschen möchte
   const confirmation = confirm("Are you sure you want to delete all tasks?");
   if (!confirmation) {
     return; // Wenn der Benutzer die Aktion nicht bestätigt, brechen Sie die Funktion ab.
   }
-
-  // Löschen Sie alle Tasks, indem Sie das `tasks` Array leeren
   tasks = [];
-
-  // Aktualisieren Sie die Tasks in der Remote-Speicherung
-  await setItem("tasks", JSON.stringify(tasks));
+  await setItem("tasks", JSON.stringify(tasks));// Aktualisieren Sie die Tasks in der Remote-Speicherung
 
   // Aktualisieren Sie die Anzeige
   await updateHTML();
@@ -468,7 +456,6 @@ async function deleteAllTasks() {
 async function showTaskEditForm(taskId) {
   const taskDetails = document.getElementById("task_details");
   const taskEditForm = document.getElementById("edit_task_card");
-
   taskDetails.style.display = "none";
   taskEditForm.style.display = "flex";
   document.querySelector("body").style.overflow = "hidden";
@@ -501,10 +488,8 @@ async function saveTask(cardId) {
   const editedTaskTitle = edit_task_title.value;
   const editedTaskDescription = edit_task_description.value;
   const editedTaskDate = edit_task_date.value;
-
   if (remoteStorageTasksAsString) {
     const remoteStorageTasks = JSON.parse(remoteStorageTasksAsString);
-
     const currentTask = remoteStorageTasks[cardId];
     currentTask.title = editedTaskTitle;
     currentTask.description = editedTaskDescription;
@@ -521,7 +506,6 @@ async function updateTaskInRemoteStorage(updatedTask) {
   if (tasks) {
     const updatedTaskId = updatedTask.id;
     const taskIndex = tasks.findIndex((t) => t.id === updatedTaskId);
-
     if (taskIndex !== -1) {
       tasks[taskIndex] = updatedTask;
       const tasksAsString = JSON.stringify(tasks);
@@ -538,7 +522,6 @@ function clearTaskEditForm() {
 
 async function deleteTask(cardId) {
   const remoteStorageTasksAsString = await getItem("tasks");
-
   if (remoteStorageTasksAsString) {
     const remoteStorageTasks = JSON.parse(remoteStorageTasksAsString);
     if (getTaskIdIndex(cardId) > -1) {

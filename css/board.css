@@ -641,6 +641,7 @@ section {
     height: 56px;
     bottom: 4px;
     position: sticky;
+    margin-top: 10px;
 }
 
 .datalist_button img {
