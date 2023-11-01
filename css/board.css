@@ -638,8 +638,9 @@ section {
     justify-content: center;
     align-items: center;
     width: 440px;
-    position: absolute;
+    height: 56px;
     bottom: 4px;
+    position: sticky;
 }
 
 .datalist_button img {
@@ -649,8 +650,10 @@ section {
 
 .datalist_container {
     display: none;
+    flex-direction: column;
     width: 483px;
-    height: 130px;
+    max-height: 130px;
+    overflow: auto;
     position: relative;
     top: -8px;
     border: 1px solid #d1d1d1;

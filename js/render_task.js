@@ -9,12 +9,12 @@ function renderTaskDetails(cardId) {
   
   function renderSubtasks(subtasks) {
     let subtasksContainer = document.getElementById("subtask_container");
-    subtasksContainer.innerHTML = ""; // Leeren Sie den Container, um vorhandene Subtasks zu entfernen.
+    subtasksContainer.innerHTML = ""; 
   
     for (let index = 0; index < subtasks.length; index++) {
       subtasksContainer.innerHTML += 
       `<div class="subtask">
-        <input type="checkbox" name="" id="subtask_checkbox" class="subtask_checkbox">
+        <input type="checkbox" name=""  class="subtask_checkbox">
         <label for="subtask_checkbox"></label>
         <span>${subtasks[index]}</span>                  
       </div>

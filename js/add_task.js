@@ -152,10 +152,8 @@ function addSubtaskToList(subtaskTitle) {
     let subtaskElement = createSubtaskElement(subtaskTitle);
     let taskCardOpened = document.getElementById("subtask_container");
     taskCardOpened.appendChild(subtaskElement);
-    let currentTask = tasks[tasks.length - 1]; // Nehmen Sie die letzte Aufgabe im Array
+    let currentTask = tasks[tasks.length - 1]; // Nimmt letzte Aufgabe im Array
     currentTask.subtasks.push({ title: subtaskTitle });
-
-    // Das Eingabefeld leeren
     subtaskInput.value = "";
   }
 }
@@ -172,26 +170,30 @@ function clearInputFields() {
   document.getElementById("prio_low").checked = false;
 }
 
-/*async function renderContactsInDatalist() {
-  let selectContacts = document.getElementById("select_contacts");
+async function renderContactsInDatalist() {
+  let contactDatalist = document.getElementById("contact_datalist");
+  contactDatalist.innerHTML = ""; 
+
   let usersData = await getItem("users");
   if (usersData) {
-    const users = JSON.parse(usersData);
+    let users = JSON.parse(usersData);
     if (Array.isArray(users)) {
       const currentUser = users[0];
       if (currentUser.contacts && Array.isArray(currentUser.contacts)) {
-        const contacts = currentUser.contacts;
+        let contacts = currentUser.contacts;
         contacts.forEach((contact) => {
-          const option = document.createElement("option");
-          option.value = `${contact.name} (${contact.initials})`;
-          selectContacts.appendChild(option);
+          let contactElement = document.createElement("div");
+          contactElement.textContent = `${contact.initials} ${contact.name}`;
+          contactDatalist.appendChild(contactElement);
         });
       } else {
         console.error("Der aktuelle Benutzer hat keine Kontakte.");
       }
     }
   }
-}*/ // Wieder frei geben wenn an  Datalist gearbeitet wird!!!!!
+}
+
+ // Wieder frei geben wenn an  Datalist gearbeitet wird!!!!!
 
 document.addEventListener("DOMContentLoaded", async function () {
   if (isOnSummaryPage()) {
@@ -473,21 +475,7 @@ async function showTaskEditForm(taskId) {
   await renderTaskEditForm(taskId);
 }
 
-async function renderTaskEditForm(taskId) {
-  tasks = JSON.parse(await getItem("tasks"));
-  const taskTitle = tasks[taskId].title;
-  const taskDescription = tasks[taskId].description;
-  const taskDueDate = tasks[taskId].date;
-  const taskPriority = tasks[taskId].priority;
-  const taskTitleInput = edit_task_title;
-  const taskDescriptionInput = edit_task_description;
-  const taskDateInput = edit_task_date;
 
-  taskTitleInput.setAttribute("value", taskTitle);
-  taskDescriptionInput.value = taskDescription;
-  taskDateInput.setAttribute("value", taskDueDate);
-  setEditPrioritySelection(taskPriority);
-}
 
 function setEditPrioritySelection(taskPriority) {
   let taskPrioritySelector = document.getElementById(
