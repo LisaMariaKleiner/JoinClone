@@ -663,6 +663,15 @@ section {
     justify-content: center;
 }
 
+.datalist_container div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+
 #confirm_delete_task_container {
     position: absolute;
     z-index: 99;
