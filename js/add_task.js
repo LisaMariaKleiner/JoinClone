@@ -2,6 +2,7 @@ let tasks = [];
 let subtasks = [];
 let currentDraggedElement;
 let subtaskCounter = 0; // Um eindeutige IDs für Subtasks zu erstellen
+let completedSubTasks = [];
 
 async function loadTasks() {
   let loadedTasks = JSON.parse(await getItem("tasks"));
@@ -59,7 +60,7 @@ async function createNewTask() {
     priority: checkedPriority,
     taskCategory: taskCategory,
     subtasks: subtasks,
-    completedSubTasks: [],
+    completedSubTasks: completedSubTasks,
     category: "toDo",
   };
   tasks.push(newTask);
@@ -162,13 +163,18 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document.addEventListener("click", (e) => {
-  const eventTargetId = e.target.id;
-  if(eventTargetId.includes('subtask_checkbox_')) {
-    const subtaskId = e.target.id.split('_')[2];
-    console.log(subtaskId);
+async function handleCheckBoxState(index, cardId) {
+  let checkbox = document.getElementById(`subtask_checkbox_${index}`);
+  const tasksAsString = await getItem('tasks');
+  tasks = JSON.parse(tasksAsString);
+  if(checkbox.checked) {
+    tasks[cardId].completedSubTasks.push(index);
+    await updateTaskInRemoteStorage(tasks[cardId]);
+  } else if (!checkbox.checked) {
+    tasks[cardId].completedSubTasks.splice(tasks[cardId].completedSubTasks.indexOf(index), 1)
+    await updateTaskInRemoteStorage(tasks[cardId]);
   }
-})
+}
 
 // Funktion zum Hinzufügen eines Subtasks zur Liste und zum Aktualisieren der Benutzeroberfläche
 function addSubtaskToList(subtaskTitle) {
@@ -331,10 +337,11 @@ function slideCardDown() {
   }, 1000);
 }
 
-function openTaskDetailsCard(cardId, action) {
+async function openTaskDetailsCard(cardId, action) {
   showTaskDetailsCard(action);
   renderTaskDetails(cardId);
   setOnClickEvent(cardId);
+  await setCheckboxState(cardId - 1);
 }
 
 function showTaskDetailsCard(action) {
