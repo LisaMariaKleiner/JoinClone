@@ -105,7 +105,7 @@ function navigateToPage(container, page) {
 
 function checkForSelectedPage(hrefLink, containerId) {
     const selectedPage = localStorage.getItem('selectedPage');
-    if (selectedPage === hrefLink) {
+    if (selectedPage === hrefLink && window.location.pathname !== '/index.html') {
         document.getElementById(containerId).classList.add('selected');
     }
 }

@@ -1,4 +1,4 @@
-async function register() {
+async function createUser() {
     registerBtn.disabled = true;
     if(signup_password.value !== signup_confirm_password.value) {
         console.warn('Passwords do not match');
@@ -17,6 +17,33 @@ async function register() {
     }
 }
 
+async function register() {
+    const usersAsString = await getItem('users');
+    const allUsers = JSON.parse(usersAsString);
+    let signupEmail = signup_email.value;
+
+    if(!userExistsAlready(allUsers, signupEmail)) {
+        await createUser();
+    } else {
+        changeSignUpEmailStyle();
+    }
+}
+
+function changeSignUpEmailStyle() {
+    let signupEmailContainer = document.getElementById('signup_email_container');
+    signupEmailContainer.classList.add('sign_up_failed');
+    let failedText = document.getElementById('passwords_failed');
+    failedText.innerHTML = `User Email already exists!`;
+}
+
+function userExistsAlready(allUsers, signupEmail) {
+    for (let index = 0; index < allUsers.length; index++) {
+        const element = allUsers[index];
+        if(element.email === signupEmail) {
+            return true;
+        }
+    }
+}
 
 function addPasswordsDontMatch() {
     const password1 = document.getElementById('pw1');

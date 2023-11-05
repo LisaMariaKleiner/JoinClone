@@ -359,9 +359,9 @@ function showDropDownMenu(containerId) {
 }
 
 function openDetailsCard(taskDetailsBackground, taskDetailsCard) {
-  taskDetailsBackground.style.display = "flex";
   taskDetailsBackground.classList.add("background_fade_in");
   taskDetailsCard.classList.add("slide_in_no_bg_change");
+  taskDetailsBackground.style.display = "flex";
   taskDetailsCard.style.transform = "translate(0%)";
   setTimeout(() => {
     taskDetailsCard.classList.remove("slide_in_no_bg_change");
