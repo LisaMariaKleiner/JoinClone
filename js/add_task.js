@@ -3,6 +3,7 @@ let subtasks = [];
 let currentDraggedElement;
 let subtaskCounter = 0; // Um eindeutige IDs für Subtasks zu erstellen
 let completedSubTasks = [];
+let selectedContacts = [];
 
 async function loadTasks() {
   let loadedTasks = JSON.parse(await getItem("tasks"));
@@ -36,11 +37,11 @@ function getcardIdIndex(cardId) {
 async function createNewTask() {
   let title = document.getElementById("title_input").value;
   let description = document.getElementById("description_textarea").value;
-  let assignedTo = document.getElementById("assigned_to_input").value;
   let date = document.getElementById("date_input").value;
   let taskCategory = document.getElementById("task_category_input").value;
   let subtaskInput = document.getElementById("subtask_category_input");
   let checkedPriority = getCheckedPriorityCheckbox();
+  
   let subtaskTitles = subtaskInput.value
     .split("\n")
     .filter((title) => title.trim() !== "");
@@ -55,7 +56,7 @@ async function createNewTask() {
     id: findFreeIdForTasks(),
     title: title,
     description: description,
-    assignedTo: assignedTo,
+   
     date: date,
     priority: checkedPriority,
     taskCategory: taskCategory,
@@ -63,9 +64,15 @@ async function createNewTask() {
     completedSubTasks: completedSubTasks,
     category: "toDo",
   };
+  // Fügt die ausgewählten Kontakte zur Aufgabe hinzu
+  newTask.assignedContacts = selectedContacts;
+
+  // Speichert die zugewiesenen Kontakte im lokalen Speicher
+  saveAssignedContacts(newTask.id, selectedContacts);
   tasks.push(newTask);
   console.log(tasks);
   await updateTasksInRemoteStorage(tasks);
+  renderAssignedContacts(newTask.id);
   clearAddTaskCard();
   moveAddTaskCard("close");
 
@@ -202,8 +209,9 @@ function clearInputFields() {
   document.getElementById("prio_low").checked = false;
 }
 
+/* =============================== DATA LIST FUNCTIONS =============================*/ 
 
-async function renderContactsInDatalist() {
+/*async function renderContactsInDatalist() {
   let contactDatalist = document.getElementById("contact_datalist");
   contactDatalist.innerHTML = "";
   let usersData = await getItem("users");
@@ -214,7 +222,6 @@ async function renderContactsInDatalist() {
       if (currentUser.contacts && Array.isArray(currentUser.contacts)) {
         let contacts = currentUser.contacts;
         contacts.forEach((contact) => {
-          // Erstelle die Kontaktstruktur im HTML-Code
           contactDatalist.innerHTML += `
             <div class="datalist_contact_container">
               <div class="initials_in_datalist">${extractInitials(contact.name)}</div>
@@ -228,8 +235,47 @@ async function renderContactsInDatalist() {
       }
     }
   }
+}*/
+
+// Rendert die vorhandenen Contacte in die Datalist bei Add new Task
+async function renderContactsInDatalist() {
+  let contactDatalist = document.getElementById("contact_datalist");
+  contactDatalist.innerHTML = "";
+  let usersData = await getItem("users");
+  if (usersData) {
+    let users = JSON.parse(usersData);
+    if (Array.isArray(users)) {
+      const currentUser = users[0];
+      if (currentUser.contacts && Array.isArray(currentUser.contacts)) {
+        let contacts = currentUser.contacts;
+        contacts.forEach((contact) => {
+          // Zufällige Hintergrundfarbe generieren
+          const randomBackground = randomColor();
+
+          contactDatalist.innerHTML += `
+            <div class="datalist_contact_container">
+              <div class="initials_in_datalist" style="background-color: ${randomBackground}">${extractInitials(contact.name)}</div>
+              <div class="name_in_datalist">${contact.name}</div>
+              <div class="checkbox_datalist"><input type="checkbox"></div>
+            </div>
+          `;
+        });
+      } else {
+        console.error("Der aktuelle Benutzer hat keine Kontakte.");
+      }
+    }
+  }
 }
 
+// Generiert eine random Backgroundcolor für die Initials
+function randomColor() {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 
 // Funktion zum Extrahieren der Initialen
 function extractInitials(name) {
@@ -240,6 +286,66 @@ function extractInitials(name) {
   }
   return initials;
 }
+
+// Funktion zum Speichern der zugewiesenen Kontakte im lokalen Speicher
+function saveAssignedContacts(taskId, assignedContacts) {
+  const key = `assignedContacts_${taskId}`;
+  const assignedContactsJSON = JSON.stringify(assignedContacts);
+  localStorage.setItem(key, assignedContactsJSON);
+}
+
+// Funktion zum Laden der zugewiesenen Kontakte aus dem lokalen Speicher
+function loadAssignedContacts(taskId) {
+  const key = `assignedContacts_${taskId}`;
+  const assignedContactsJSON = localStorage.getItem(key);
+  if (assignedContactsJSON) {
+    return JSON.parse(assignedContactsJSON);
+  }
+  return [];
+}
+
+
+
+// Event-Handler für die Checkboxen
+document.addEventListener("change", function (event) {
+  if (event.target.type === "checkbox") {
+    const selectedContactName = getSelectedContactName(event.target);
+    if (event.target.checked) {
+      selectedContacts.push(selectedContactName);
+    } else {
+      const index = selectedContacts.indexOf(selectedContactName);
+      if (index !== -1) {
+        selectedContacts.splice(index, 1);
+      }
+    }
+  }
+});
+
+
+function getSelectedContactName(checkbox) {
+  let contactName = checkbox.closest(".datalist_contact_container").querySelector(".name_in_datalist").textContent;
+  return contactName;
+}
+
+
+function renderAssignedContacts(taskId) {
+  const assignedContacts = loadAssignedContacts(taskId);
+  const assignedContactsContainer = document.getElementById("assigned_contacts");
+  assignedContactsContainer.innerHTML = "";
+
+  assignedContacts.forEach((contactName) => {
+    const initials = extractInitials(contactName);
+    assignedContactsContainer.innerHTML += `
+      <div class="assigned_contact">
+        <div class="assigned_initials">${initials}</div>
+        <div class="assigned_name">${contactName}</div>
+      </div>
+    `;
+  });
+}
+
+
+/* --------------------------------*/
 
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -419,11 +525,22 @@ function checkForPriorityClasses() {
   }
 }
 
-function createTaskPriority(currentTask) {
+/*function createTaskPriority(currentTask) {
   let taskPriority =
     currentTask.priority.charAt(0).toUpperCase() +
     currentTask.priority.slice(1);
   return taskPriority;
+}*/
+// Lieber Checken ob Priority überhaupt gegeben ist????
+function createTaskPriority(currentTask) {
+  if (currentTask && currentTask.priority) {
+    let taskPriority =
+      currentTask.priority.charAt(0).toUpperCase() +
+      currentTask.priority.slice(1);
+    return taskPriority;
+  } else {
+    return "Standard-Priorität";
+  }
 }
 
 document.addEventListener("mouseup", function (e) {
