@@ -65,17 +65,16 @@ async function createNewTask() {
     category: "toDo",
   };
   // Fügt die ausgewählten Kontakte zur Aufgabe hinzu
-  newTask.assignedContacts = selectedContacts;
-
+  newTask.assignedContacts = selectedContacts
   // Speichert die zugewiesenen Kontakte im lokalen Speicher
   saveAssignedContacts(newTask.id, selectedContacts);
   tasks.push(newTask);
-  console.log(tasks);
   await updateTasksInRemoteStorage(tasks);
-  renderAssignedContacts(newTask.id);
   clearAddTaskCard();
   moveAddTaskCard("close");
+  selectedContacts = [];
 
+  renderAssignedContacts(newTask.id);
   if (window.location.pathname == "/board.html") {
     await updateHTML();
   }
@@ -211,31 +210,6 @@ function clearInputFields() {
 
 /* =============================== DATA LIST FUNCTIONS =============================*/ 
 
-/*async function renderContactsInDatalist() {
-  let contactDatalist = document.getElementById("contact_datalist");
-  contactDatalist.innerHTML = "";
-  let usersData = await getItem("users");
-  if (usersData) {
-    let users = JSON.parse(usersData);
-    if (Array.isArray(users)) {
-      const currentUser = users[0];
-      if (currentUser.contacts && Array.isArray(currentUser.contacts)) {
-        let contacts = currentUser.contacts;
-        contacts.forEach((contact) => {
-          contactDatalist.innerHTML += `
-            <div class="datalist_contact_container">
-              <div class="initials_in_datalist">${extractInitials(contact.name)}</div>
-              <div class="name_in_datalist">${contact.name}</div>
-              <div class="checkbox_datalist">Checkbox</div>
-            </div>
-          `;
-        });
-      } else {
-        console.error("Der aktuelle Benutzer hat keine Kontakte.");
-      }
-    }
-  }
-}*/
 
 // Rendert die vorhandenen Contacte in die Datalist bei Add new Task
 async function renderContactsInDatalist() {
@@ -279,25 +253,30 @@ function randomColor() {
 
 // Funktion zum Extrahieren der Initialen
 function extractInitials(name) {
-  const words = name.split(" ");
-  let initials = "";
-  for (let i = 0; i < words.length; i++) {
-    initials += words[i].charAt(0).toUpperCase();
+  if (name) {
+    let words = name.split(" ");
+    let initials = "";
+    for (let i = 0; i < words.length; i++) {
+      initials += words[i].charAt(0).toUpperCase();
+    }
+    return initials;
+  } else {
+    return "";
   }
-  return initials;
 }
+
 
 // Funktion zum Speichern der zugewiesenen Kontakte im lokalen Speicher
 function saveAssignedContacts(taskId, assignedContacts) {
-  const key = `assignedContacts_${taskId}`;
-  const assignedContactsJSON = JSON.stringify(assignedContacts);
+  let key = `assignedContacts_${taskId}`;
+  let assignedContactsJSON = JSON.stringify(assignedContacts);
   localStorage.setItem(key, assignedContactsJSON);
 }
 
 // Funktion zum Laden der zugewiesenen Kontakte aus dem lokalen Speicher
 function loadAssignedContacts(taskId) {
-  const key = `assignedContacts_${taskId}`;
-  const assignedContactsJSON = localStorage.getItem(key);
+  let key = `assignedContacts_${taskId}`;
+  let assignedContactsJSON = localStorage.getItem(key);
   if (assignedContactsJSON) {
     return JSON.parse(assignedContactsJSON);
   }
@@ -309,40 +288,60 @@ function loadAssignedContacts(taskId) {
 // Event-Handler für die Checkboxen
 document.addEventListener("change", function (event) {
   if (event.target.type === "checkbox") {
-    const selectedContactName = getSelectedContactName(event.target);
-    if (event.target.checked) {
-      selectedContacts.push(selectedContactName);
-    } else {
-      const index = selectedContacts.indexOf(selectedContactName);
-      if (index !== -1) {
-        selectedContacts.splice(index, 1);
+    let selectedContactName = getSelectedContactName(event.target);
+    if (selectedContactName) { // Überprüfen, ob der Kontakt gültig ist
+      if (event.target.checked) {
+        selectedContacts.push(selectedContactName);
+      } else {
+        let index = selectedContacts.indexOf(selectedContactName);
+        if (index !== -1) {
+          selectedContacts.splice(index, 1);
+        }
       }
     }
   }
 });
 
 
+
 function getSelectedContactName(checkbox) {
-  let contactName = checkbox.closest(".datalist_contact_container").querySelector(".name_in_datalist").textContent;
-  return contactName;
+  let container = checkbox.closest(".datalist_contact_container");
+  if (container) {
+    let contactNameElement = container.querySelector(".name_in_datalist");
+    if (contactNameElement) {
+      return contactNameElement.textContent;
+    }
+  }
 }
 
 
-function renderAssignedContacts(taskId) {
-  const assignedContacts = loadAssignedContacts(taskId);
-  const assignedContactsContainer = document.getElementById("assigned_contacts");
+async function renderAssignedContacts(taskId) {
+  let assignedContacts = loadAssignedContacts(taskId);
+  let assignedContactsContainer = document.getElementById("assigned_contacts");
   assignedContactsContainer.innerHTML = "";
 
   assignedContacts.forEach((contactName) => {
-    const initials = extractInitials(contactName);
+    let initials = extractInitials(contactName);
+    let randomBackground = randomColor(); // Zufällige Hintergrundfarbe generieren
     assignedContactsContainer.innerHTML += `
       <div class="assigned_contact">
-        <div class="assigned_initials">${initials}</div>
+        <div class="assigned_initials" style="background-color: ${randomBackground}">${initials}</div>
         <div class="assigned_name">${contactName}</div>
       </div>
     `;
   });
+
+  let taskMemberContainer = document.getElementById("task_member_container");
+  taskMemberContainer.innerHTML = ""; // Leeren Sie den Inhalt des div-Elements
+
+  assignedContacts.forEach((contactName) => {
+    let initials = extractInitials(contactName);
+    taskMemberContainer.innerHTML += `
+      <div class="assigned_initials_board">${initials}</div>
+    `;
+  });
 }
+
 
 
 /* --------------------------------*/
@@ -350,9 +349,12 @@ function renderAssignedContacts(taskId) {
 
 document.addEventListener("DOMContentLoaded", async function () {
   if (isOnSummaryPage()) {
-    updateHTML(); // Fügen Sie diesen Aufruf hinzu
-  }
+    updateHTML();
+  } else if (isOnBoardPage()) {
+    await updateHTML(); 
+    }
 });
+
 
 async function updateHTML(searchTerm = "") {
   await loadTasks();
@@ -363,6 +365,8 @@ async function updateHTML(searchTerm = "") {
     await updateCard("done", "done", searchTerm);
   }
   await updateTaskCounts();
+  renderAssignedContacts(cardId);
+
 }
 
 function filterTasks() {
@@ -461,6 +465,7 @@ function slideCardDown() {
 
 async function openTaskDetailsCard(cardId, action) {
   showTaskDetailsCard(action);
+  renderAssignedContacts(cardId);
   renderTaskDetails(cardId);
   setOnClickEvent(cardId);
   await setCheckboxState(cardId - 1);

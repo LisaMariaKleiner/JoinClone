@@ -315,17 +315,7 @@ section {
     color: white;
 }
 
-.first_member {
-    background-color: orange;
-}
 
-.second_member {
-    background-color: #1FD7C1;
-}
-
-.third_member {
-    background-color: #462F8A;
-}
 
 .task_urgency_information {
     width: 17px;
@@ -711,6 +701,20 @@ section {
     align-items: center;
     color: white;
     font-size: 12px;
+  }
+
+  .assigned_initials_board {
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+    margin-right: -6px;
+    background-color: #1FD7C1;
   }
 
 

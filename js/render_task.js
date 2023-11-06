@@ -75,10 +75,10 @@ async function setCheckboxState(cardId) {
   const tasksAsString = await getItem('tasks');
   tasks = JSON.parse(tasksAsString);
 
-  const subTasks = tasks[cardId].subtasks
+  let subTasks = tasks[cardId].subtasks
 
   for (let index = 0; index < subTasks.length; index++) {
-    const element = subTasks[index];
+    let element = subTasks[index]; // Element ist hier nicht vergeben aber deklariert?
     if(tasks[cardId].completedSubTasks.includes(index)) {
       let checkbox = document.getElementById(`subtask_checkbox_${index}`)
       checkbox.checked = true;
