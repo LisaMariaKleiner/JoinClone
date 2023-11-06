@@ -663,22 +663,35 @@ section {
     display: none;
     flex-direction: column;
     width: 483px;
-    max-height: 130px;
+   /* max-height: 160px;*/
     overflow: auto;
     position: relative;
-    top: -8px;
+    top: -9px;
     border: 1px solid #d1d1d1;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     justify-content: center;
 }
 
-.datalist_container div {
+.datalist_contact_container {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    flex-direction: column;
-    gap: 5px;
+    margin: 10px;
 }
+
+.initials_in_datalist {
+    background-color: #1FD7C1;
+    border-radius: 50%;
+    height: 42px;
+    width: 42px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+  }
 
 
 

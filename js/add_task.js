@@ -202,9 +202,10 @@ function clearInputFields() {
   document.getElementById("prio_low").checked = false;
 }
 
+
 async function renderContactsInDatalist() {
   let contactDatalist = document.getElementById("contact_datalist");
-  contactDatalist.innerHTML = ""; 
+  contactDatalist.innerHTML = "";
   let usersData = await getItem("users");
   if (usersData) {
     let users = JSON.parse(usersData);
@@ -213,9 +214,14 @@ async function renderContactsInDatalist() {
       if (currentUser.contacts && Array.isArray(currentUser.contacts)) {
         let contacts = currentUser.contacts;
         contacts.forEach((contact) => {
-          let contactElement = document.createElement("div");
-          contactElement.textContent = `${contact.contactInitial} ${contact.name}`;
-          contactDatalist.appendChild(contactElement);
+          // Erstelle die Kontaktstruktur im HTML-Code
+          contactDatalist.innerHTML += `
+            <div class="datalist_contact_container">
+              <div class="initials_in_datalist">${extractInitials(contact.name)}</div>
+              <div class="name_in_datalist">${contact.name}</div>
+              <div class="checkbox_datalist">Checkbox</div>
+            </div>
+          `;
         });
       } else {
         console.error("Der aktuelle Benutzer hat keine Kontakte.");
@@ -224,6 +230,16 @@ async function renderContactsInDatalist() {
   }
 }
 
+
+// Funktion zum Extrahieren der Initialen
+function extractInitials(name) {
+  const words = name.split(" ");
+  let initials = "";
+  for (let i = 0; i < words.length; i++) {
+    initials += words[i].charAt(0).toUpperCase();
+  }
+  return initials;
+}
 
 
 document.addEventListener("DOMContentLoaded", async function () {
