@@ -384,7 +384,6 @@ async function updateHTML(searchTerm = "",) {
   }
   await updateTaskCounts();
   await renderAssignedContacts();
-
 }
 
 async function filterTasks() {
