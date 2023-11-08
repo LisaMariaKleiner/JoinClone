@@ -56,7 +56,6 @@ async function createNewTask() {
     id: findFreeIdForTasks(),
     title: title,
     description: description,
-   
     date: date,
     priority: checkedPriority,
     taskCategory: taskCategory,
@@ -74,7 +73,7 @@ async function createNewTask() {
   moveAddTaskCard("close");
   selectedContacts = [];
 
-  renderAssignedContacts(newTask.id);
+  await renderAssignedContacts(newTask.id);
   if (window.location.pathname == "/board.html") {
     await updateHTML();
   }
@@ -285,6 +284,8 @@ function loadAssignedContacts(taskId) {
 
 
 
+
+
 // Event-Handler für die Checkboxen
 document.addEventListener("change", function (event) {
   if (event.target.type === "checkbox") {
@@ -330,16 +331,33 @@ async function renderAssignedContacts(taskId) {
       </div>
     `;
   });
+}
 
-  let taskMemberContainer = document.getElementById("task_member_container");
-  taskMemberContainer.innerHTML = ""; // Leeren Sie den Inhalt des div-Elements
+async function renderAssignedContactsInPreview() {
+  let tasksAsString = await getItem('tasks');
+  let tasksAsJson = JSON.parse(tasksAsString);
 
-  assignedContacts.forEach((contactName) => {
-    let initials = extractInitials(contactName);
-    taskMemberContainer.innerHTML += `
-      <div class="assigned_initials_board">${initials}</div>
+  for (let index = 0; index < tasksAsJson.length; index++) {
+    const task = tasksAsJson[index];
+    const taskAssignedContacts = task.assignedContacts;
+    loadAllAssignedContacts(taskAssignedContacts, index);
+  }
+}
+
+function loadAllAssignedContacts(taskAssignedContacts, taskIndex) {
+
+  let assignedContactsContainer = document.getElementById(`task_member_container_${taskIndex}`);
+
+  for (let assignedContactIndex = 0; assignedContactIndex < taskAssignedContacts.length; assignedContactIndex++) {
+    let randomBackground = randomColor();
+
+    const assignedContact = taskAssignedContacts[assignedContactIndex];
+    const INITIAL = assignedContact.split(' ')[0].charAt(0).toUpperCase() + assignedContact.split(' ')[1].charAt(0).toUpperCase();
+
+    assignedContactsContainer.innerHTML += `
+      <div class="assigned_initials_board" style="background-color: ${randomBackground}">${INITIAL}</div>
     `;
-  });
+  }
 }
 
 
@@ -356,7 +374,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 });
 
 
-async function updateHTML(searchTerm = "") {
+async function updateHTML(searchTerm = "",) {
   await loadTasks();
   if (isOnBoardPage()) {
     await updateCard("toDo", "to_do", searchTerm);
@@ -365,16 +383,16 @@ async function updateHTML(searchTerm = "") {
     await updateCard("done", "done", searchTerm);
   }
   await updateTaskCounts();
-  renderAssignedContacts(cardId);
+  await renderAssignedContacts();
 
 }
 
-function filterTasks() {
+async function filterTasks() {
   const searchTerm = document.getElementById("search_input").value;
   if (searchTerm.trim() !== "") {
-    updateHTML(searchTerm);
+    await updateHTML(searchTerm);
   } else {
-    updateHTML();// Wenn das Suchfeld leer ist, zeige alle Aufgaben an
+    await updateHTML();// Wenn das Suchfeld leer ist, zeige alle Aufgaben an
   }
 }
 
@@ -465,10 +483,10 @@ function slideCardDown() {
 
 async function openTaskDetailsCard(cardId, action) {
   showTaskDetailsCard(action);
-  renderAssignedContacts(cardId);
+  await renderAssignedContacts(cardId);
   renderTaskDetails(cardId);
   setOnClickEvent(cardId);
-  await setCheckboxState(cardId - 1);
+  await setCheckboxState(cardId);
 }
 
 function showTaskDetailsCard(action) {

@@ -108,7 +108,7 @@ function createEditCard(
               <span>0/${element["subtasks"].length} Subtasks</span>
           </div>
           <div class="task_footer">
-              <div class="task_member_container" id="task_member_container">
+              <div class="task_member_container" id="task_member_container_${element.id}">
                   
               </div>
               <div id="task_urgency_information_${element["id"]}" class="task_urgency_information">
