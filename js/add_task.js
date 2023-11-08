@@ -482,10 +482,12 @@ function slideCardDown() {
 
 async function openTaskDetailsCard(cardId, action) {
   showTaskDetailsCard(action);
-  await renderAssignedContacts(cardId);
-  renderTaskDetails(cardId);
-  setOnClickEvent(cardId);
-  await setCheckboxState(cardId);
+  if(action === 'open') {
+    await renderAssignedContacts(cardId);
+    renderTaskDetails(cardId);
+    setOnClickEvent(cardId);
+    await setCheckboxState(cardId);
+  }
 }
 
 function showTaskDetailsCard(action) {
@@ -521,6 +523,8 @@ function closeDetailsCard(taskDetailsBackground, taskDetailsCard) {
     taskDetailsCard.classList.remove("slide_out_no_bg_change");
     taskDetailsBackground.classList.remove("background_fade_in");
     taskDetailsBackground.style.display = "none";
+    document.getElementById('task_details').style.display = 'flex';
+    document.getElementById('edit_task_card').style.display = 'none';
   }, 500);
 }
 
@@ -562,21 +566,6 @@ function createTaskPriority(currentTask) {
     return taskPriority;
   } else {
     return "Standard-Priorität";
-  }
-}
-
-document.addEventListener("mouseup", function (e) {
-  let taskDetailsCard = document.getElementById("current_task_card");
-  if (isTaskDetailsCardOpen()) {
-    if (!taskDetailsCard.contains(e.target)) {
-      showTaskDetailsCard("close");
-    }
-  }
-});
-
-function isTaskDetailsCardOpen() {
-  if (isOnBoardPage()) {
-    return document.getElementById("task_card_opened").style.display != "none";
   }
 }
 

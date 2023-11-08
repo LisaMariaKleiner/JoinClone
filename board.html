@@ -230,14 +230,14 @@
     </div>
 
     <!-- Der geöffnete Task -->
-    <div id="task_card_opened">
-        <div id="current_task_card">
+    <div id="task_card_opened" onclick="showTaskDetailsCard('close')">
+        <div id="current_task_card" onclick="event.stopPropagation();">
             <div id="task_details" class="task_details">
                 <h3 class="user_story">User Story</h3>
                 <h2 id="task_title">Title</h2>
                 <p id="task_description">Description</p>
                 <div class="task_details_info_container">
-                    <span>Date: </span>
+                    <span>Due Date: </span>
                     <span id="task_date"></span>
                 </div>
                 <div class="task_details_info_container">
@@ -279,7 +279,7 @@
                     </div>
                 </div>
             </div>
-            <div class="close_button_container" onclick="openTaskDetailsCard(false, 'close')">
+            <div class="close_button_container" onclick="showTaskDetailsCard('close')">
                 <img src="./assets/img/x.png" alt="Close Card">
             </div>
             <!-- Edit Task Card Form -->

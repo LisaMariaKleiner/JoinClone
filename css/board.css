@@ -690,6 +690,12 @@ section {
     gap: 5px;
   }
 
+  .assigned_contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
   .assigned_initials {
     background-color: #1FD7C1;
     border-radius: 50%;
