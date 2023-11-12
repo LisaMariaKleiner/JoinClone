@@ -783,3 +783,8 @@ section {
     height: 12px;
     background-position: center;
 }
+
+#assigned_contacts_edit_container {
+    display: flex;
+    gap: 12px;
+}

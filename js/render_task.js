@@ -71,6 +71,22 @@ async function renderTaskEditForm(taskId) {
   setEditPrioritySelection(taskPriority);
 }
 
+async function renderAssignedContactsInEditForm(taskId) {
+  tasks = JSON.parse(await getItem("tasks"));
+  let assignedContacts = tasks[taskId].assignedContacts;
+  let assignedContactsEditContainer = document.getElementById('assigned_contacts_edit_container');
+
+  if(assignedContacts.length > 0) {
+    for (let index = 0; index < assignedContacts.length; index++) {
+      const contact = assignedContacts[index];
+      const contactInitials = extractInitials(contact)
+      const randomBackground = randomColor();
+      assignedContactsEditContainer.innerHTML += createAssignedContact(contactInitials, randomBackground);
+
+    }
+  }
+}
+
 async function setCheckboxState(cardId) { 
   const tasksAsString = await getItem('tasks');
   tasks = JSON.parse(tasksAsString);
@@ -92,7 +108,7 @@ function renderSubtaskProgress(task, taskSubtaskCount, index) {
   let completedSubTasks = task.completedSubTasks;
   let completedSubtasksCount = completedSubTasks.length;
   let subtaskProgressInPercent = Math.trunc(completedSubtasksCount / taskSubtaskCount * 100);
-  
+
   let subtaskProgressbar = document.getElementById(`subtask_progressbar_task_${index}`);
   subtaskProgressbar.style.width = `${subtaskProgressInPercent}%`;
   

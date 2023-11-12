@@ -118,4 +118,10 @@ function createEditCard(
     `;
   }
   
-  
+  function createAssignedContact(contactInitials, randomBackground) {
+    return /*html*/`
+            <div class="assigned_initials" style="background-color: ${randomBackground}">
+            ${contactInitials}
+            </div>
+    `;
+  }
