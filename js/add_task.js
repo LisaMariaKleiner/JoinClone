@@ -384,6 +384,7 @@ async function updateHTML(searchTerm = "",) {
   }
   await updateTaskCounts();
   await renderAssignedContacts();
+  await showCompletedSubtaskCount();
 }
 
 async function filterTasks() {
@@ -736,6 +737,19 @@ function getTaskIdIndex(taskId) {
   for (let i = 0; i < tasks.length; i++) {
     if (Number(taskId) === tasks[i].id) {
       return (currentIndex = i);
+    }
+  }
+}
+
+async function showCompletedSubtaskCount() {
+  let tasksAsString = await getItem('tasks');
+  let tasksAsJson = JSON.parse(tasksAsString);
+
+  for (let index = 0; index < tasksAsJson.length; index++) {
+    const task = tasksAsJson[index];
+    let taskSubtaskCount = task.subtasks.length;
+    if(taskSubtaskCount > 0) {
+      renderSubtaskProgress(task, taskSubtaskCount, index);
     }
   }
 }

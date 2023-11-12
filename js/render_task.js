@@ -4,7 +4,7 @@ function renderTaskDetails(cardId) {
     renderTaskDescription(currentTask);
     renderTaskDate(currentTask);
     renderTaskPriority(currentTask);
-    renderSubtasks(currentTask.subtasks, cardId - 1);
+    renderSubtasks(currentTask.subtasks, cardId);
   }
   
 function renderSubtasks(subtasks, cardId) {
@@ -86,4 +86,16 @@ async function setCheckboxState(cardId) {
       }
     }
   }
+}
+
+function renderSubtaskProgress(task, taskSubtaskCount, index) {
+  let completedSubTasks = task.completedSubTasks;
+  let completedSubtasksCount = completedSubTasks.length;
+  let subtaskProgressInPercent = Math.trunc(completedSubtasksCount / taskSubtaskCount * 100);
+  
+  let subtaskProgressbar = document.getElementById(`subtask_progressbar_task_${index}`);
+  subtaskProgressbar.style.width = `${subtaskProgressInPercent}%`;
+  
+  let subtaskProgressCounter = document.getElementById(`subtask_counter_${index}`);
+  subtaskProgressCounter.innerText = completedSubtasksCount + '/' + taskSubtaskCount + ' Subtasks';
 }

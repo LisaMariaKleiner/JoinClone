@@ -103,9 +103,9 @@ function createEditCard(
           </div>
           <div class="subtask_progress_container" id="subtask_progress_container_${element.id}">
               <div class="subtask_progressbar">
-                  <div class="current_subtask_progress"></div>
+                  <div id="subtask_progressbar_task_${element.id}" class="current_subtask_progress"></div>
               </div>
-              <span>0/${element["subtasks"].length} Subtasks</span>
+              <span id="subtask_counter_${element.id}">0/${element["subtasks"].length} Subtasks</span>
           </div>
           <div class="task_footer">
               <div class="task_member_container" id="task_member_container_${element.id}">
