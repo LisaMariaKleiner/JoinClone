@@ -637,8 +637,8 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 440px;
-    height: 56px;
+    min-width: 465px;
+    min-height: 56px;
     bottom: 4px;
     position: sticky;
     margin-top: 10px;
@@ -649,19 +649,25 @@ section {
     height: 22px;
 }
 
-.datalist_container {
+#contact_datalist {
+    margin-top: 110px;
+}
+
+.datalist_container{
     display: none;
     flex-direction: column;
-    width: 483px;
-   /* max-height: 160px;*/
-    overflow: auto;
+    justify-content: center;
+    max-width: 483px;
+    max-height: 300px;
+    overflow-y: scroll;
     position: relative;
     top: -9px;
     border: 1px solid #d1d1d1;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    justify-content: center;
-}
+    z-index: 99;
+    font-size: 19px;
+}   
 
 .datalist_contact_container {
     display: flex;
