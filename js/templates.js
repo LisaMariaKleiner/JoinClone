@@ -91,9 +91,6 @@ function createEditCard(
   }
 
   function createTask(element) {
-   
-    
-  
     return /*html*/ `
       <div class="task_card" draggable="true" ondragstart="startDragging(${element.id})" onclick="openTaskDetailsCard(${element.id}, 'open')">
           <h3 class="user_story">User Story</h3>

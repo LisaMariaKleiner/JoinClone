@@ -274,23 +274,7 @@ function extractInitials(name) {
     return "";
   }
 }
-/*
-// Funktion zum Speichern der zugewiesenen Kontakte im Remote Storage
-async function saveAssignedContacts(taskId, assignedContacts) {
-  const key = `assignedContacts_${taskId}`;
-  await setItem(key, JSON.stringify(assignedContacts));
-}
 
-// Funktion zum Laden der zugewiesenen Kontakte aus dem Remote Storage
-async function loadAssignedContacts(taskId) {
-  const key = `assignedContacts_${taskId}`;
-  const assignedContactsJSON = await getItem(key);
-  if (assignedContactsJSON) {
-    return JSON.parse(assignedContactsJSON);
-  }
-  return [];
-}
-*/
 
 // Event-Handler für die Checkboxen
 document.addEventListener("change", function (event) {
@@ -320,36 +304,16 @@ function getSelectedContactName(checkbox) {
   }
 }
 
-/*async function renderAssignedContacts(taskId) {
-  try {
-    let assignedContacts = await loadAssignedContacts(taskId);
-    let assignedContactsContainer =
-      document.getElementById("assigned_contacts");
-    assignedContactsContainer.innerHTML = "";
 
-    assignedContacts.forEach((contactName) => {
-      let initials = extractInitials(contactName);
-      let randomBackground = randomColor(); // Zufällige Hintergrundfarbe generieren
-      assignedContactsContainer.innerHTML += `
-      <div class="assigned_contact">
-        <div class="assigned_initials" style="background-color: ${randomBackground}">${initials}</div>
-        <div class="assigned_name">${contactName}</div>
-      </div>
-    `;
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}*/
 async function renderAssignedContacts(taskId) {
   try {
-    let assignedContacts = taskId.assignedContacts || [];
+    let assignedContacts = taskId.assignedContacts;
     let assignedContactsContainer = document.getElementById("assigned_contacts");
     assignedContactsContainer.innerHTML = "";
 
     assignedContacts.forEach((contactName) => {
       let initials = extractInitials(contactName);
-      let randomBackground = randomColor(); // Zufällige Hintergrundfarbe generieren
+      let randomBackground = randomColor(); 
       assignedContactsContainer.innerHTML += `
         <div class="assigned_contact">
           <div class="assigned_initials" style="background-color: ${randomBackground}">${initials}</div>
@@ -358,7 +322,7 @@ async function renderAssignedContacts(taskId) {
       `;
     });
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 }
 
