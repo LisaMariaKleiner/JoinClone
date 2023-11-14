@@ -499,6 +499,7 @@ function showTaskDetailsCard(action) {
   } else if (action === "close") {
     closeDetailsCard(taskDetailsBackground, taskDetailsCard);
   }
+  updateHTML();
 }
 
 function showDropDownMenu(containerId) {
