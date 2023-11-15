@@ -122,3 +122,12 @@ function createEditCard(
             </div>
     `;
   }
+
+  function createAssignedContactInDetails(contactName, initials, randomBackground) {
+    return /*html*/ `
+                <div class="assigned_contact">
+                    <div class="assigned_initials" style="background-color: ${randomBackground}">${initials}</div>
+                    <div class="assigned_name">${contactName}</div>
+                </div>
+    `;
+  }

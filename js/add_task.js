@@ -306,24 +306,17 @@ function getSelectedContactName(checkbox) {
 
 
 async function renderAssignedContacts(taskId) {
-  try {
-    let assignedContacts = taskId.assignedContacts;
-    let assignedContactsContainer = document.getElementById("assigned_contacts");
-    assignedContactsContainer.innerHTML = "";
+  let tasksAsString = await getItem("tasks");
+  let tasksAsJson = JSON.parse(tasksAsString);
+  let assignedContacts = tasksAsJson[taskId].assignedContacts;
+  let assignedContactsContainer = document.getElementById("assigned_contacts");
+  assignedContactsContainer.innerHTML = "";
 
-    assignedContacts.forEach((contactName) => {
+  assignedContacts.forEach((contactName) => {
       let initials = extractInitials(contactName);
       let randomBackground = randomColor(); 
-      assignedContactsContainer.innerHTML += `
-        <div class="assigned_contact">
-          <div class="assigned_initials" style="background-color: ${randomBackground}">${initials}</div>
-          <div class="assigned_name">${contactName}</div>
-        </div>
-      `;
+      assignedContactsContainer.innerHTML += createAssignedContactInDetails(contactName, initials, randomBackground);
     });
-  } catch (error) {
-    console.log(error);
-  }
 }
 
 
@@ -381,7 +374,6 @@ async function updateHTML(searchTerm = "") {
     await updateCard("done", "done", searchTerm);
   }
   await updateTaskCounts();
-  await renderAssignedContacts();
   await showCompletedSubtaskCount();
 }
 
@@ -486,7 +478,7 @@ function slideCardDown() {
 async function openTaskDetailsCard(cardId, action) {
   showTaskDetailsCard(action);
   if (action === "open") {
-    await renderAssignedContacts();
+    await renderAssignedContacts(cardId);
     renderTaskDetails(cardId);
     setOnClickEvent(cardId);
     await setCheckboxState(cardId);
