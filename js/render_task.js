@@ -115,3 +115,15 @@ function renderSubtaskProgress(task, taskSubtaskCount, index) {
   let subtaskProgressCounter = document.getElementById(`subtask_counter_${index}`);
   subtaskProgressCounter.innerText = completedSubtasksCount + '/' + taskSubtaskCount + ' Subtasks';
 }
+
+function renderAssignedContactsInAddTask() {
+  let addTaskSelectedContactsContainer = document.getElementById('add_task_selected_contacts_container');
+  addTaskSelectedContactsContainer.innerHTML = " ";
+  for (let index = 0; index < selectedContacts.length; index++) {
+    const selectedContact = selectedContacts[index];
+    let initials = extractInitials(selectedContact);
+    let randomBackground = randomColor();
+
+    addTaskSelectedContactsContainer.innerHTML += createAssignedContact(initials, randomBackground);
+  }
+}

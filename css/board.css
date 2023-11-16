@@ -674,6 +674,7 @@ section {
     justify-content: space-between;
     align-items: center;
     margin: 10px;
+    cursor: pointer;
 }
 
 .initials_in_datalist {
@@ -793,4 +794,13 @@ section {
 #assigned_contacts_edit_container {
     display: flex;
     gap: 12px;
+}
+
+#add_task_selected_contacts_container {
+    display: flex;
+    gap: 12px;
+}
+
+#add_task_selected_contacts_container div {
+    cursor: pointer;
 }

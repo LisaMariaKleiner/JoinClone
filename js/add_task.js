@@ -232,10 +232,11 @@ async function renderContactsInDatalist() {
       const currentUser = users[0];
       if (currentUser.contacts && Array.isArray(currentUser.contacts)) {
         let contacts = currentUser.contacts;
+        let index = 0;
         contacts.forEach((contact) => {
           const randomBackground = randomColor();
           contactDatalist.innerHTML += `
-            <div class="datalist_contact_container">
+            <div id="datalist_contact_container_${index}" class="datalist_contact_container">
               <div class="initials_in_datalist" style="background-color: ${randomBackground}">${extractInitials(
             contact.name
           )}</div>
@@ -243,6 +244,7 @@ async function renderContactsInDatalist() {
               <div class="checkbox_datalist"><input type="checkbox"></div>
             </div>
           `;
+          index++;
         });
       } else {
         console.error("Der aktuelle Benutzer hat keine Kontakte.");
@@ -284,6 +286,7 @@ document.addEventListener("change", function (event) {
       // Überprüfen, ob der Kontakt gültig ist
       if (event.target.checked) {
         selectedContacts.push(selectedContactName);
+        renderAssignedContactsInAddTask(selectedContactName);
       } else {
         let index = selectedContacts.indexOf(selectedContactName);
         if (index !== -1) {
@@ -611,26 +614,29 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 });
 
-document.addEventListener("mouseup", async function (e) {
-  if (e.target.id === "assigned_to_input") {
-    document.getElementById("assigned_to_datalist").style.display = "flex";
-  } else {
-    document.getElementById("assigned_to_datalist").style.display = "none";
-  }
-});
+// document.addEventListener("mouseup", async function (e) {
+//   if (e.target.id === "assigned_to_input") {
+//     document.getElementById("assigned_to_datalist").style.display = "flex";
+//   } else {
+//     document.getElementById("assigned_to_datalist").style.display = "none";
+//   }
+// });
 // Besserer Eventlistener muss aber noch angepasst werden
-/*document.addEventListener("mouseup", async function (e) {
+document.addEventListener("mouseup", async function (e) {
   const datalistContainer = document.getElementById("assigned_to_datalist");
   if (e.target.id === "assigned_to_input") {
       datalistContainer.style.display = "flex"; // Das Input-Feld wurde geklickt, zeige den Container an
   } else if (datalistContainer.contains(e.target) && e.target.type === "checkbox") {
       e.preventDefault();// Das Klicken erfolgte innerhalb des Containers auf eine Checkbox, div nicht schließen
-      e.target.checked = !e.target.checked; // Aktualisiere den Status der Checkbox optisch (nur wenn gewünscht)
-  } else {
+      // e.target.checked = !e.target.checked; // Aktualisiere den Status der Checkbox optisch (nur wenn gewünscht)
+  } else if (datalistContainer.contains(e.target)){
+    e.preventDefault();
+  } 
+  else {
       datalistContainer.style.display = "none"; // Das Klicken erfolgte außerhalb des Containers, div schließen
   }
   updateHTML();
-});*/
+});
 
 function clearAddTaskCard() {
   subtasks = [];
