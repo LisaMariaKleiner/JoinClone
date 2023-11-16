@@ -229,11 +229,11 @@ async function renderContactsInDatalist() {
   if (usersData) {
     let users = JSON.parse(usersData);
     if (Array.isArray(users)) {
-      const currentUser = users[0];
+      const currentUser = users.find(u => u.email === JSON.parse(localStorage.getItem('user')).email);
       if (currentUser.contacts && Array.isArray(currentUser.contacts)) {
         let contacts = currentUser.contacts;
         let index = 0;
-        contacts.forEach( async function (contact) {
+        contacts.forEach(async function (contact) {
           console.log(contact);
           const randomBackground = contact.contactBackgroundColor;
           contactDatalist.innerHTML += `
