@@ -318,8 +318,22 @@ async function renderAssignedContacts(taskId) {
   assignedContacts.forEach((contactName) => {
       let initials = extractInitials(contactName);
       let randomBackground = randomColor(); 
+      getContactBackground(contactName);
       assignedContactsContainer.innerHTML += createAssignedContactInDetails(contactName, initials, randomBackground);
     });
+}
+
+async function getContactBackground(contactName) {
+  let usersAsString = await getItem("users");
+  let usersAsJson = JSON.parse(usersAsString);
+  let currentUser = localStorage.getItem("user");
+  currentUser = JSON.parse(currentUser);
+
+  currentUser = usersAsJson.find(u => u.email === currentUser.email);
+  let userContacts = currentUser.contacts;
+  let contact = userContacts.find(c => c.name === contactName);
+  let contactBackgroundColor = contact.contactBackgroundColor;
+  return contactBackgroundColor;
 }
 
 
@@ -345,9 +359,8 @@ function loadAllAssignedContacts(taskAssignedContacts, taskIndex) {
     assignedContactIndex < taskAssignedContacts.length;
     assignedContactIndex++
   ) {
-    let randomBackground = randomColor();
-
     const assignedContact = taskAssignedContacts[assignedContactIndex];
+    const randomBackground = getContactBackground(assignedContact);
     const INITIAL =
       assignedContact.split(" ")[0].charAt(0).toUpperCase() +
       assignedContact.split(" ")[1].charAt(0).toUpperCase();
@@ -377,6 +390,7 @@ async function updateHTML(searchTerm = "") {
     await updateCard("done", "done", searchTerm);
   }
   await updateTaskCounts();
+  await renderAssignedContactsInPreview();
   await showCompletedSubtaskCount();
 }
 
@@ -614,13 +628,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 });
 
-// document.addEventListener("mouseup", async function (e) {
-//   if (e.target.id === "assigned_to_input") {
-//     document.getElementById("assigned_to_datalist").style.display = "flex";
-//   } else {
-//     document.getElementById("assigned_to_datalist").style.display = "none";
-//   }
-// });
 // Besserer Eventlistener muss aber noch angepasst werden
 document.addEventListener("mouseup", async function (e) {
   const datalistContainer = document.getElementById("assigned_to_datalist");

@@ -71,6 +71,15 @@ function findFreeId() {
   }
 }
 
+function randomColor() {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
 
 async function createNewContact() {
   resetContactCards();
@@ -83,6 +92,7 @@ async function createNewContact() {
     name: newContactName,
     email: newContactEmail,
     phone: newContactPhone,
+    contactBackgroundColor: randomColor(),
   };
   contacts.push(newContact);
   user = JSON.parse(localStorage.getItem('user'));
