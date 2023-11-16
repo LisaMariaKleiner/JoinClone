@@ -116,13 +116,14 @@ function renderSubtaskProgress(task, taskSubtaskCount, index) {
   subtaskProgressCounter.innerText = completedSubtasksCount + '/' + taskSubtaskCount + ' Subtasks';
 }
 
-function renderAssignedContactsInAddTask() {
+async function renderAssignedContactsInAddTask() {
   let addTaskSelectedContactsContainer = document.getElementById('add_task_selected_contacts_container');
   addTaskSelectedContactsContainer.innerHTML = " ";
   for (let index = 0; index < selectedContacts.length; index++) {
     const selectedContact = selectedContacts[index];
     let initials = extractInitials(selectedContact);
-    let randomBackground = randomColor();
+    console.log(selectedContact);
+    let randomBackground = await getContactBackground(selectedContact);
 
     addTaskSelectedContactsContainer.innerHTML += createAssignedContact(initials, randomBackground);
   }

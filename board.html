@@ -192,6 +192,15 @@
                             <p class="highlighted">*</p>
                         </div>
                         <input id="task_category_input" class="title_input" list="Select task category">
+                        <!-- <div id="category_datalist" class="datalist_container">
+                            <div id="contact_datalist"></div>
+                            <button class="primary_button datalist_button" id="create_contact_button" onclick="createNewContact()">
+                                Add new contact
+                                <div>
+                                    <img src="./assets/img/person_add.png">
+                                </div>
+                            </button>  Noch über css im Dropwdown anzeigen lassen, geht nicht innerhalb der Datalist
+                        </div> -->
                         <datalist id="Select task category">
                             <option value="Technical task">
                             <option value="User story">
@@ -218,7 +227,7 @@
                 <div class="button_container">
                     <button onclick="moveAddTaskCard('close')" class="secondary_button">Cancel <img
                             src="./assets/img/x.png" alt=""></button>
-                    <button onclick="createNewTask()" class="primary_button">Create Task <img
+                    <button onclick="createNewTask(); updateHTML()" class="primary_button">Create Task <img
                             src="./assets/img/done.png" alt=""></button>
                 </div>
             </div>
