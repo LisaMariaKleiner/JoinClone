@@ -233,8 +233,9 @@ async function renderContactsInDatalist() {
       if (currentUser.contacts && Array.isArray(currentUser.contacts)) {
         let contacts = currentUser.contacts;
         let index = 0;
-        contacts.forEach((contact) => {
-          const randomBackground = randomColor();
+        contacts.forEach( async function (contact) {
+          console.log(contact);
+          const randomBackground = contact.contactBackgroundColor;
           contactDatalist.innerHTML += `
             <div id="datalist_contact_container_${index}" class="datalist_contact_container">
               <div class="initials_in_datalist" style="background-color: ${randomBackground}">${extractInitials(
