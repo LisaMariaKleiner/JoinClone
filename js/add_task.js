@@ -315,9 +315,9 @@ async function renderAssignedContacts(taskId) {
   let assignedContactsContainer = document.getElementById("assigned_contacts");
   assignedContactsContainer.innerHTML = "";
 
-  assignedContacts.forEach((contactName) => {
+  assignedContacts.forEach(async function (contactName) {
       let initials = extractInitials(contactName);
-      let randomBackground = randomColor(); 
+      let randomBackground = await getContactBackground(contactName);
       getContactBackground(contactName);
       assignedContactsContainer.innerHTML += createAssignedContactInDetails(contactName, initials, randomBackground);
     });
