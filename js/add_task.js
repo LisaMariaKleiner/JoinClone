@@ -635,7 +635,6 @@ document.addEventListener("mouseup", async function (e) {
   else {
       datalistContainer.style.display = "none"; // Das Klicken erfolgte außerhalb des Containers, div schließen
   }
-  updateHTML();
 });
 
 function clearAddTaskCard() {
