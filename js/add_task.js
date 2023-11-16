@@ -345,11 +345,11 @@ async function renderAssignedContactsInPreview() {
   for (let index = 0; index < tasksAsJson.length; index++) {
     const task = tasksAsJson[index];
     const taskAssignedContacts = task.assignedContacts;
-    loadAllAssignedContacts(taskAssignedContacts, index);
+    await loadAllAssignedContacts(taskAssignedContacts, index);
   }
 }
 
-function loadAllAssignedContacts(taskAssignedContacts, taskIndex) {
+async function loadAllAssignedContacts(taskAssignedContacts, taskIndex) {
   let assignedContactsContainer = document.getElementById(
     `task_member_container_${taskIndex}`
   );
@@ -360,7 +360,7 @@ function loadAllAssignedContacts(taskAssignedContacts, taskIndex) {
     assignedContactIndex++
   ) {
     const assignedContact = taskAssignedContacts[assignedContactIndex];
-    const randomBackground = getContactBackground(assignedContact);
+    const randomBackground = await getContactBackground(assignedContact);
     const INITIAL =
       assignedContact.split(" ")[0].charAt(0).toUpperCase() +
       assignedContact.split(" ")[1].charAt(0).toUpperCase();
