@@ -508,8 +508,10 @@ function showTaskDetailsCard(action) {
   let taskDetailsCard = document.getElementById("current_task_card");
   if (action === "open") {
     openDetailsCard(taskDetailsBackground, taskDetailsCard);
+    document.querySelector("body").style.overflow = "hidden";
   } else if (action === "close") {
     closeDetailsCard(taskDetailsBackground, taskDetailsCard);
+    document.querySelector("body").style.overflow = "visible";
   }
 }
 

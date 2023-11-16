@@ -63,6 +63,7 @@ function moveAddTaskCard(event) {
     if (event === 'open') {
         taskCardBackground.style.display = 'flex';
         taskCardBackground.classList.add('background_fade_in')
+        document.querySelector("body").style.overflow = "hidden";
         slideCardIn(taskCard);
         setTimeout(() => {
             taskCardBackground.classList.remove('background_fade_in')
@@ -73,6 +74,7 @@ function moveAddTaskCard(event) {
         setTimeout(() => {
             taskCardBackground.style.display = 'none';
             taskCardBackground.classList.remove('background_fade_out')
+            document.querySelector("body").style.overflow = "visible";
         }, 500);
     }
     //renderContactsInDatalist() WIEDER FREI GEBEN WENN DATALIST FUNKTIONIERT
