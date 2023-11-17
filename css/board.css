@@ -673,6 +673,11 @@ section {
     background-color: white;
 }   
 
+.edit_datalist {
+    position: absolute !important;
+    top: 633px !important;
+}
+
 .datalist_contact_container {
     display: flex;
     justify-content: space-between;

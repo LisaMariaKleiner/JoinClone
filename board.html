@@ -136,7 +136,7 @@
                     </div>
                     <div class="assigned_to title">
                         <span>Assigned to</span>
-                        <input id="assigned_to_input" class="title_input" onclick="showDropDownMenu('assigned_to_datalist'); renderContactsInDatalist()">
+                        <input id="assigned_to_input" class="title_input" onclick="showDropDownMenu('assigned_to_datalist'); renderContactsInDatalist('contact_datalist')">
                         <div id="assigned_to_datalist" class="datalist_container">
                             <div id="contact_datalist"></div>
                             <button class="primary_button datalist_button" id="create_contact_button" onclick="createNewContact()">
@@ -340,9 +340,9 @@
                     </div>
                     <div class="assigned_to title">
                         <span>Assigned to</span>
-                        <input id="assigned_to_input" class="title_input" onclick="showDropDownMenu('assigned_to_datalist')">
-                        <div id="assigned_to_datalist" class="datalist_container">
-                            
+                        <input id="edit_assigned_to_input" class="title_input" onclick="showDropDownMenu('edit_assigned_to_datalist'); renderContactsInDatalist('edit_contact_datalist')">
+                        <div id="edit_assigned_to_datalist" class="datalist_container edit_datalist">
+                            <div id="edit_contact_datalist"></div>
                             <button class="primary_button datalist_button" id="create_contact_button" onclick="createNewContact()">
                                 Add new contact
                                 <div>
