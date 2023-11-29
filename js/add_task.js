@@ -375,28 +375,6 @@ async function renderAssignedContactsInPreview() {
   }
 }
 
-/*
-async function loadAllAssignedContacts(taskAssignedContacts, taskIndex) {
-  let assignedContactsContainer = document.getElementById(
-    `task_member_container_${taskIndex}`
-  );
-
-  for (
-    let assignedContactIndex = 0;
-    assignedContactIndex < taskAssignedContacts.length;
-    assignedContactIndex++
-  ) {
-    const assignedContact = taskAssignedContacts[assignedContactIndex];
-    const randomBackground = await getContactBackground(assignedContact);
-    const INITIAL =
-      assignedContact.split(" ")[0].charAt(0).toUpperCase() +
-      assignedContact.split(" ")[1].charAt(0).toUpperCase();
-
-    assignedContactsContainer.innerHTML += `
-      <div class="assigned_initials_board" style="background-color: ${randomBackground}">${INITIAL}</div>
-    `;
-  }
-}*/
 
 async function loadAllAssignedContacts(taskAssignedContacts, taskIndex) {
   let assignedContactsContainer = document.getElementById(
@@ -845,7 +823,13 @@ function clearTaskEditForm() {
   edit_task_date.value = "";
 }
 
+
+
 async function deleteTask(cardId) {
+  const confirmation = confirm("Are you sure you want to delete this task?");
+  if (!confirmation) {
+    return; // Wenn der Benutzer die Aktion nicht bestätigt, brich die Funktion ab.
+  }
   const remoteStorageTasksAsString = await getItem("tasks");
   if (remoteStorageTasksAsString) {
     const remoteStorageTasks = JSON.parse(remoteStorageTasksAsString);
@@ -861,6 +845,7 @@ async function deleteTask(cardId) {
     console.warn("Task konnte im Remote Storage nicht gefunden werden.");
   }
 }
+
 
 function getTaskIdIndex(taskId) {
   let currentIndex;

@@ -1,0 +1,60 @@
+@media screen and (max-width: 490px) {
+
+    .login_joinLogo {
+        width: 64px;
+        height: 78px;
+        top: 30px;
+        left: 30px;
+        position: fixed;
+    }
+
+    .card {
+        width: 120px;
+        height: 450px;
+        position: absolute;
+        gap: 32px;
+        top: 150px;
+        left: 12px;
+    }
+
+    .headline_container {
+        width: 139px;
+        height: 72px;
+        gap: 16px;
+        font-size: 47px;
+    }
+
+    .headline_container h1{
+        font-size: 47px;
+    }
+
+    .login_input_container {
+        width: 320px;
+        height: 192px;
+    }
+
+    .signup_container {
+        width: 292px;
+        height: 49px;
+        top: 745px;
+        left: 70px;
+        gap: 35px;
+    }
+
+    .login_button_container {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+     gap: 21px;   
+    }
+
+    .login_button_container button {
+        width: 180px;
+        height: 51px;
+    }
+
+    .login_footer_links {
+
+    }
+}
