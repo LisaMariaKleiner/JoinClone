@@ -37,7 +37,7 @@ function getcardIdIndex(cardId) {
 async function createNewTask() {
   let title = document.getElementById("title_input").value;
   let description = document.getElementById("description_textarea").value;
-  let taskOwner = JSON.parse(localStorage.getItem('user')).name;
+  let taskOwner = JSON.parse(localStorage.getItem("user")).name;
   let date = document.getElementById("date_input").value;
   let taskCategory = document.getElementById("task_category_input").value;
   let subtaskInput = document.getElementById("subtask_category_input");
@@ -231,7 +231,9 @@ async function renderContactsInDatalist(containerId) {
   if (usersData) {
     let users = JSON.parse(usersData);
     if (Array.isArray(users)) {
-      const currentUser = users.find(u => u.email === JSON.parse(localStorage.getItem('user')).email);
+      const currentUser = users.find(
+        (u) => u.email === JSON.parse(localStorage.getItem("user")).email
+      );
       if (currentUser.contacts && Array.isArray(currentUser.contacts)) {
         let contacts = currentUser.contacts;
         let index = 0;
@@ -280,7 +282,6 @@ function extractInitials(name) {
   }
 }
 
-
 // Event-Handler für die Checkboxen
 document.addEventListener("change", function (event) {
   console.log(event.target);
@@ -290,7 +291,7 @@ document.addEventListener("change", function (event) {
       // Überprüfen, ob der Kontakt gültig ist
       if (event.target.checked) {
         selectedContacts.push(selectedContactName);
-        renderAssignedContactsInAddTask('add_task_selected_contacts_container');
+        renderAssignedContactsInAddTask("add_task_selected_contacts_container");
       } else {
         let index = selectedContacts.indexOf(selectedContactName);
         if (index !== -1) {
@@ -311,7 +312,6 @@ function getSelectedContactName(checkbox) {
   }
 }
 
-
 async function renderAssignedContacts(taskId) {
   let tasksAsString = await getItem("tasks");
   let tasksAsJson = JSON.parse(tasksAsString);
@@ -320,13 +320,18 @@ async function renderAssignedContacts(taskId) {
   assignedContactsContainer.innerHTML = "";
 
   assignedContacts.forEach(async function (contactName) {
-      let initials = extractInitials(contactName);
-      let randomBackground = await getContactBackground(contactName);
-      getContactBackground(contactName);
-      assignedContactsContainer.innerHTML += createAssignedContactInDetails(contactName, initials, randomBackground);
-    });
+    let initials = extractInitials(contactName);
+    let randomBackground = await getContactBackground(contactName);
+    getContactBackground(contactName);
+    assignedContactsContainer.innerHTML += createAssignedContactInDetails(
+      contactName,
+      initials,
+      randomBackground
+    );
+  });
 }
 
+/*
 async function getContactBackground(contactName) {
   let usersAsString = await getItem("users");
   let usersAsJson = JSON.parse(usersAsString);
@@ -339,8 +344,25 @@ async function getContactBackground(contactName) {
   let contactBackgroundColor = contact.contactBackgroundColor;
   return contactBackgroundColor;
 }
+*/
 
+async function getContactBackground(contactName) {
+  let usersAsString = await getItem("users");
+  let usersAsJson = JSON.parse(usersAsString);
+  let currentUser = localStorage.getItem("user");
+  currentUser = JSON.parse(currentUser);
 
+  currentUser = usersAsJson.find((u) => u.email === currentUser.email);
+  let userContacts = currentUser.contacts;
+  let contact = userContacts.find((c) => c.name === contactName);
+
+  if (contact && contact.contactBackgroundColor) {
+    return contact.contactBackgroundColor;
+  } else {
+    // Gib eine Standardfarbe zurück
+    return "#000000"; // schwarz
+  }
+}
 
 async function renderAssignedContactsInPreview() {
   let tasksAsString = await getItem("tasks");
@@ -353,6 +375,7 @@ async function renderAssignedContactsInPreview() {
   }
 }
 
+/*
 async function loadAllAssignedContacts(taskAssignedContacts, taskIndex) {
   let assignedContactsContainer = document.getElementById(
     `task_member_container_${taskIndex}`
@@ -373,7 +396,36 @@ async function loadAllAssignedContacts(taskAssignedContacts, taskIndex) {
       <div class="assigned_initials_board" style="background-color: ${randomBackground}">${INITIAL}</div>
     `;
   }
+}*/
+
+async function loadAllAssignedContacts(taskAssignedContacts, taskIndex) {
+  let assignedContactsContainer = document.getElementById(
+    `task_member_container_${taskIndex}`
+  );
+  if (assignedContactsContainer) {
+    assignedContactsContainer.innerHTML = "";
+    // Sammelt die Initialen in einer temporären Variable
+    let initialsHtml = "";
+    for (
+      let assignedContactIndex = 0;
+      assignedContactIndex < taskAssignedContacts.length;
+      assignedContactIndex++
+    ) {
+      let assignedContact = taskAssignedContacts[assignedContactIndex];
+      let randomBackground = await getContactBackground(assignedContact);
+      let INITIAL =
+        assignedContact.split(" ")[0].charAt(0).toUpperCase() +
+        assignedContact.split(" ")[1].charAt(0).toUpperCase();
+      // Füge die Initial zum temporären HTML hinzu
+      initialsHtml += `
+        <div class="assigned_initials_board" style="background-color: ${randomBackground}">${INITIAL}</div>
+      `;
+    }
+    // Fügt die gesammelten Initialen zum Container hinzu
+    assignedContactsContainer.innerHTML = initialsHtml;
+  }
 }
+
 
 /* --------------------------------*/
 
@@ -421,7 +473,10 @@ async function updateCard(category, containerId, searchTerm = "") {
   document.getElementById(containerId).innerHTML = "";
   for (let index = 0; index < filteredTasks.length; index++) {
     const element = filteredTasks[index];
-    if(await currentUserIsTaskOwner(element) || await currentUserIsAssignedToTask(element)) {
+    if (
+      (await currentUserIsTaskOwner(element)) ||
+      (await currentUserIsAssignedToTask(element))
+    ) {
       document.getElementById(containerId).innerHTML += createTask(element);
       checkForSubtasks(element);
       checkForPriorityClasses();
@@ -433,20 +488,19 @@ async function updateCard(category, containerId, searchTerm = "") {
 }
 
 async function currentUserIsTaskOwner(task) {
-  let currentUser = JSON.parse(localStorage.getItem('user'));
-  if(task.taskOwner === currentUser.name) {
+  let currentUser = JSON.parse(localStorage.getItem("user"));
+  if (task.taskOwner === currentUser.name) {
     return true;
   }
 }
 
 async function currentUserIsAssignedToTask(task) {
-  let currentUser = JSON.parse(localStorage.getItem('user'));
+  let currentUser = JSON.parse(localStorage.getItem("user"));
   for (let index = 0; index < task.assignedContacts.length; index++) {
     const contact = task.assignedContacts[index];
-    if(contact === currentUser.name) {
+    if (contact === currentUser.name) {
       return true;
     }
-    
   }
 }
 
@@ -658,30 +712,36 @@ document.addEventListener("DOMContentLoaded", async function () {
 document.addEventListener("mouseup", async function (e) {
   const datalistContainer = document.getElementById("assigned_to_datalist");
   if (e.target.id === "assigned_to_input") {
-      datalistContainer.style.display = "flex"; // Das Input-Feld wurde geklickt, zeige den Container an
-  } else if (datalistContainer.contains(e.target) && e.target.type === "checkbox") {
-      e.preventDefault();// Das Klicken erfolgte innerhalb des Containers auf eine Checkbox, div nicht schließen
-      // e.target.checked = !e.target.checked; // Aktualisiere den Status der Checkbox optisch (nur wenn gewünscht)
-  } else if (datalistContainer.contains(e.target)){
+    datalistContainer.style.display = "flex"; // Das Input-Feld wurde geklickt, zeige den Container an
+  } else if (
+    datalistContainer.contains(e.target) &&
+    e.target.type === "checkbox"
+  ) {
+    e.preventDefault(); // Das Klicken erfolgte innerhalb des Containers auf eine Checkbox, div nicht schließen
+    // e.target.checked = !e.target.checked; // Aktualisiere den Status der Checkbox optisch (nur wenn gewünscht)
+  } else if (datalistContainer.contains(e.target)) {
     e.preventDefault();
-  } 
-  else {
-      datalistContainer.style.display = "none"; // Das Klicken erfolgte außerhalb des Containers, div schließen
+  } else {
+    datalistContainer.style.display = "none"; // Das Klicken erfolgte außerhalb des Containers, div schließen
   }
 });
 
 document.addEventListener("mouseup", async function (e) {
-  const datalistContainer = document.getElementById("edit_assigned_to_datalist");
+  const datalistContainer = document.getElementById(
+    "edit_assigned_to_datalist"
+  );
   if (e.target.id === "edit_assigned_to_input") {
-      datalistContainer.style.display = "flex"; // Das Input-Feld wurde geklickt, zeige den Container an
-  } else if (datalistContainer.contains(e.target) && e.target.type === "checkbox") {
-      e.preventDefault();// Das Klicken erfolgte innerhalb des Containers auf eine Checkbox, div nicht schließen
-      // e.target.checked = !e.target.checked; // Aktualisiere den Status der Checkbox optisch (nur wenn gewünscht)
-  } else if (datalistContainer.contains(e.target)){
+    datalistContainer.style.display = "flex"; // Das Input-Feld wurde geklickt, zeige den Container an
+  } else if (
+    datalistContainer.contains(e.target) &&
+    e.target.type === "checkbox"
+  ) {
+    e.preventDefault(); // Das Klicken erfolgte innerhalb des Containers auf eine Checkbox, div nicht schließen
+    // e.target.checked = !e.target.checked; // Aktualisiere den Status der Checkbox optisch (nur wenn gewünscht)
+  } else if (datalistContainer.contains(e.target)) {
     e.preventDefault();
-  } 
-  else {
-      datalistContainer.style.display = "none"; // Das Klicken erfolgte außerhalb des Containers, div schließen
+  } else {
+    datalistContainer.style.display = "none"; // Das Klicken erfolgte außerhalb des Containers, div schließen
   }
 });
 
@@ -727,19 +787,22 @@ function setOnClickEvent(cardId) {
     .setAttribute("onclick", `deleteTask(${cardId}); return false;`);
   document
     .getElementById("open_task_edit")
-    .setAttribute("onclick", `showTaskEditForm(${cardId}); getAssignedContacts(${cardId})`);
+    .setAttribute(
+      "onclick",
+      `showTaskEditForm(${cardId}); getAssignedContacts(${cardId})`
+    );
   document
     .getElementById("edit_task_card_form")
     .setAttribute("onsubmit", `saveTask(${cardId}); return false`);
 }
 
 async function getAssignedContacts(taskId) {
-  let tasksAsString = await getItem('tasks');
+  let tasksAsString = await getItem("tasks");
   let tasksAsJson = JSON.parse(tasksAsString);
   let currentTask = tasksAsJson[taskId];
   selectedContacts = currentTask.assignedContacts;
 
-  await renderAssignedContactsInAddTask("assigned_contacts_edit_container")
+  await renderAssignedContactsInAddTask("assigned_contacts_edit_container");
 }
 
 async function saveTask(cardId) {
