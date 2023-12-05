@@ -1,0 +1,31 @@
+@media screen and (max-width: 950px) {
+    /*
+    .signup_card {
+        width: 90vw;
+        height: 630px;
+        background-color: white;
+        border-radius: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 0;
+        gap: 32px;
+        box-shadow: 0px 0px 14px 3px #0000000A;
+    }
+
+    .signup_card h1 {
+        font-size: 40px;
+        margin-top: -180px;
+    }
+
+    .login_input_container {
+        margin-top: -150px;
+    }
+
+    .login_footer_links {
+        justify-content: center;
+        top: 900px;
+    }
+*/
+}

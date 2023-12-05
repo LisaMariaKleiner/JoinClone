@@ -38,10 +38,13 @@
     }
 
     .signup_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 292px;
         height: 49px;
         top: 800px;
-        left: 70px;
+        
         gap: 35px;
     }
 
