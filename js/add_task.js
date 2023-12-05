@@ -84,8 +84,8 @@ function getCheckedPriorityCheckbox() {
     "edit_prio_low",
   ];
   for (let index = 0; index < checkboxes.length; index++) {
-    const element = checkboxes[index];
-    const priority = element.split("_");
+    let element = checkboxes[index];
+    let priority = element.split("_");
     if (priority.length === 3 && document.getElementById(element).checked) {
       return priority[2];
     } else if (document.getElementById(element).checked) {
@@ -688,7 +688,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 // Besserer Eventlistener muss aber noch angepasst werden
 document.addEventListener("mouseup", async function (e) {
-  const datalistContainer = document.getElementById("assigned_to_datalist");
+  let datalistContainer = document.getElementById("assigned_to_datalist");
   if (e.target.id === "assigned_to_input") {
     datalistContainer.style.display = "flex"; // Das Input-Feld wurde geklickt, zeige den Container an
   } else if (
