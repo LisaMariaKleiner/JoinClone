@@ -1,23 +1,7 @@
 @media screen and (max-width: 950px) {
     /*
-    .signup_card {
-        width: 90vw;
-        height: 630px;
-        background-color: white;
-        border-radius: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        padding: 0;
-        gap: 32px;
-        box-shadow: 0px 0px 14px 3px #0000000A;
-    }
-
-    .signup_card h1 {
-        font-size: 40px;
-        margin-top: -180px;
-    }
+    
+    
 
     .login_input_container {
         margin-top: -150px;
@@ -28,4 +12,32 @@
         top: 900px;
     }
 */
+
+    .signup_card {
+        height: 630px;
+        width: 90vw;
+        background-color: #FFF;
+        border-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 0px 14px 3px #0000000a;
+        padding: 0;
+        top: 150px;
+        
+    }
+
+    .signup_card h1 {
+        font-size: 40px;
+        margin-top: -145px;
+    }
+
+    #go_back_to_login_card img {
+        top: -70px;
+    }
+
+    .headline_container {
+        margin-top: -50px;
+    }
 }

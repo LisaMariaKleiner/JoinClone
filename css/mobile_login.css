@@ -1,5 +1,12 @@
 @media screen and (max-width: 950px) {
 
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
     .login_joinLogo {
         width: 64px;
         height: 78px;
@@ -19,6 +26,8 @@
         justify-content: center;
         box-shadow: 0px 0px 14px 3px #0000000a;
         padding: 0;
+        top: 180px;
+        margin-right: 53px;
     }
 
     .headline_container {
@@ -43,8 +52,7 @@
         align-items: center;
         width: 292px;
         height: 49px;
-        top: 800px;
-        
+        top: 700px;
         gap: 35px;
     }
 
@@ -62,7 +70,7 @@
     }
 
     .login_footer_links {
-        top: 890px;
+        top: 830px;
         justify-content: left;
         gap: 20px;
     }
