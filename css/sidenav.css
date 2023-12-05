@@ -5,7 +5,6 @@ nav {
     width: 232px;
     height: 100%;
     padding: 64px 0px 64px 0px;
-    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -108,3 +107,62 @@ a {
 }
 
 
+@media screen and (max-width: 950px) {
+
+    nav {
+        width: 100%;
+        height: 80px;
+        padding: 16px 0;
+        bottom: 0;
+        justify-content: space-around; 
+        align-items: center;
+        box-shadow: none;
+        gap: 0;
+        top: 88%;
+        z-index: 99;
+    }
+
+    .join_img {
+        display: none;
+    }
+
+    .side_menu {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: row;
+        gap: 50px;
+    }
+
+    .menu_element_container {
+        height: 50px;
+        width: 50px;
+    }
+   
+    .menu_element {
+        height: 30px;
+        width: auto;
+        flex-direction: column;
+    }
+
+    .menu_icons {
+        height: 20px;
+        width: 20px;
+    }
+
+    .side_nav_footer {
+        height: auto;
+        flex-direction: row;
+        gap: 16px;
+    }
+
+    .footer_link {
+       display: none;
+    }
+
+    nav span {
+        text-align: center;
+    }
+
+
+}
