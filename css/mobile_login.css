@@ -17,7 +17,7 @@
 
     .card {
         height: 500px;
-        width: 90vw;
+        
         background-color: #FFF;
         border-radius: 30px;
         display: flex;
@@ -27,7 +27,6 @@
         box-shadow: 0px 0px 14px 3px #0000000a;
         padding: 0;
         top: 180px;
-        margin-right: 53px;
     }
 
     .headline_container {
@@ -44,6 +43,7 @@
     .login_input_container {
         width: 320px;
         height: 192px;
+        gap: 21px;
     }
 
     .signup_container {

@@ -1,13 +1,9 @@
 @media screen and (max-width: 950px) {
 
-
-    /*  Summary user mobile */
-    body {
-        position: relative;
-        width: 428px;
-        height: 926px;
-        background-color: #F6F7F8;
-    }
+   nav {
+    display: flex;
+    align-content: flex-end;
+   }
 
     .join_description {
         display: none;
