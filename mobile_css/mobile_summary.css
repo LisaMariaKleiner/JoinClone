@@ -1,0 +1,35 @@
+@media screen and (max-width: 950px) {
+    
+    main {
+        top: 0px;
+        left: 10px;
+        gap: 0;
+        padding-right: 0;
+        position: inherit;
+    }
+
+    .headline_container {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .headline_container img {
+        display: none;
+    }
+    .headline_container h1 {
+        font-size: 47px;
+    }
+
+    .greet_container h2 {
+        display: none;
+    }
+
+    .greet_container h3 {
+        display: none;
+    }
+
+    .horizontal_separator {
+        display: flex!important;
+    }
+}
