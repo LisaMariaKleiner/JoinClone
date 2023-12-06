@@ -292,7 +292,7 @@ textarea::placeholder {
 }
 
 #contact_datalist {
-    margin-top: 190px;
+    margin-top: 27px;
 }
 
 #assigned_to_input {
@@ -315,3 +315,24 @@ textarea::placeholder {
     position: absolute;
     top: 534px;
 }   
+
+.datalist_contact_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.initials_in_datalist {
+    background-color: #1FD7C1;
+    border-radius: 50%;
+    height: 42px;
+    width: 42px;
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+  }
