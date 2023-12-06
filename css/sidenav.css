@@ -9,7 +9,6 @@ nav {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-
     background-color: #2A3647;
     box-shadow: 0px 0px 4px 0px #0000001A;
 }
@@ -18,7 +17,6 @@ span {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     font-size: 16px;
-   
     color: #CDCDCD;
 }
 
@@ -47,7 +45,6 @@ a {
 
 .menu_element_container:hover {
     background-color: #2A3D59;
-
 }
 
 .menu_element {
@@ -55,7 +52,6 @@ a {
     align-items: center;
     justify-content: start;
     gap: 8px;
-
     height: 46px;
     width: 120px;
 }
@@ -135,14 +131,22 @@ a {
     }
 
     .menu_element_container {
-        height: 50px;
-        width: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 105px;
+        width: 105px;
+         border-radius: 16px;
     }
    
     .menu_element {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         height: 30px;
-        width: auto;
+        width: 80px;
         flex-direction: column;
+       
     }
 
     .menu_icons {
