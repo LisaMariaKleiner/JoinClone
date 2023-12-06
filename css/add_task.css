@@ -336,3 +336,44 @@ textarea::placeholder {
     color: white;
     font-size: 12px;
   }
+
+
+  @media screen and (max-width: 950px) {
+    main {
+        left: 0;
+        position: relative;
+        padding-right: 0;
+        width: 396px;
+    }
+
+    .headline_container h1 {
+        font-size: 47px;
+    }
+
+    .seperator {
+        display: none;
+    }
+
+    form {
+        display: block;
+       
+    }
+
+    .highlighted_object span {
+        font-size: 16px;
+    }
+
+    .title span {
+        font-size: 16px;
+    }
+
+    .prio_input_label {
+        width: 121px;
+        height: 41px;
+        border-radius: 10px;
+    }
+
+    .title_input {
+      width: 350px;
+    }
+  }
