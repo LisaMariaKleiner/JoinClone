@@ -32,4 +32,69 @@
     .horizontal_separator {
         display: flex!important;
     }
+
+    .top_card_subcontainer {
+        width: 396px;
+        height: 110px;
+        justify-content: space-between;
+    }
+
+    .to_do_card {
+        width: 186px;
+        height: 110px;
+        padding: 38px, 19px, 38px, 19px;
+        border-radius: 20px;
+    }
+
+    .edit_icon  {
+        width: 40px;
+        height: 40px;
+    }
+
+    .done_icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .to_do_counter {
+        font-size: 47px;
+    }
+
+    .to_do_text {
+        font-size: 14px;
+    }
+
+    .urgency_card {
+        gap: 20px;
+        border-radius: 20px;
+    }
+
+    .urgency_counter_container img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .deadline_date {
+        font-size: 16px;
+    }
+
+    .progress_card_container {
+        width: 396px;
+        height: 116px;
+    }
+
+    .progress_card {
+        width: 116px;
+        height: 116px;
+        gap: 5px;
+        border-radius: 20px;
+    }
+
+    .progress_count {
+        font-size: 47px;
+    }
+
+    .progress_title {
+        font-size: 14px;
+    }
 }

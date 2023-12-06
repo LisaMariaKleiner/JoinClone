@@ -237,8 +237,6 @@ html {
     background-position: center;
 }
 
-
-
 .urgency_card:hover {
     background-color: #2A3647;
     animation: hoverScaleFromTopLeft 0.15s ease;

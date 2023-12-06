@@ -99,6 +99,10 @@ header {
     transform: scale(1.01);
 }
 
+.mobile_joinlogo img {
+    display: none;
+}
+
 @media screen and (max-width: 950px) {
     .header_container {
         padding: 0;
@@ -117,6 +121,7 @@ header {
     }
 
     .mobile_joinlogo img {
+        display: flex;
         width: 32px;
         height: 39px;
     }
@@ -124,6 +129,8 @@ header {
     .right_section {
         width: 100%;
     }
+
+    
 
     
 }
