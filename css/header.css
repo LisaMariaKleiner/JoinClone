@@ -98,3 +98,32 @@ header {
     background: #2A3D59;
     transform: scale(1.01);
 }
+
+@media screen and (max-width: 950px) {
+    .header_container {
+        padding: 0;
+        height: 100px;
+        justify-content: space-evenly;
+        align-items: center;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .join_description {
+        display: none;
+    }
+
+    .help_container {
+        display: none;
+    }
+
+    .mobile_joinlogo img {
+        width: 32px;
+        height: 39px;
+    }
+
+    .right_section {
+        width: 100%;
+    }
+
+    
+}
