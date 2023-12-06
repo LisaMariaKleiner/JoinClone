@@ -30,22 +30,26 @@
                         <span>Title</span>
                         <p class="highlighted">*</p>
                     </div>
-                    <input type="text" class="title_input" id="title_input" placeholder="Enter a title"> 
+                    <input id="title_input" type="text" class="title_input" placeholder="Enter a title">
                 </div>
                 <div class="description title">
                     <span>Description</span>
-                    <textarea class="title_input" id="description_textarea" placeholder="Enter a Description" name="" id="" cols="30" rows="10"></textarea>
+                    <textarea id="description_textarea" class="title_input" placeholder="Enter a Description"
+                        name="" id="" cols="30" rows="10"></textarea>
                 </div>
                 <div class="assigned_to title">
                     <span>Assigned to</span>
-                    <input class="title_input" id="assigned_to_input" list="select_contacts">
-                    <datalist id="select_contacts">
-                        <option value="Internet Explorer">
-                        <option value="Firefox">
-                        <option value="Google Chrome">
-                        <option value="Opera">
-                        <option value="Safari">
-                      </datalist>
+                    <input id="assigned_to_input" class="title_input" onclick="showDropDownMenu('assigned_to_datalist'); renderContactsInDatalist('contact_datalist')">
+                    <div id="assigned_to_datalist" class="datalist_container">
+                        <div id="contact_datalist"></div>
+                        <button class="primary_button datalist_button" id="create_contact_button" onclick="createNewContact()">
+                            Add new contact
+                            <div>
+                                <img src="./assets/img/person_add.png">
+                            </div>
+                        </button>
+                    </div>
+                    <div id="add_task_selected_contacts_container"></div>
                 </div>
             </div>
 
@@ -57,48 +61,63 @@
                         <span>Due date</span>
                         <p class="highlighted">*</p>
                     </div>
-                    <input type="date" class="title_input" id="date_input"> 
+                    <input required id="date_input" type="date" class="title_input">
                 </div>
                 <div class="title">
                     <span>Prio</span>
                     <div class="prio_container">
                         <div class="prio">
-                            <button>
-                                <span>Urgent</span>
-                                <img src="./assets/img/prio_alta.png" alt="">
-                            </button>
+                          <input type="checkbox" name="prio_urgent" id="prio_urgent" class="prio_input">
+                          <label for="prio_urgent" class="prio_input_label">
+                            <span class="prio_urgent_text">Urgent</span>
+                            <div class="prio_urgent_icon"></div>
+                          </label>
                         </div>
                         <div class="prio">
-                            <button>
-                                <span>Medium</span>
-                                <img src="./assets/img/prio_media.png" alt="">
-                            </button>
+                          <input type="checkbox" name="prio_medium" id="prio_medium" class="prio_input">
+                          <label for="prio_medium" class="prio_input_label">
+                            <span class="prio_medium_text">Medium</span>
+                            <div class="prio_medium_icon"></div>
+                          </label>
                         </div>
                         <div class="prio">
-                            <button>
-                                <span>Low</span>
-                                <img src="./assets/img/prio_baja.png" alt="">
-                            </button>
+                          <input type="checkbox" name="prio_low" id="prio_low" class="prio_input">
+                          <label for="prio_low" class="prio_input_label">
+                            <span class="prio_low_text">Low</span>
+                            <div class="prio_low_icon"></div>
+                          </label>
                         </div>
-                    </div>
+                      </div>
                 </div>
                 <div class="title">
                     <div class="highlighted_object">
                         <span>Category</span>
                         <p class="highlighted">*</p>
                     </div>
-                    <input class="title_input" id="task_category_input" list="Select task category">
+                    <input id="task_category_input" class="title_input" list="Select task category">
+                    <!-- <div id="category_datalist" class="datalist_container">
+                        <div id="contact_datalist"></div>
+                        <button class="primary_button datalist_button" id="create_contact_button" onclick="createNewContact()">
+                            Add new contact
+                            <div>
+                                <img src="./assets/img/person_add.png">
+                            </div>
+                        </button>  Noch über css im Dropwdown anzeigen lassen, geht nicht innerhalb der Datalist
+                    </div> -->
                     <datalist id="Select task category">
                         <option value="Technical task">
                         <option value="User story">
-                      </datalist>
+                    </datalist>
                 </div>
-                <div class="title">
+                <div id="subtask_list" class="title">
                     <span>Subtasks</span>
                     <div class="subtasks">
-                        <input type="text" class="title_input" id="subtask_category_input" placeholder="Add new subtask"> 
+                        <input id="subtask_category_input" type="text" class="title_input" placeholder="Add new subtask">
                         <img src="./assets/img/add.png" alt="">
                     </div>
+                    <ul> <!-- Dies ist das Parent-Element für die ungeordnete Liste -->
+                        <!-- Hier werden die Subtasks in <li>-Elementen angezeigt -->
+                    </ul>
                 </div>
             </div>
         </form>
