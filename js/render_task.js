@@ -22,7 +22,7 @@ function renderSubtasks(subtasks, cardId) {
   }
 }
 
-async function renderAllTasks() {
+function renderAllTasks() {
   updateCard("toDo", "to_do");
   updateCard("inProgress", "in_progress");
   updateCard("awaitFeedback", "await_feedback");

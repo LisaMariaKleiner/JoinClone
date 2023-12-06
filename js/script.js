@@ -18,6 +18,7 @@ async function initLoginPage() {
 async function init() {
     includeHTML();
     await loadUsers();
+    await loadTasks();
     autoLogin();
     checkForSelectedPage('../../summary.html', 'summary_link');
     checkForSelectedPage('../../add_task.html', 'add_task_link');
@@ -31,6 +32,7 @@ async function initBoard() {
     includeHTML();
     await loadUsers();
     await loadTasks();
+    checkForSelectedPage('../../board.html', 'board_link');
 }
 
 async function includeHTML() {
@@ -131,4 +133,9 @@ function isOnSummaryPage() {
 
 function isOnBoardPage() {
     return window.location.href === 'http://127.0.0.1:5500/' || window.location.pathname === '/board.html';
+}
+
+async function loadTasks() {
+    let loadedTasks = JSON.parse(await getItem("tasks"));
+    tasks = loadedTasks;
 }

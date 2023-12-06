@@ -5,11 +5,6 @@ let subtaskCounter = 0; // Um eindeutige IDs für Subtasks zu erstellen
 let completedSubTasks = [];
 let selectedContacts = [];
 
-async function loadTasks() {
-  let loadedTasks = JSON.parse(await getItem("tasks"));
-  tasks = loadedTasks;
-}
-
 function findFreeIdForTasks() {
   /*let maxId = 0; // Für später!
   for (let i = 0; i < tasks.length; i++) {
@@ -642,33 +637,6 @@ function countTasksToDo() {
 function countCompletedTasks() {
   return countTasksInCategory("done");
 }
-
-// Funktion zum Aktualisieren der Anzeige der Task-Zahlen in den HTML-Elementen
-async function updateTaskCounts() {
-  if (isOnSummaryPage()) {
-    let tasksCountElement = document.getElementById("tasks_count");
-    let progressCountElement = document.getElementById("progress_count");
-    let feedbackCountElement = document.getElementById("feedback_count");
-    let todoCountElement = document.getElementById("todo_count");
-    let doneCountElement = document.getElementById("done_count");
-    let totalTasks = tasks.length;
-    let inProgressTasks = countTasksInProgress();
-    let feedbackTasks = countTasksInFeedback();
-    let todoTasks = countTasksToDo();
-    let doneTasks = countCompletedTasks();
-    tasksCountElement.textContent = totalTasks;
-    progressCountElement.textContent = inProgressTasks;
-    feedbackCountElement.textContent = feedbackTasks;
-    todoCountElement.textContent = todoTasks;
-    doneCountElement.textContent = doneTasks;
-  }
-}
-
-document.addEventListener("DOMContentLoaded", async function () {
-  if (isOnSummaryPage()) {
-    await updateHTML();
-  }
-});
 
 // Besserer Eventlistener muss aber noch angepasst werden
 document.addEventListener("mouseup", async function (e) {
