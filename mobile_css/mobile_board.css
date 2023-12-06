@@ -102,4 +102,8 @@
         width: 428px;
     }
 
+    .task_card {
+        display: flex;
+    }
+
 }

@@ -344,6 +344,7 @@ textarea::placeholder {
         position: relative;
         padding-right: 0;
         width: 396px;
+        top: 130px;
     }
 
     .headline_container h1 {
@@ -375,5 +376,20 @@ textarea::placeholder {
 
     .title_input {
       width: 350px;
+    }
+
+    .clear_button_desktop {
+        display: none;
+    }
+
+    .add_task_footer {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 700px;
+        width: 100%;
+        gap: 20px;
+        background-color: #F6F7F8;
     }
   }
