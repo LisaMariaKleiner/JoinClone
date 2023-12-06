@@ -813,3 +813,11 @@ section {
 #add_task_selected_contacts_container div {
     cursor: pointer;
 }
+
+.add_mobile_container {
+    display: none;
+}
+
+.mobile_progress_bar {
+    display: none;
+}

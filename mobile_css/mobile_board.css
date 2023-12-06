@@ -1,0 +1,105 @@
+@media screen and (max-width: 950px) {
+    .board h1 {
+        font-size: 47px;
+    }
+
+    .board {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 428px;
+      
+    }
+
+    .board_header {
+        flex-direction: column;
+    }
+
+    .delete_all_task_button {
+        display: none;
+    }
+
+    .board_header {
+       justify-content: center;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .add_container button {
+        display: none;
+    } 
+
+    .add_mobile_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        background-color: #2a3647;
+      
+    }
+
+    .search_and_add_container {
+        justify-content: flex-start;
+        
+        flex-direction: column;
+    }
+
+    .desktop_progress_bar {
+        display: none;
+    }
+
+    .add_mobile_container button {
+        border-style: none;
+    }
+
+    .mobile_progress_bar {
+        display: flex;
+    }
+
+    .mobile_progress_bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        left: 0;
+        right: 0;
+    }
+
+    .mobile_todo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 20px;
+        width: 428px;
+    }
+
+    .mobile_inprogress {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 20px;
+    }
+
+    .progress_button span {
+        color: #2a3647;
+        font-size: 27px;
+        font-weight: 700;
+    }
+
+    .progress_button {
+        width: 428px;
+    }
+
+    .drag_area {
+        width: 428px;
+        height: auto;
+    }
+
+    .no_tasks_to_do {
+        width: 428px;
+    }
+
+}
