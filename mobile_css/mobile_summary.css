@@ -12,6 +12,8 @@
         align-items: flex-start;
         flex-direction: column;
         gap: 10px;
+        margin-left: 16px;
+        margin-top: 128px;
     }
 
     .headline_container img {
