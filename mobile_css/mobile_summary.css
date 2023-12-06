@@ -18,6 +18,8 @@
 
     .headline_container img {
         display: none;
+        width: 130px;
+        height: 3px;
     }
     .headline_container h1 {
         font-size: 47px;
@@ -33,6 +35,10 @@
 
     .horizontal_separator {
         display: flex!important;
+    }
+
+    .card_container {
+        width: 396px;
     }
 
     .top_card_subcontainer {
@@ -56,6 +62,7 @@
     .done_icon {
         width: 40px;
         height: 40px;
+        background-size: contain
     }
 
     .to_do_counter {
@@ -78,6 +85,10 @@
 
     .deadline_date {
         font-size: 16px;
+    }
+
+    .deadline_information {
+        gap: 8px;
     }
 
     .progress_card_container {
