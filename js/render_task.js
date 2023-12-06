@@ -22,6 +22,15 @@ function renderSubtasks(subtasks, cardId) {
   }
 }
 
+async function renderAllTasks() {
+  updateCard("toDo", "to_do");
+  updateCard("inProgress", "in_progress");
+  updateCard("awaitFeedback", "await_feedback");
+  updateCard("done", "done");
+  setTimeout(() => {
+    renderAssignedContactsInPreview();
+  }, 90);
+}
 
 function renderTaskTitle(currentTask) {
   let taskTitle = document.getElementById("task_title");

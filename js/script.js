@@ -9,19 +9,28 @@ if (selectedPage) {
     });
 }
 
-
+async function initLoginPage() {
+    includeHTML();
+    await loadUsers();
+    autoLogin();
+}
 
 async function init() {
     includeHTML();
     await loadUsers();
     autoLogin();
-    loadUserInSummary();
     checkForSelectedPage('../../summary.html', 'summary_link');
     checkForSelectedPage('../../add_task.html', 'add_task_link');
     checkForSelectedPage('../../board.html', 'board_link');
     checkForSelectedPage('../../contacts.html', 'contacts_link');
     checkForSelectedPage('../../PrivacyPolicy.html', 'privacy_policy_link');
     checkForSelectedPage('../../legal_notice.html', 'legal_notice_link');
+}
+
+async function initBoard() {
+    includeHTML();
+    await loadUsers();
+    await loadTasks();
 }
 
 async function includeHTML() {
