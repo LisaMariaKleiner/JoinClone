@@ -379,7 +379,6 @@ async function updateHTML(searchTerm = "") {
     updateCard("awaitFeedback", "await_feedback", searchTerm);
     updateCard("done", "done", searchTerm);
   }
-  await updateTaskCounts();
   await showCompletedSubtaskCount();
 }
 
