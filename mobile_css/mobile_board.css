@@ -103,7 +103,9 @@
     }
 
     .task_card {
-        display: flex;
+        width: 252px;
+        height: 263px;
+        z-index: 5;
     }
 
 }

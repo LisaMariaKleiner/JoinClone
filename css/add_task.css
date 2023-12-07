@@ -396,7 +396,7 @@ textarea::placeholder {
 
     .add_task_footer {
         height: 88px;
-        width: 65%;
+        width: 100%;
         position: fixed;
         display: flex;
         justify-content: center;
