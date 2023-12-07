@@ -347,6 +347,15 @@ textarea::placeholder {
         top: 130px;
     }
 
+    .headline_container {
+        width: 100%;
+        position: fixed;
+        background-color: #F6F7F8;
+        height: 112px;
+        top: 90px;
+        z-index: 99;
+    }
+
     .headline_container h1 {
         font-size: 47px;
     }
@@ -357,7 +366,6 @@ textarea::placeholder {
 
     form {
         display: block;
-       
     }
 
     .highlighted_object span {
@@ -378,18 +386,31 @@ textarea::placeholder {
       width: 350px;
     }
 
+    .description textarea {
+        height: 88px;
+    }
+
     .clear_button_desktop {
         display: none;
     }
 
     .add_task_footer {
+        height: 88px;
+        width: 65%;
         position: fixed;
         display: flex;
         justify-content: center;
         align-items: center;
-        top: 700px;
-        width: 100%;
+        top: 689px;
         gap: 20px;
         background-color: #F6F7F8;
     }
+
+    .form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
   }
