@@ -70,6 +70,11 @@ async function createNewTask() {
   }
 }
 
+function openCategoryContainer() {
+  let categoryContainer = document.getElementById('Select task category');
+  categoryContainer.style.display = 'flex';
+}
+
 function getCheckedPriorityCheckbox() {
   const checkboxes = [
     "prio_urgent",

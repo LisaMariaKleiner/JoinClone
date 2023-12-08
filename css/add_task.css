@@ -271,6 +271,61 @@ textarea::placeholder {
     font-size: 21px;
 }
 
+.category_container_add_task {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    width: 483px;
+    
+    height: auto;
+    overflow-y: scroll;
+    border: 1px solid #d1d1d1;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    z-index: 99;
+    font-size: 19px;
+    background-color: white;
+    position: absolute;
+    top: 440px;
+    
+}
+
+.technical_task {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 48px;
+    width: 483px;
+}
+
+.technical_task span {
+    margin-left: 10px;
+}
+
+.technical_task:hover {
+    background-color: #F6F7F8;
+    height: 48px;
+    border-radius: 10px;
+}
+
+.user_story {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 48px;
+    width: 483px;
+}
+
+.user_story span {
+    margin-left: 10px;
+}
+
+.user_story:hover {
+    background-color: #F6F7F8;
+    height: 48px;
+    border-radius: 10px;
+}
+
 #select_contacts option {
     padding: 5px;
     cursor: pointer;
@@ -315,6 +370,10 @@ textarea::placeholder {
     position: absolute;
     top: 534px;
 }   
+
+.datalist_container_category {
+    width: 440px;
+}
 
 .datalist_contact_container {
     display: flex;
