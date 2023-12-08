@@ -190,7 +190,7 @@ section {
 
 .drag_area {
     width: 244px;
-    height: 600px;
+    height: 100vh;
 }
 
 .drag-area-highlight {
