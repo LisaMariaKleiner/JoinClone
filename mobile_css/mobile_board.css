@@ -10,6 +10,10 @@
         width: 428px;
     }
 
+    .no_tasks_to_do {
+        display: flex;
+        height: 263px;
+    }
     section {
         top: 130px;
     }
@@ -25,6 +29,7 @@
        justify-content: center;
         align-items: flex-start;
         gap: 20px;
+        margin-left: 20px;
     }
 
     .add_container button {
@@ -43,8 +48,15 @@
 
     .search_and_add_container {
         justify-content: flex-start;
-        
         flex-direction: column;
+    }
+
+    section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: 0;
+        right: 0;
     }
 
     
@@ -53,8 +65,11 @@
         border-style: none;
     }
 
-    .mobile_progress_bar {
+    .progressbar {
         display: flex;
+        gap: 0;
+        margin-bottom: 115px;
+        margin-left: 20px;
     }
 
     .mobile_progress_bar {
@@ -70,7 +85,7 @@
         height: 100%;
     }
 
-    .mobile_todo {
+    .todo {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -80,26 +95,25 @@
         width: 428px;
     }
 
-    .mobile_inprogress {
+    .inprogress {
         display: flex;
         flex-direction: column;
         gap: 16px;
         margin-top: 20px;
     }
 
-    .mobile_await_feedback {
+    .await_feedback {
         display: flex;
         flex-direction: column;
         gap: 16px;
         margin-top: 20px;
     }
 
-    .mobile_done {
+    .done {
         display: flex;
         flex-direction: column;
         gap: 16px;
         margin-top: 20px;
-        
     }
 
     .progress_button span {
@@ -108,21 +122,17 @@
         font-weight: 700;
     }
 
-    .progress_button {
-        width: 428px;
-    }
-
     .drag_area {
+        display: flex;
+        flex-direction: row;
         width: 428px;
         height: auto;
+        gap: 20px;
+        overflow-x: auto;
+        overflow-y: hidden; 
     }
 
-    .no_tasks_to_do {
-        width: 428px;
-    }
 
-    .to_do {
-        display: flex;
-    }
+   
 
 }
