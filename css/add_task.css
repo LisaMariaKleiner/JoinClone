@@ -366,10 +366,16 @@ textarea::placeholder {
 
     form {
         display: block;
+        margin-bottom: 190px;
+        margin-top: 200px;
     }
 
     .highlighted_object span {
         font-size: 16px;
+    }
+
+    .title {
+        margin-top: -4px;
     }
 
     .title span {

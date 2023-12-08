@@ -117,23 +117,19 @@
             <div class="board">
                 <h1>Board</h1>
                 <div class="add_mobile_container">
-                    <button onclick="moveAddTaskCard('open')"><img src="./assets/img/plus add task mobile.png"
-                            alt=""></button>
+                    <button onclick="moveAddTaskCard('open')"><img src="./assets/img/plus add task mobile.png" alt=""></button>
                 </div>
             </div>
             <div class="board_section">
-                <input type="search" id="search_input" oninput="filterTasks()" class="board_section_input"
-                    placeholder="Find Task">
+                <input type="search" id="search_input" oninput="filterTasks()" class="board_section_input" placeholder="Find Task">
                 <img src="./assets/img/search.png" alt="">
             </div>
         </div>
 
-
         <div class="mobile_todo">
             <div class="progress_button">
                 <span>To do</span>
-                <button onclick="moveAddTaskCard('open')" class="board_add_button"><img src="./assets/img/add_blue.png"
-                        alt=""></button>
+                <button onclick="moveAddTaskCard('open')" class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
             </div>
             <div class="progress_container">
 
@@ -145,11 +141,11 @@
                 </div>
             </div>
         </div>
+
         <div class="mobile_inprogress">
             <div class="progress_button">
                 <span>In progress</span>
-                <button onclick="moveAddTaskCard('open')" class="board_add_button"><img src="./assets/img/add_blue.png"
-                        alt=""></button>
+                <button onclick="moveAddTaskCard('open')" class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
             </div>
             <div class="progress_container">
 
@@ -172,7 +168,7 @@
                 <div class="drag_area" id="await_feedback" ondrop="moveTo('awaitFeedback', 'await_feedback')"
                     ondragleave="removeHighlight('await_feedback')"
                     ondragover="allowDrop(event); highlight('await_feedback')">
-                    <div class="no_tasks_to_do" style="display: none;">
+                    <div class="no_tasks_to_do">
                         <span>No task awaits feedback</span>
                     </div>
                 </div>
