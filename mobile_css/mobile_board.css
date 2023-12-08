@@ -8,9 +8,11 @@
         align-items: center;
         justify-content: space-between;
         width: 428px;
-      
     }
 
+    section {
+        top: 130px;
+    }
     .board_header {
         flex-direction: column;
     }
@@ -45,9 +47,7 @@
         flex-direction: column;
     }
 
-    .desktop_progress_bar {
-        display: none;
-    }
+    
 
     .add_mobile_container button {
         border-style: none;
@@ -87,6 +87,21 @@
         margin-top: 20px;
     }
 
+    .mobile_await_feedback {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 20px;
+    }
+
+    .mobile_done {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 20px;
+        
+    }
+
     .progress_button span {
         color: #2a3647;
         font-size: 27px;
@@ -106,10 +121,8 @@
         width: 428px;
     }
 
-    .task_card {
-        width: 252px;
-        height: 263px;
-        z-index:  5;
+    .to_do {
+        display: flex;
     }
 
 }

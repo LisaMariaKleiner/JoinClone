@@ -43,34 +43,20 @@
                             <button onclick="moveAddTaskCard('open')" class="primary_button">Add task<img
                                     src="./assets/img/add_white.png" alt=""></button>
                         </div>
-                        
+
                     </div>
                 </div>
-                <div class="task_list_headlines">
-                    <div class="progress_button">
-                        <span>To do</span>
-                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img
-                                src="./assets/img/add_blue.png" alt=""></button>
-                    </div>
-                    <div class="progress_button">
-                        <span>In progress</span>
-                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img
-                                src="./assets/img/add_blue.png" alt=""></button>
-                    </div>
-                    <div class="progress_button">
-                        <span>Await feedback</span>
-                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img
-                                src="./assets/img/add_blue.png" alt=""></button>
-                    </div>
-                    <div class="progress_button">
-                        <span>Done</span>
-                    </div>
-                </div>
+                
             </div>
 
 
             <div class="progressbar">
                 <div class="progress_container">
+                    <div class="progress_button">
+                        <span>To do</span>
+                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img
+                                src="./assets/img/add_blue.png" alt=""></button>
+                    </div>
                     <div class="drag_area" id="to_do" ondrop="moveTo('toDo', 'to_do')"
                         ondragleave="removeHighlight('to_do')" ondragover="allowDrop(event); highlight('to_do')">
                         <div class="no_tasks_to_do">
@@ -80,6 +66,11 @@
                 </div>
 
                 <div class="progress_container">
+                    <div class="progress_button">
+                        <span>In progress</span>
+                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img
+                                src="./assets/img/add_blue.png" alt=""></button>
+                    </div>
                     <div class="drag_area" id="in_progress" ondrop="moveTo('inProgress', 'in_progress')"
                         ondragleave="removeHighlight('in_progress')"
                         ondragover="allowDrop(event); highlight('in_progress')">
@@ -90,6 +81,11 @@
                 </div>
 
                 <div class="progress_container">
+                    <div class="progress_button">
+                        <span>Await feedback</span>
+                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img
+                                src="./assets/img/add_blue.png" alt=""></button>
+                    </div>
                     <div class="drag_area" id="await_feedback" ondrop="moveTo('awaitFeedback', 'await_feedback')"
                         ondragleave="removeHighlight('await_feedback')"
                         ondragover="allowDrop(event); highlight('await_feedback')">
@@ -101,6 +97,9 @@
                 </div>
 
                 <div class="progress_container">
+                    <div class="progress_button">
+                        <span>Done</span>
+                    </div>
                     <div class="drag_area" id="done" ondrop="moveTo('done', 'done')"
                         ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')">
                         <div class="no_tasks_to_do">
@@ -111,83 +110,8 @@
             </div>
         </div>
     </section>
-    <!-------------------------------------------------- MOBILE BOARD --------------------------------------------->
-    <section class="mobile_progress_bar">
-        <div class="search_and_add_container">
-            <div class="board">
-                <h1>Board</h1>
-                <div class="add_mobile_container">
-                    <button onclick="moveAddTaskCard('open')"><img src="./assets/img/plus add task mobile.png" alt=""></button>
-                </div>
-            </div>
-            <div class="board_section">
-                <input type="search" id="search_input" oninput="filterTasks()" class="board_section_input" placeholder="Find Task">
-                <img src="./assets/img/search.png" alt="">
-            </div>
-        </div>
-
-        <div class="mobile_todo">
-            <div class="progress_button">
-                <span>To do</span>
-                <button onclick="moveAddTaskCard('open')" class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
-            </div>
-            <div class="progress_container">
-
-                <div class="drag_area" id="to_do" ondrop="moveTo('toDo', 'to_do')"
-                    ondragleave="removeHighlight('to_do')" ondragover="allowDrop(event); highlight('to_do')">
-                    <div class="no_tasks_to_do">
-                        <span>No tasks To do</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="mobile_inprogress">
-            <div class="progress_button">
-                <span>In progress</span>
-                <button onclick="moveAddTaskCard('open')" class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
-            </div>
-            <div class="progress_container">
-
-                <div class="drag_area" id="in_progress" ondrop="moveTo('inProgress', 'in_progress')"
-                    ondragleave="removeHighlight('in_progress')"
-                    ondragover="allowDrop(event); highlight('in_progress')">
-                    <div class="no_tasks_to_do">
-                        <span>No task is in progress</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="mobile_await_feedback">
-            <div class="progress_button">
-                <span>Await feedback</span>
-                <button onclick="moveAddTaskCard('open')" class="board_add_button"><img src="./assets/img/add_blue.png"
-                        alt=""></button>
-            </div>
-            <div class="progress_container">
-                <div class="drag_area" id="await_feedback" ondrop="moveTo('awaitFeedback', 'await_feedback')"
-                    ondragleave="removeHighlight('await_feedback')"
-                    ondragover="allowDrop(event); highlight('await_feedback')">
-                    <div class="no_tasks_to_do">
-                        <span>No task awaits feedback</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="mobile_done">
-            <div class="progress_button">
-                <span>Done</span>
-            </div>
-            <div class="progress_container">
-                <div class="drag_area" id="done" ondrop="moveTo('done', 'done')" ondragleave="removeHighlight('done')"
-                    ondragover="allowDrop(event); highlight('done')">
-                    <div class="no_tasks_to_do">
-                        <span>No task is done</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    
+    
 
     <div id="add_task_card" class="add_task_background">
         <div id="add_task_slide_card" class="add_task_slide_card">
