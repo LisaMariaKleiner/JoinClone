@@ -120,7 +120,7 @@
     .left_side {
         position: absolute;
         top: 0px;
-        width: 100%;
+        width: 90%;
         height: 200px;
         padding-right: 0px;
         border-top-right-radius: 30px;
@@ -139,7 +139,7 @@
     .right_side {
         position: absolute;
         top: 300px;
-        height: 760px;
+        height: 650px;
         justify-content: center;
         align-items: center;
         flex-direction: column;
@@ -152,7 +152,7 @@
     .edit_contact_profile_picture {
         position: fixed;
         top: 250px;
-        left: 140px;
+        left: 168px;
     }
 
     form input {
