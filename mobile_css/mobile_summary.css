@@ -13,7 +13,7 @@
         flex-direction: column;
         gap: 10px;
         margin-left: 16px;
-        margin-top: 70px;
+        margin-top: 60px;
     }
 
     .headline_container img {
@@ -39,6 +39,7 @@
 
     .card_container {
         width: 396px;
+        gap: 20px;
     }
 
     .join360_main_content {

@@ -134,7 +134,43 @@
         overflow-y: hidden; 
     }
 
+/* OPEN TASK */
 
+    .task_details h3 {
+        height: 20px;
+    }
+
+    .task_details h2 {
+        font-size: 36px;
+    }
+
+    .task_details p {
+        font-size: 16px;
+    }
+
+    .task_details span {
+        font-size: 16px;
+    }
+
+    .task_details_info_container span {
+        font-size: 16px;
+    }
+
+    .assigned_contact {
+        gap: 14px;
+    }
+
+    .assigned_container_open_task_card {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #assigned_contacts {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
    
 
 }

@@ -14,7 +14,7 @@ function login(loginEmail, loginPassword) {
         localStorage.setItem('selectedPage', '../../summary.html');
         currentUserWantsAutoLogin();
         removeLoginFailedClass();
-        window.location.href = 'http://127.0.0.1:5500/summary.html';
+        window.location.href = './summary.html';
     } else {
         console.warn('Login failed');
         addLoginFailedClass(); 
