@@ -136,6 +136,17 @@
 
 /* OPEN TASK */
 
+    #current_task_card {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-left: 5px;
+        margin-right: 10px;
+    }
+
+    .close_button_container {
+        top: 25px;
+    }
+
     .task_details h3 {
         height: 20px;
     }
