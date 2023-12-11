@@ -4,6 +4,9 @@ html {
     overflow: hidden;
 }
 
+.back_to_contact_button {
+    display: none;
+}
 
 .contacts_bar {
     width: 456px;

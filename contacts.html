@@ -33,50 +33,56 @@
                     alt=""></button>
         </div>
         <div id="show_contacts_container" class="show_contacts">
-            
+
         </div>
     </div>
 
     <div class="title_header_container">
-        <div class="title_header">
-            <h1>Contacts</h1>
-            <img src="./assets/img/verticalSeperator.png" alt="">
-            <span>Better with a team</span>
-            <button onclick="deleteAllUsers()">Users Löschen</button>
-        </div>
+
 
         <div id="contact_information_card" class="contact_information_card">
-            <div class="name_container">
-                <div id="contact_initials" class="name_icon">AM</div>
-                <div>
-                    <div class="name"><span id="contact_name">Anton Mayer</span></div>
-                    <div class="edit_delete_container">
-                        <div id="edit_button" class="edit_container">
-                            <div class="icon_container_edit_icon">
+            <div class="complete_opened_contact_and_header">
+                <div class="title_header">
+                    <h1>Contacts</h1>
+                    
+                    <img src="./assets/img/verticalSeperator.png" alt="">
+                    <span>Better with a team</span>
+                    <button onclick="deleteAllUsers()">Users Löschen</button>
+                </div>
+                <button onclick="" class="back_to_contact_button"><img src="./assets/img/arrow-left-line.png" alt=""></button>
 
-                            </div>
-                            <span>Edit</span>
-                        </div>
-                        <div id="delete_button" class="delete_container">
-                            <div class="icon_container_delete_icon">
+                <div class="name_container">
+                    <div id="contact_initials" class="name_icon">AM</div>
+                    <div>
+                        <div class="name"><span id="contact_name">Anton Mayer</span></div>
+                        <div class="edit_delete_container">
+                            <div id="edit_button" class="edit_container">
+                                <div class="icon_container_edit_icon">
 
+                                </div>
+                                <span>Edit</span>
                             </div>
-                            <span>Delete</span>
+                            <div id="delete_button" class="delete_container">
+                                <div class="icon_container_delete_icon">
+
+                                </div>
+                                <span>Delete</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="contact_information_title">
-                <span>Contact Information</span>
-            </div>
-            <div class="email_phone_container">
-                <div class="email_container">
-                    <span>Email</span>
-                    <a id="contact_email" href = "mailto: antom@gmail.com">antom@gmail.com</a>
+                <div class="contact_information_title">
+                    <span>Contact Information</span>
                 </div>
-                <div class="phone_container">
-                    <span>Phone</span>
-                    <a id="phone_number" href="tel:+491111111111">+49 1111 111 11 1</a>
+                <div class="email_phone_container">
+                    <div class="email_container">
+                        <span>Email</span>
+                        <a id="contact_email" href="mailto: antom@gmail.com">antom@gmail.com</a>
+                    </div>
+                    <div class="phone_container">
+                        <span>Phone</span>
+                        <a id="phone_number" href="tel:+491111111111">+49 1111 111 11 1</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -128,7 +134,7 @@
                             </button>
                         </div>
                     </form>
-                    
+
                 </div>
             </div>
         </div>
