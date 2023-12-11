@@ -3,6 +3,19 @@
         font-size: 47px;
     }
 
+    .mobile_board_button {
+        background-color: #F6F7F8;
+    gap: 10px;
+    padding: 3px;
+    height: 24px;
+    width: 24px;
+    border-radius: 8px;
+    }
+
+    .board_add_button {
+        display: none;
+    }
+
     .board {
         display: flex;
         align-items: center;

@@ -50,8 +50,8 @@
                 <div class="progress_container">
                     <div class="progress_button">
                         <span>To do</span>
-                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img
-                                src="./assets/img/add_blue.png" alt=""></button>
+                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                        <button onclick="window.location.href='add_task.html'" class="mobile_board_button"><img src="./assets/img/add_blue.png" alt=""></button>
                     </div>
                     <div class="drag_area" id="to_do" ondrop="moveTo('toDo', 'to_do')"
                         ondragleave="removeHighlight('to_do')" ondragover="allowDrop(event); highlight('to_do')">
@@ -64,8 +64,8 @@
                 <div class="progress_container">
                     <div class="progress_button">
                         <span>In progress</span>
-                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img
-                                src="./assets/img/add_blue.png" alt=""></button>
+                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                        <button onclick="window.location.href='add_task.html'" class="mobile_board_button"><img src="./assets/img/add_blue.png" alt=""></button>
                     </div>
                     <div class="drag_area" id="in_progress" ondrop="moveTo('inProgress', 'in_progress')"
                         ondragleave="removeHighlight('in_progress')"
@@ -79,8 +79,8 @@
                 <div class="progress_container">
                     <div class="progress_button">
                         <span>Await feedback</span>
-                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img
-                                src="./assets/img/add_blue.png" alt=""></button>
+                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                        <button onclick="window.location.href='add_task.html'" class="mobile_board_button"><img src="./assets/img/add_blue.png" alt=""></button>
                     </div>
                     <div class="drag_area" id="await_feedback" ondrop="moveTo('awaitFeedback', 'await_feedback')"
                         ondragleave="removeHighlight('await_feedback')"
