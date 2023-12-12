@@ -186,18 +186,20 @@ function getGreeting() {
   return greeting;
 }
 
-
-
 function showInitialsInHeader() {
   let storedUser = localStorage.getItem("user");
   let userName = JSON.parse(storedUser);
   let initials = extractInitials(userName.name);
-  
+
   let initialIDContainer = document.getElementById("load_initials_in_header");
-  console.log(initialIDContainer);
-  initialIDContainer.innerHTML = initials;
+  if (initialIDContainer) {
+    initialIDContainer.innerHTML = initials;
+  } else {
+    setTimeout(showInitialsInHeader, 100);
+  }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
   showInitialsInHeader();
 });
+
