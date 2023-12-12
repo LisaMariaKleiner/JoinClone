@@ -533,3 +533,13 @@ async function renderContactInformation(contactId, contactInitial) {
     resetContactInformations(contactInitial, currentContact.name, currentContact.email, currentContact.phone);
     moveEditContactCard(contactInitial, currentContact.name, currentContact.email, currentContact.phone, contactId, 'close');
 }
+
+
+/* Mobile Function */
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('button_back_to_contact_overview').addEventListener('click', function() {
+    window.location.href = './contacts.html';
+  });
+});
+

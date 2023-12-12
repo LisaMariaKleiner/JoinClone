@@ -169,6 +169,10 @@ section {
     border-radius: 8px;
 }
 
+.mobile_board_button {
+    display: none;
+}
+
 
 .progress_button {
     display: flex;

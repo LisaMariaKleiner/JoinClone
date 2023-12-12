@@ -351,7 +351,7 @@ textarea::placeholder {
 }
 
 #assigned_to_input {
-    z-index: 100;
+    z-index: 10;
 }
 
 .datalist_container{

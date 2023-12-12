@@ -12,7 +12,7 @@
         position: fixed;
         background-color: #F6F7F8;
         height: 124px;
-        top: 81px;
+        top: 79px;
         z-index: 99;
     }
 
@@ -67,7 +67,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        top: 609px;
+        top: 600px;
         gap: 20px;
         background-color: #F6F7F8;
     }

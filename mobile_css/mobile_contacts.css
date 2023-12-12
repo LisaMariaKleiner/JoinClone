@@ -1,5 +1,14 @@
 @media screen and (max-width: 950px) {
 
+
+    .show_contacts {
+        padding-top: 50px;
+        max-height: 500px;
+    }
+
+    .alphabet_container {
+        padding-bottom: 0;
+    }
     .back_to_contact_button {
         display: flex;
         position: fixed;
@@ -7,6 +16,7 @@
         margin-left: 330px;
         border: none;
         background-color: #F6F7F8;
+        cursor: pointer;
     }
 
     .add_new_contact {
@@ -51,7 +61,7 @@
 
     .name_container {
         display: flex;
-        justify-content: center;
+       margin-left: 40px;
         align-items: center;
         margin-top: 80px;
         gap: 25px;
@@ -86,6 +96,10 @@
 
     .phone_container a {
         display: flex;
+        justify-content: flex-start;
+    }
+
+    .contact a {
         justify-content: flex-start;
     }
 
