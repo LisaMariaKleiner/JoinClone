@@ -204,16 +204,45 @@
     /* EDIT TASK */
 
     .edit_task_card_form {
-        width: 100vw;
-        margin-left: 67px !important;
-        margin-right: 25px !important;
+        display: flex;
+        align-items: center;
         margin-top: 20px;
         gap: 15px;
+        padding-right: 0;
+        top: 107px;
+        height: 900px;
+    }
+
+    #edit_task_card {
+        justify-content: center;
+        overflow: auto;
     }
 
     .title_input {
         width: 325px;
     }
 
+    .description textarea {
+        height: 88px;
+    }
 
+    .prio_input_label {
+        width: 121px;
+        height: 41px;
+    }
+
+    .prio_input_label span {
+        font-size: 16px;
+    }
+
+    .prio_container {
+        gap: 5px;
+    }
+
+    .mobile_button_edit_task {
+        width: 300px;
+        justify-content: flex-end;
+    }
+
+    
 }
