@@ -4,7 +4,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100%;
     }
 
     .login_joinLogo {
@@ -26,6 +25,7 @@
         box-shadow: 0px 0px 14px 3px #0000000a;
         padding: 0;
         top: 180px;
+        width: 364px;
     }
 
     .headline_container {

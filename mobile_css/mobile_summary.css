@@ -13,7 +13,7 @@
         flex-direction: column;
         gap: 10px;
         margin-left: 16px;
-        margin-top: 60px;
+        margin-top: 0;
     }
 
     .headline_container img {
@@ -39,6 +39,7 @@
 
     .card_container {
         width: 396px;
+        height: 460px;
         gap: 20px;
     }
 
@@ -47,7 +48,8 @@
     }
 
     .top_card_subcontainer {
-        width: 396px;
+        width: 370px;
+        gap: 10px;
         height: 110px;
         justify-content: space-between;
     }
@@ -81,6 +83,7 @@
     .urgency_card {
         gap: 20px;
         border-radius: 20px;
+        width: 270px;
     }
 
     .urgency_counter_container img {
@@ -97,7 +100,7 @@
     }
 
     .progress_card_container {
-        width: 396px;
+        width: 370px;
         height: 116px;
     }
 
