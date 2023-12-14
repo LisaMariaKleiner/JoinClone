@@ -537,9 +537,7 @@ async function renderContactInformation(contactId, contactInitial) {
 
 /* Mobile Function */
 
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('button_back_to_contact_overview').addEventListener('click', function() {
-    window.location.href = './contacts.html';
-  });
-});
+function moveToContacts() {
+  window.location.href = 'contacts.html';
+}
 
