@@ -203,3 +203,16 @@ document.addEventListener("DOMContentLoaded", function() {
   showInitialsInHeader();
 });
 
+function extractInitials(name) {
+  if (name) {
+    let words = name.split(" ");
+    let initials = "";
+    for (let i = 0; i < words.length; i++) {
+      initials += words[i].charAt(0).toUpperCase();
+    }
+    return initials;
+  } else {
+    return "";
+  }
+}
+

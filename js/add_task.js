@@ -242,7 +242,7 @@ function randomColor() {
   return color;
 }
 
-// Funktion zum Extrahieren der Initialen
+
 function extractInitials(name) {
   if (name) {
     let words = name.split(" ");
