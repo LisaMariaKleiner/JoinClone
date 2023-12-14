@@ -50,8 +50,10 @@
                 <div class="progress_container">
                     <div class="progress_button">
                         <span>To do</span>
-                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
-                        <button onclick="window.location.href='add_task.html'" class="mobile_board_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img
+                                src="./assets/img/add_blue.png" alt=""></button>
+                        <button onclick="window.location.href='add_task.html'" class="mobile_board_button"><img
+                                src="./assets/img/add_blue.png" alt=""></button>
                     </div>
                     <div class="drag_area" id="to_do" ondrop="moveTo('toDo', 'to_do')"
                         ondragleave="removeHighlight('to_do')" ondragover="allowDrop(event); highlight('to_do')">
@@ -64,8 +66,10 @@
                 <div class="progress_container">
                     <div class="progress_button">
                         <span>In progress</span>
-                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
-                        <button onclick="window.location.href='add_task.html'" class="mobile_board_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img
+                                src="./assets/img/add_blue.png" alt=""></button>
+                        <button onclick="window.location.href='add_task.html'" class="mobile_board_button"><img
+                                src="./assets/img/add_blue.png" alt=""></button>
                     </div>
                     <div class="drag_area" id="in_progress" ondrop="moveTo('inProgress', 'in_progress')"
                         ondragleave="removeHighlight('in_progress')"
@@ -79,8 +83,10 @@
                 <div class="progress_container">
                     <div class="progress_button">
                         <span>Await feedback</span>
-                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img src="./assets/img/add_blue.png" alt=""></button>
-                        <button onclick="window.location.href='add_task.html'" class="mobile_board_button"><img src="./assets/img/add_blue.png" alt=""></button>
+                        <button onclick="moveAddTaskCard('open')" class="board_add_button"><img
+                                src="./assets/img/add_blue.png" alt=""></button>
+                        <button onclick="window.location.href='add_task.html'" class="mobile_board_button"><img
+                                src="./assets/img/add_blue.png" alt=""></button>
                     </div>
                     <div class="drag_area" id="await_feedback" ondrop="moveTo('awaitFeedback', 'await_feedback')"
                         ondragleave="removeHighlight('await_feedback')"
@@ -106,8 +112,8 @@
             </div>
         </div>
     </section>
-    
-    
+
+
 
     <div id="add_task_card" class="add_task_background">
         <div id="add_task_slide_card" class="add_task_slide_card">
@@ -191,20 +197,18 @@
                             <span>Category</span>
                             <p class="highlighted">*</p>
                         </div>
-                        <input id="task_category_input" class="title_input" list="Select task category">
-                        <!-- <div id="category_datalist" class="datalist_container">
-                            <div id="contact_datalist"></div>
-                            <button class="primary_button datalist_button" id="create_contact_button" onclick="createNewContact()">
-                                Add new contact
-                                <div>
-                                    <img src="./assets/img/person_add.png">
-                                </div>
-                            </button>  Noch über css im Dropwdown anzeigen lassen, geht nicht innerhalb der Datalist
-                        </div> -->
-                        <datalist id="Select task category">
-                            <option value="Technical task">
-                            <option value="User story">
-                        </datalist>
+                        <input onclick="openCategoryContainer()" id="task_category_input"
+                            placeholder="Select task category" class="title_input" list="Select task category">
+
+                        <div id="Select task category" class="category_container_add_task">
+                            <div class="technical_task">
+                                <span>Technical Task</span>
+                            </div>
+                            <div class="user_story_add_task">
+                                <span>User Story</span>
+                            </div>
+                        </div>
+
                     </div>
                     <div id="subtask_list" class="title">
                         <span>Subtasks</span>
@@ -213,26 +217,27 @@
                                 placeholder="Add new subtask">
                             <img src="./assets/img/add.png" alt="">
                         </div>
-                        <ul> <!-- Dies ist das Parent-Element für die ungeordnete Liste -->
+                        <ul>
                             <!-- Hier werden die Subtasks in <li>-Elementen angezeigt -->
                         </ul>
                     </div>
                 </div>
-            </form>
+        </div>
+        </form>
 
-            <div class="add_task_footer">
-                <div class="highlighted_object">
-                    <p class="highlighted">*</p>
-                    <span>This field is required</span>
-                </div>
-                <div class="button_container">
-                    <button onclick="moveAddTaskCard('close')" class="secondary_button">Cancel <img
-                            src="./assets/img/x.png" alt=""></button>
-                    <button onclick="createNewTask(); updateHTML()" class="primary_button">Create Task <img
-                            src="./assets/img/done.png" alt=""></button>
-                </div>
+        <div class="add_task_footer">
+            <div class="highlighted_object">
+                <p class="highlighted">*</p>
+                <span>This field is required</span>
+            </div>
+            <div class="button_container">
+                <button onclick="moveAddTaskCard('close')" class="secondary_button">Cancel <img src="./assets/img/x.png"
+                        alt=""></button>
+                <button onclick="createNewTask(); updateHTML()" class="primary_button">Create Task <img
+                        src="./assets/img/done.png" alt=""></button>
             </div>
         </div>
+    </div>
     </div>
     <div id="success_feedback" class="signed_up_successfully_background without_background">
         <div class="signed_up_successfully">
