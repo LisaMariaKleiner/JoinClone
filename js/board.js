@@ -5,7 +5,6 @@ async function showTaskEditForm(taskId) {
     taskEditForm.style.display = "flex";
     document.querySelector("body").style.overflow = "hidden";
     await renderTaskEditForm(taskId);
-    await renderAssignedContactsInEditForm(taskId);
 }
 
 function setEditPrioritySelection(taskPriority) {
