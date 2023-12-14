@@ -46,6 +46,7 @@ form {
     gap: 10px;
     width: 440px;
     min-height: 24px;
+    font-size: 16px;
 }
 
 .title_input::placeholder {

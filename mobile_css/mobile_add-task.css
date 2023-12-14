@@ -62,12 +62,12 @@
 
     .add_task_footer {
         height: 88px;
-        width: 100%;
+        width: 390px;
         position: fixed;
         display: flex;
         justify-content: center;
         align-items: center;
-        top: 600px;
+        top: 679px;
         gap: 20px;
         background-color: #F6F7F8;
     }
@@ -97,6 +97,15 @@
 
     .left_inputs {
         gap: 16px;
+    }
+
+    .datalist_container {
+        width: 366px;
+        top: 568px;
+    }
+
+    .datalist_contact_container {
+        width: 280px;
     }
     
   }
