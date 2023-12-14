@@ -523,6 +523,7 @@ function showTaskDetailsCard(action) {
   } else if (action === "close") {
     closeDetailsCard(taskDetailsBackground, taskDetailsCard);
     document.querySelector("body").style.overflow = "visible";
+    location.reload();
   }
 }
 

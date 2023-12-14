@@ -125,6 +125,8 @@ function renderSubtaskProgress(task, taskSubtaskCount, index) {
   subtaskProgressCounter.innerText = completedSubtasksCount + '/' + taskSubtaskCount + ' Subtasks';
 }
 
+
+
 async function renderAssignedContactsInAddTask(containerId) {
   let addTaskSelectedContactsContainer = document.getElementById(containerId);
   addTaskSelectedContactsContainer.innerHTML = " ";
