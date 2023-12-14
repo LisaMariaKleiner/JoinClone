@@ -29,7 +29,7 @@ function renderAllTasks() {
   updateCard("done", "done");
   setTimeout(() => {
     renderAssignedContactsInPreview();
-  }, 90);
+  }, 1000);
 }
 
 function renderTaskTitle(currentTask) {
