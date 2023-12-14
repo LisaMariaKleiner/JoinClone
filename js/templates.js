@@ -1,5 +1,5 @@
 function createContactLetterContainer(letter) {
-    return /*html*/ `
+  return /*html*/ `
                       <div id="contact_container_${letter.toLowerCase()}" class="container_d_none">
                       <div id="" class="alphabet_container">
                           <span>${letter}</span>
@@ -9,36 +9,40 @@ function createContactLetterContainer(letter) {
                           
                       </div>
       `;
-  }
+}
 
 function createContactCard(
-    contactInitial,
-    contactName,
-    contactEmail,
-    contactPhone,
-    contactId
-  ) {
-    return /*html*/ `
-                      <div id="contact_${contactId}" class="contact" onclick="showContactInformation('${contactInitial}', '${contactName}', '${contactEmail}', '${contactPhone}', '${contactId}')">
-                          <div class="task_member first_member">
-                              <span class="color_white">${contactInitial}</span>
-                          </div>
-                          <div class="member_shortinfo">
-                              <span id="contact_card_name_${contactId}">${contactName}</span>
-                              <span><a>${contactEmail}</a></span>
-                          </div>
-                      </div>
-      `;
-  }
+  contactInitial,
+  contactName,
+  contactEmail,
+  contactPhone,
+  contactId
+) {
+  let userContact = user.contacts.find((contacts) => contacts.name === contactName);
+  let backgroundColorStyle = userContact
+    ? `style="background-color: ${userContact.contactBackgroundColor}"`
+    : "";
+  return /*html*/ `
+    <div id="contact_${contactId}" class="contact" onclick="showContactInformation('${contactInitial}', '${contactName}', '${contactEmail}', '${contactPhone}', '${contactId}')">
+      <div class="task_member first_member" ${backgroundColorStyle}>
+        <span class="color_white">${contactInitial}</span>
+      </div>
+      <div class="member_shortinfo">
+        <span id="contact_card_name_${contactId}">${contactName}</span>
+        <span><a>${contactEmail}</a></span>
+      </div>
+    </div>
+  `;
+}
 
 function createEditCard(
-    contactName,
-    contactEmail,
-    contactPhone,
-    contactId,
-    contactInitial
-  ) {
-    return /*html*/ `
+  contactName,
+  contactEmail,
+  contactPhone,
+  contactId,
+  contactInitial
+) {
+  return /*html*/ `
              <div id="edit_contact_card" class="edit_contact_card"> 
                   <div class="left_side">
                       <img src="./assets/img/joinLogoLight.png" alt="Join Logo">
@@ -88,10 +92,10 @@ function createEditCard(
                       </div>
                   </div>
               </div>`;
-  }
+}
 
-  function createTask(element) {
-    return /*html*/ `
+function createTask(element) {
+  return /*html*/ `
       <div class="task_card" draggable="true" ondragstart="startDragging(${element.id})" onclick="openTaskDetailsCard(${element.id}, 'open')">
           <h3 class="user_story">User Story</h3>
           <div class="task_information">
@@ -113,21 +117,25 @@ function createEditCard(
           </div>
       </div>
     `;
-  }
-  
-  function createAssignedContact(contactInitials, randomBackground) {
-    return /*html*/`
+}
+
+function createAssignedContact(contactInitials, randomBackground) {
+  return /*html*/ `
             <div class="assigned_initials" style="background-color: ${randomBackground}">
             ${contactInitials}
             </div>
     `;
-  }
+}
 
-  function createAssignedContactInDetails(contactName, initials, randomBackground) {
-    return /*html*/ `
+function createAssignedContactInDetails(
+  contactName,
+  initials,
+  randomBackground
+) {
+  return /*html*/ `
                 <div class="assigned_contact">
                     <div class="assigned_initials" style="background-color: ${randomBackground}">${initials}</div>
                     <div class="assigned_name">${contactName}</div>
                 </div>
     `;
-  }
+}

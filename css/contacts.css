@@ -634,6 +634,7 @@ form input:focus {
 
 .color_white {
     color: white!important;
+    font-size: 12px;
 }
 
 .edit_save_container {
