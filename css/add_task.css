@@ -391,6 +391,10 @@ textarea::placeholder {
     top: 532px;
 }   
 
+#add_task_selected_contacts_container {
+    display: flex;
+}
+
 .datalist_container_category {
     width: 440px;
 }

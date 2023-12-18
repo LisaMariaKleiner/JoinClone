@@ -237,7 +237,6 @@ async function renderContactsInDatalist(containerId) {
         let contacts = currentUser.contacts;
         let index = 0;
         contacts.forEach(async function (contact) {
-          console.log(contact);
           const randomBackground = contact.contactBackgroundColor;
           contactDatalist.innerHTML += `
             <div id="datalist_contact_container_${index}" class="datalist_contact_container">
@@ -282,7 +281,6 @@ function extractInitials(name) {
 
 // Event-Handler für die Checkboxen
 document.addEventListener("change", function (event) {
-  console.log(event.target);
   if (event.target.type === "checkbox") {
     let selectedContactName = getSelectedContactName(event.target);
     if (selectedContactName) {
@@ -330,17 +328,23 @@ async function renderAssignedContacts(taskId) {
 }
 
 async function getContactBackground(contactName) {
-  let usersAsString = await getItem("users");
-  let usersAsJson = JSON.parse(usersAsString);
-  let currentUser = localStorage.getItem("user");
-  currentUser = JSON.parse(currentUser);
+    let usersAsString = await getItem("users");
+    let usersAsJson = JSON.parse(usersAsString);
+    let storedUser = localStorage.getItem("user");
+    let currentUser = JSON.parse(storedUser);
 
-  currentUser = usersAsJson.find((u) => u.email === currentUser.email);
-  let userContacts = currentUser.contacts;
-  let contact = userContacts.find((c) => c.name === contactName);
-  let contactBackgroundColor = contact.contactBackgroundColor;
-  return contactBackgroundColor;
+    let foundUser = usersAsJson.find((u) => u.email === currentUser.email);
+    let userContacts = foundUser.contacts;
+    let contact = userContacts.find((c) => c.name === contactName);
+
+    if (contact) {
+      let contactBackgroundColor = contact.contactBackgroundColor;
+      return contactBackgroundColor;
+    } else {
+      return "white"; 
+    }
 }
+
 
 function getContactBackgroundFromTaskOwner(contactName, userContacts) {
   let contact = userContacts.find((c) => c.name === contactName);
@@ -471,7 +475,6 @@ function checkForSubtasks(element) {
 
 function startDragging(id) {
   currentDraggedElement = id; // id = 0
-  console.log("CurrentDraggedElement is: " + currentDraggedElement);
 }
 
 function allowDrop(ev) {
@@ -551,10 +554,20 @@ function showTaskDetailsCard(action) {
   }
 }
 
-function showDropDownMenu(containerId, inputId) {
-  console.log(containerId);
+/*function showDropDownMenu(containerId, inputId) {
   document.getElementById(containerId).style.display = "flex";
   document.getElementById(inputId).value = " ";
+}*/
+function showDropDownMenu(containerId, inputId) {
+  var containerElement = document.getElementById(containerId);
+  var inputElement = document.getElementById(inputId);
+
+  if (containerElement && inputElement) {
+    containerElement.style.display = "flex";
+    inputElement.value = " ";
+  } else {
+    console.error("Container or input element not found.");
+  }
 }
 
 function openDetailsCard(taskDetailsBackground, taskDetailsCard) {
